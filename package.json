@@ -1,0 +1,23 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "0.0.1",
+  "description": "messenger",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandrprokhorov1988/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandrprokhorov1988/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/alexandrprokhorov1988/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "parcel": "^2.2.1"
+  }
+}
