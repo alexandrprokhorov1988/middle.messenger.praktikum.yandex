@@ -1,0 +1,9 @@
+extends ../layouts/header/header
+block variables
+  - const pageTitle = "Профиль"
+  - const style = "../styles/settings.scss"
+  - const formLinkText = "Войти"
+  - const linkTo = "./index.pug"
+block content
+  include ../layouts/main/main
+    include ../layouts/settings/settings
