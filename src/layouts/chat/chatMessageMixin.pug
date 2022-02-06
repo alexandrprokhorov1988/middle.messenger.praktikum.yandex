@@ -1,0 +1,7 @@
+mixin chatMessageMixin (message, time, imgSrc)
+
+  .chat__message-container
+    p.chat__message=message
+    p.chat__message-time=time
+    if imgSrc
+      img.chat__message-img(src=imgSrc, alt="Аватар")
