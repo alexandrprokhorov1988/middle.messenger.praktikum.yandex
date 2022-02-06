@@ -1,2 +1,2 @@
 import './styles/main.scss';
-console.log('Hello main.js!');
+console.log('Hello world!');
