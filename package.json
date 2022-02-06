@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/components/*.pug --port 3000",
-    "build": "parcel build ./src/components/*.pug"
+    "build": "parcel build ./src/components/*.pug",
+    "start": "parcel ./src/components/*.pug --port 3000 & node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,14 +19,13 @@
   },
   "homepage": "https://github.com/alexandrprokhorov1988/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
     "parcel": "^2.2.1",
     "sass": "^1.49.7"
   },
   "dependencies": {
     "@parcel/transformer-pug": "^2.2.1",
     "@parcel/transformer-sass": "^2.2.1",
-    "handlebars": "^4.7.7",
+    "express": "^4.17.2",
     "pug": "^3.0.2"
   }
 }
