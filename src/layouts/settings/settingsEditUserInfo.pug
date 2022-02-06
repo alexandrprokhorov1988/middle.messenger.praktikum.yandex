@@ -12,7 +12,6 @@ section.settings
       name="email"
       placeholder="Email"
       value=userInfo.email
-      disabled=disabledUserInfoForm
       )
     .settings__input-container
       label.settings__label Логин
@@ -21,7 +20,6 @@ section.settings
       name="login"
       placeholder="Логин"
       value=userInfo.login
-      disabled=disabledUserInfoForm
       )
     .settings__input-container
       label.settings__label Имя
@@ -30,7 +28,6 @@ section.settings
       name="first_name"
       placeholder="Имя"
       value=userInfo.first_name
-      disabled=disabledUserInfoForm
       )
     .settings__input-container
       label.settings__label Фамилия
@@ -39,7 +36,6 @@ section.settings
       name="second_name"
       placeholder="Фамилия"
       value=userInfo.second_name
-      disabled=disabledUserInfoForm
       )
     .settings__input-container
       label.settings__label Имя в чате
@@ -48,7 +44,6 @@ section.settings
       name="display_name"
       placeholder="Имя в чате"
       value=userInfo.display_name
-      disabled=disabledUserInfoForm
       )
     .settings__input-container
       label.settings__label Телефон
@@ -57,14 +52,8 @@ section.settings
       name="phone"
       placeholder="Телефон"
       value=userInfo.phone
-      disabled=disabledUserInfoForm
       )
-  .settings__button-container
-    .settings__button-border-container
-      button.settings__button Изменить данные
-    .settings__button-border-container
-      button.settings__button Изменить пароль
-    .settings__button-border-container
-      button.settings__button.settings__button_warning Выйти
+  .settings__button-container.settings__button-container_type-save
+    button.settings__button.settings__button_type-save Сохранить
   a.settings__link(href=linkTo)
     .settings__link-img
