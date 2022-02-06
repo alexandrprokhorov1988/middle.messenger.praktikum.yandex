@@ -1,0 +1,30 @@
+include ../../layouts/chat/chatChatMixin
+
+block variable
+
+  section.chat
+    .chat__container
+      .chat__right-container
+        .chat__profile
+          a.chat__profile-link(href=profileLinkTo)=profileLinkText
+           span.chat__profile-link-img
+        .chat__search
+          input.chat__search-input(
+            type="text"
+            placeholder="Поиск"
+          )
+        .chat__chats-list
+          +chatChatMixin("../../static/images/03012009192.jpg", "Киноклуб", "Изображение", "10:49", "2")
+          +chatChatMixin("../../static/images/03012009192.jpg", "Киноклуб", "Изображение", "10:49", "5")
+          +chatChatMixin("../../static/images/03012009192.jpg", "Киноклуб", "Изображение", "10:49", "5")
+          +chatChatMixin("../../static/images/03012009192.jpg", "Киноклуб", "Изображение", "10:49", "5")
+          +chatChatMixin("../../static/images/03012009192.jpg", "Киноклуб", "Изображение", "10:49", "5")
+          +chatChatMixin("../../static/images/03012009192.jpg", "Киноклуб", "Изображение", "10:49", "5")
+          +chatChatMixin("../../static/images/03012009192.jpg", "Киноклуб", "Изображение", "10:49", "5")
+      .chat__left-container
+        .chat__settings
+          p settings
+        .chat__messages
+          p messages
+        .chat__message-input
+          p message-input

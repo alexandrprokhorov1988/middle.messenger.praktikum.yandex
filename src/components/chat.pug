@@ -1,0 +1,11 @@
+extends ../layouts/header/header
+block variables
+  - const pageTitle = "Чат"
+  - const errorLinkText = "Назад к чатам"
+  - const linkTo = "./index.pug"
+  - const style = "../styles/chat.scss"
+  - const profileLinkTo = "./settings.pug"
+  - const profileLinkText = "Профиль"
+block content
+  include ../layouts/main/main
+    include ../layouts/chat/chat

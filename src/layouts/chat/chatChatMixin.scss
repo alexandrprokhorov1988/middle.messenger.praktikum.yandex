@@ -1,0 +1,71 @@
+.chat__chat-container{
+  display: grid;
+  width: 100%;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: minmax(20px, 47px) minmax(150px, 193px) 1fr;
+  grid-template-areas:
+    'chat-avatar chat-name chat-date'
+    'chat-avatar chat-last-message chat-message-count';
+  align-items: center;
+  justify-items: center;
+  max-width: 290px;
+  grid-gap: 10px;
+  border-top: 1px solid #EAEAEA;
+}
+
+.chat__chat-avatar{
+  grid-area: chat-avatar;
+  width: 47px;
+  height: 47px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.chat__chat-name{
+  grid-area: chat-name;
+  justify-self: left;
+  color: #1E1E1E;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  align-self: end;
+}
+
+.chat__chat-last-message{
+  grid-area: chat-last-message;
+  color: #999999;
+  font-size: 12px;
+  line-height: 15px;
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  align-self: flex-start;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 193px;
+  justify-self: start;
+}
+
+.chat__chat-date{
+  grid-area: chat-date;
+  justify-self: right;
+  font-size: 9px;
+  line-height: 13px;
+  color: #999999;
+}
+
+.chat__chat-message-count{
+  grid-area: chat-message-count;
+  justify-self: right;
+  background-color: #3369F3;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 11px;
+  line-height: 20px;
+}

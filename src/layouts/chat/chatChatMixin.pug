@@ -1,0 +1,8 @@
+mixin chatChatMixin (avatarSrc, chatName, chatLastMessage, chatDate, chatMessageCount)
+
+  .chat__chat-container
+    img.chat__chat-avatar(src=avatarSrc, alt="Аватар")
+    p.chat__chat-name=chatName
+    p.chat__chat-last-message=chatLastMessage
+    p.chat__chat-date=chatDate
+    .chat__chat-message-count=chatMessageCount
