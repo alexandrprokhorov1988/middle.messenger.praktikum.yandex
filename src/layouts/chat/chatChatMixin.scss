@@ -5,13 +5,25 @@
   grid-template-columns: minmax(20px, 47px) minmax(150px, 193px) 1fr;
   grid-template-areas:
     'chat-avatar chat-name chat-date'
+    'chat-avatar chat-last-message chat-message-count'
     'chat-avatar chat-last-message chat-message-count';
   align-items: center;
   justify-items: center;
   max-width: 290px;
-  grid-gap: 10px;
+  grid-gap: 0 10px;
   border-top: 1px solid #EAEAEA;
   min-height: 71px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all .1s ease;
+
+  &_selected{
+    background-color: #E4EDFD;
+  }
+
+  &:hover {
+    background-color: #e4edfd;
+  }
 }
 
 .chat__chat-avatar{
@@ -31,7 +43,7 @@
   font-weight: bold;
   padding: 0;
   margin: 0;
-  align-self: end;
+  align-self: center;
 }
 
 .chat__chat-last-message{
@@ -56,7 +68,7 @@
   font-size: 9px;
   line-height: 13px;
   color: #999999;
-  align-self: end;
+  align-self: center;
   padding: 0;
   margin: 0;
 }

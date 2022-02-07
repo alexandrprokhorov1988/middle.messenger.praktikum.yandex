@@ -1,8 +1,9 @@
-mixin chatChatMixin (avatarSrc, chatName, chatLastMessage, chatDate, chatMessageCount)
+mixin chatChatMixin (avatarSrc, chatName, chatLastMessage, chatDate, chatMessageCount, isSelected)
 
-  .chat__chat-container
+  .chat__chat-container(class=isSelected ? 'chat__chat-container_selected': '')
     img.chat__chat-avatar(src=avatarSrc, alt="Аватар")
     p.chat__chat-name=chatName
     p.chat__chat-last-message=chatLastMessage
     p.chat__chat-date=chatDate
-    .chat__chat-message-count=chatMessageCount
+    if chatMessageCount
+      .chat__chat-message-count=chatMessageCount
