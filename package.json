@@ -22,9 +22,12 @@
     "sass": "^1.49.7"
   },
   "dependencies": {
+    "@parcel/config-default": "^2.2.1",
+    "@parcel/core": "^2.2.1",
     "@parcel/transformer-pug": "^2.2.1",
     "@parcel/transformer-sass": "^2.2.1",
     "express": "^4.17.2",
+    "postcss": "^8.4.6",
     "pug": "^3.0.2"
   }
 }
