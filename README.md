@@ -12,7 +12,7 @@
 
 
 #### <a name="instructions">Инструкция</a>
-* [Ссылка на проект]()
+* [Ссылка на проект в Netlify](https://stupefied-leavitt-443f70.netlify.app)
 
 ##### Запуск
 
