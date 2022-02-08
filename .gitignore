@@ -118,7 +118,8 @@ dist
 .pnp.*
 
 .idea
-
+.idea/
+idea
 
 # postgres volume
 
