@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .settings {
   display: flex;
   flex-direction: column;
@@ -33,7 +35,7 @@
 .settings__user-name {
   font-size: 16px;
   line-height: 16px;
-  color: #1E1E1E;
+  color: $text__color;
   box-shadow: rgba(0, 0, 0, 0.25);
   margin: 0;
   padding: 21px 0 0 0;
@@ -63,11 +65,11 @@
 }
 
 .settings__input-container:not(:last-of-type) {
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid $border__color;
 }
 
 .settings__label {
-  color: #1E1E1E;
+  color: $text__color;
   font-size: 13px;
   line-height: 13px;
   font-style: normal;
@@ -77,11 +79,11 @@
 .settings__input {
   border: none;
   text-align: right;
-  color: #999999;
+  color: $text__color-gray;
 
   &::placeholder {
     text-align: right;
-    color: #999999;
+    color: $text__color-gray;
   }
 }
 
@@ -98,12 +100,12 @@
 }
 
 .settings__button-border-container:not(:last-of-type) {
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid $border__color;
   width: 100%;
 }
 
 .settings__button {
-  color: #3369F3;
+  color: $action-element__background-color;
   font-size: 13px;
   line-height: 13px;
   border: none;
@@ -120,8 +122,8 @@
     max-width: 280px;
     width: 100%;
     height: 37px;
-    background-color: #3369F3;
-    color: #FFFFFF;
+    background-color: $action-element__background-color;
+    color: $text__color-white;
     border-radius: 8px;
     cursor: pointer;
     transition: all .5s ease;
@@ -133,7 +135,7 @@
 }
 
 .settings__button_warning {
-  color: #FF0000;
+  color: $text__color-error;
 }
 
 .settings__link {
@@ -144,7 +146,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  border-right: 1px solid #EAEAEA;
+  border-right: 1px solid $border__color;
   align-items: center;
   justify-content: center;
 

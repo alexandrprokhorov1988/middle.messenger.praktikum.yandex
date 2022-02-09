@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .chat__chat-container{
   display: grid;
   width: 100%;
@@ -11,18 +13,18 @@
   justify-items: center;
   max-width: 290px;
   grid-gap: 0 10px;
-  border-top: 1px solid #EAEAEA;
+  border-top: 1px solid $border__color;
   min-height: 71px;
   padding: 5px 10px;
   cursor: pointer;
   transition: all .1s ease;
 
   &_selected{
-    background-color: #E4EDFD;
+    background-color: $background;
   }
 
   &:hover {
-    background-color: #e4edfd;
+    background-color: $background__hover;
   }
 }
 
@@ -37,7 +39,7 @@
 .chat__chat-name{
   grid-area: chat-name;
   justify-self: left;
-  color: #1E1E1E;
+  color: $text__color;
   font-size: 13px;
   line-height: 13px;
   font-weight: bold;
@@ -48,7 +50,7 @@
 
 .chat__chat-last-message{
   grid-area: chat-last-message;
-  color: #999999;
+  color: $text__color-gray;
   font-size: 12px;
   line-height: 15px;
   vertical-align: top;
@@ -67,7 +69,7 @@
   justify-self: right;
   font-size: 9px;
   line-height: 13px;
-  color: #999999;
+  color: $text__color-gray;
   align-self: center;
   padding: 0;
   margin: 0;
@@ -76,14 +78,13 @@
 .chat__chat-message-count{
   grid-area: chat-message-count;
   justify-self: right;
-  background-color: #3369F3;
+  background-color: $action-element__background-color;
   border-radius: 50%;
   width: 20px;
   height: 20px;
-  color: #FFFFFF;
+  color: $text__color-white;
   text-align: center;
   font-size: 11px;
   line-height: 20px;
   align-self: start;
-
 }

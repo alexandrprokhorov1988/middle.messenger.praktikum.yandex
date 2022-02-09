@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .chat__message-container {
   max-width: 402px;
   padding: 11px;
@@ -8,7 +10,7 @@
 
   &_current-user{
     align-self: end;
-    background-color: #E4EDFD;
+    background-color: $background;
     border-radius: 10px 10px 0 10px;
     flex-direction: row;
   }
@@ -18,7 +20,7 @@
   margin: 0;
   font-size: 12px;
   line-height: 15px;
-  color: #1E1E1E;
+  color: $text__color;
 
   &_checked{
     padding-right: 15px;
@@ -26,7 +28,7 @@
 }
 
 .chat__message-time {
-  color: #999999;
+  color: $text__color-gray;
   font-size: 9px;
   line-height: 9px;
   text-align: right;
@@ -35,7 +37,7 @@
   align-self: end;
 
   &_checked {
-    color: #3369F3;
+    color: $action-element__background-color;
     position: relative;
 
     &:before {
