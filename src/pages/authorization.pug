@@ -1,9 +1,9 @@
-extends ../layouts/header/header
+extends ../components/header/header
 block variables
   - const pageTitle = "Авторизация"
   - const style = "../styles/authorization.scss"
   - const formLinkText = "Нет аккаунта?"
   - const linkTo = "./registration.pug"
 block content
-  include ../layouts/main/main
-    include ../layouts/authorization/authorization
+  include ../components/main/main
+    include ../components/authorization/authorization

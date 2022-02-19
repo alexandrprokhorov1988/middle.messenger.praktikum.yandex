@@ -1,11 +1,11 @@
-extends ../layouts/header/header
+extends ../components/header/header
 block variables
   - const pageTitle = "Ошибка сервера - 500"
-  - const errorTitleMesage = "500"
+  - const errorTitleMessage = "500"
   - const errorSubtitleMessage = "Мы уже фиксим"
   - const errorLinkText = "Назад к чатам"
   - const linkTo = "./index.pug"
   - const style = "../styles/error.scss"
 block content
-  include ../layouts/main/main
-    include ../layouts/error/error
+  include ../components/main/main
+    include ../components/error/error

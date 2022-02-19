@@ -1,4 +1,4 @@
-extends ../layouts/header/header
+extends ../components/header/header
 block variables
   - const pageTitle = "Профиль"
   - const style = "../styles/settings.scss"
@@ -9,12 +9,12 @@ block variables
   - const userInfo = {first_name: "Иван", email: "pochta@yandex.ru", login: "ivanovivan", second_name: "Иванов", display_name: "Иван", phone: "+7 (909) 967 30 30"}
   - const state =""
 block content
-  include ../layouts/main/main
+  include ../components/main/main
     case state
       when "editUserInfo"
-        include ../layouts/settings/settingsEditUserInfo
+        include ../components/settings/settingsEditUserInfo
       when "editUserPassword"
-        include ../layouts/settings/settingsEditPassword
+        include ../components/settings/settingsEditPassword
       default
-        include ../layouts/settings/settings
+        include ../components/settings/settings
 
