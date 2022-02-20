@@ -2,8 +2,6 @@ extends ../components/header/header
 block variables
   - const pageTitle = "Авторизация"
   - const style = "../styles/authorization.scss"
-  - const formLinkText = "Нет аккаунта?"
-  - const linkTo = "./registration.pug"
 block content
   include ../components/main/main
-    include ../components/authorization/authorization
+    script(type="module" src="../../src/components/Authorization/index.ts")

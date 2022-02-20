@@ -10,16 +10,18 @@ export default abstract class Block {
   private _element: HTMLElement;
   private readonly _meta: {
     tagName: string,
-    props: Record<string, unknown>
+    props: Record<string, unknown>,
+    tagClass?: string,
   };
   private eventBus: () => EventBus;
   public props: Record<string, unknown>;
 
-  constructor(tagName = "div", props = {}) {
+  constructor(tagName = 'div', props = {}, tagClass = '') {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
-      props
+      props,
+      tagClass,
     };
 
     this.props = this._makePropsProxy(props);
@@ -47,6 +49,7 @@ export default abstract class Block {
 
   private _componentDidMount() {
     this.componentDidMount();
+    this._addEvents();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
@@ -108,7 +111,11 @@ export default abstract class Block {
   }
 
   private _createDocumentElement(tagName: string) {
-    return document.createElement(tagName);
+    const element = document.createElement(tagName);
+    if (this._meta.tagClass) {
+      element.classList.add(this._meta.tagClass);
+    }
+    return element;
   }
 
   show() {
@@ -117,5 +124,12 @@ export default abstract class Block {
 
   hide() {
     this.getContent().style.display = "none";
+  }
+
+  private _addEvents() {
+    const { events = {} } = this.props;
+    Object.entries(events as any).forEach(([eventName, cb]: [string, (e: Event) => void]) => {
+      this._element.addEventListener(eventName, cb)
+    })
   }
 }

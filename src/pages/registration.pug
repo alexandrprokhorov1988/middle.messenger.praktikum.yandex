@@ -1,9 +1,8 @@
 extends ../components/header/header
 block variables
-  - const pageTitle = "Авторизация"
+  - const pageTitle = "Регистрация"
   - const style = "../styles/registration.scss"
-  - const formLinkText = "Войти"
-  - const linkTo = "./authorization.pug"
 block content
   include ../components/main/main
-    include ../components/registration/registration
+    script(type="module" src="../../src/components/Registration/index.ts")
+

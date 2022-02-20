@@ -1,11 +1,7 @@
 extends ../components/header/header
 block variables
   - const pageTitle = "Ошибка сервера - 500"
-  - const errorTitleMessage = "500"
-  - const errorSubtitleMessage = "Мы уже фиксим"
-  - const errorLinkText = "Назад к чатам"
-  - const linkTo = "./index.pug"
   - const style = "../styles/error.scss"
 block content
   include ../components/main/main
-    include ../components/error/error
+    script(type="module" src="../../src/components/Errors/Error500/index.ts")

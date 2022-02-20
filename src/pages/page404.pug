@@ -1,11 +1,7 @@
 extends ../components/header/header
 block variables
   - const pageTitle = "Страница не найдена - 404"
-  - const errorTitleMessage = "404"
-  - const errorSubtitleMessage = "Не туда попали"
-  - const errorLinkText = "Назад к чатам"
-  - const linkTo = "./index.pug"
   - const style = "../styles/error.scss"
 block content
   include ../components/main/main
-    include ../components/error/error
+    script(type="module" src="../../src/components/Errors/Error404/index.ts")
