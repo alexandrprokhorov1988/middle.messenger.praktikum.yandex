@@ -1,7 +1,11 @@
 import Authorization from './Authorization';
+import { renderDOM } from '../../utils/RenderDOM';
 
-const page = document.querySelector('.page');
+document.addEventListener('DOMContentLoaded', () => {
+  const authorization = new Authorization();
+  renderDOM('.page', authorization);
+});
 
-if (page) {
-  page.prepend(new Authorization().getContent());
-}
+export {
+  Authorization,
+};

@@ -36,8 +36,10 @@
     "@parcel/core": "^2.2.1",
     "@parcel/transformer-sass": "^2.3.1",
     "@parcel/transformer-typescript-tsc": "^2.3.1",
+    "@types/uuid": "^8.3.4",
     "express": "^4.17.2",
     "postcss": "^8.4.6",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "uuid": "^8.3.2"
   }
 }

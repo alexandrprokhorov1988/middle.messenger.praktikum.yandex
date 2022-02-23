@@ -1,7 +1,11 @@
 import Registration from './Registration';
+import { renderDOM } from '../../utils/RenderDOM';
 
-const page = document.querySelector('.page');
+document.addEventListener('DOMContentLoaded', () => {
+  const registration = new Registration();
+  renderDOM('.page', registration);
+});
 
-if (page) {
-  page.prepend(new Registration().getContent());
-}
+export {
+  Registration,
+};

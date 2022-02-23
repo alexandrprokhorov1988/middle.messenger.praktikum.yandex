@@ -1,7 +1,7 @@
 import Error404 from './Error404';
+import { renderDOM } from '../../../utils/RenderDOM';
 
-const page = document.querySelector('.page');
-
-if (page) {
-  page.prepend(new Error404().getContent());
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const error404 = new Error404();
+  renderDOM('.page', error404);
+});

@@ -1,7 +1,7 @@
 import Error500 from './Error500';
+import { renderDOM } from '../../../utils/RenderDOM';
 
-const page = document.querySelector('.page');
-
-if (page) {
-  page.prepend(new Error500().getContent());
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const error500 = new Error500();
+  renderDOM('.page', error500);
+});

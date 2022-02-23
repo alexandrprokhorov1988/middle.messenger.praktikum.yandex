@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { EventBus } from '../EventBus';
 
 export default abstract class Block {
@@ -15,16 +16,20 @@ export default abstract class Block {
   };
   private eventBus: () => EventBus;
   public props: Record<string, unknown>;
+  private _id: string;
+  propsAndChildren: any;
+  protected children: Record<string, Block>;
 
-  constructor(tagName = 'div', props = {}, tagClass = '') {
+  constructor(tagName = 'div', propsAndChildren = {}) {
     const eventBus = new EventBus();
+    const { children, props } = this._getChildren(propsAndChildren);
     this._meta = {
       tagName,
       props,
-      tagClass,
     };
-
-    this.props = this._makePropsProxy(props);
+    this.children = children;
+    this._id = uuidv4();
+    this.props = this._makePropsProxy({ ...props, __id: this._id });
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -44,16 +49,14 @@ export default abstract class Block {
 
   init() {
     this._createResources();
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   private _componentDidMount() {
     this.componentDidMount();
-    this._addEvents();
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  componentDidMount() {
+  public componentDidMount() {
   }
 
   private _componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
@@ -62,6 +65,7 @@ export default abstract class Block {
       return;
     }
     this._render();
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   public componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
@@ -81,16 +85,42 @@ export default abstract class Block {
   }
 
   private _render() {
-    const block = this.render();
-    this._element.innerHTML = block;
+    const fragment = this.render();
+    const newElement = fragment.firstElementChild as HTMLElement;
+
+    if (this._element) {
+      this._removeEvents();
+      this._element.replaceWith(newElement);
+    }
+
+    this._element = newElement;
+    this._addEvents();
   }
 
-  abstract render(): string;
+  protected render(): DocumentFragment {
+    return new DocumentFragment();
+  }
 
-  getContent() {
+  public getContent(): HTMLElement | null {
     return this.element;
   }
 
+  private _getChildren(propsAndChildren: any) {
+    const children: any = {};
+    const props: any = {};
+
+    Object.entries(propsAndChildren).forEach(([key, value]) => {
+      if (value instanceof Block) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+    });
+
+    return { children, props };
+  }
+
+  // todo dispatch
   private _makePropsProxy(props: Record<string, unknown>) {
     const self = this;
 
@@ -112,24 +142,59 @@ export default abstract class Block {
 
   private _createDocumentElement(tagName: string) {
     const element = document.createElement(tagName);
+    element.setAttribute('data-id', this._id);
     if (this._meta.tagClass) {
       element.classList.add(this._meta.tagClass);
     }
     return element;
   }
 
-  show() {
-    this.getContent().style.display = "block";
+  public show() {
+    this.getContent()!.style.display = "block";
   }
 
-  hide() {
-    this.getContent().style.display = "none";
+  public hide() {
+    this.getContent()!.style.display = "none";
   }
 
   private _addEvents() {
-    const { events = {} } = this.props;
-    Object.entries(events as any).forEach(([eventName, cb]: [string, (e: Event) => void]) => {
+    const events: Record<string, (e: Event) => void> = (this.props as any).events;
+    if (!events) {
+      return;
+    }
+    Object.entries(events).forEach(([eventName, cb]: [string, (e: Event) => void]) => {
       this._element.addEventListener(eventName, cb)
     })
   }
+
+  private _removeEvents() {
+    const events: Record<string, (e: Event) => void> = (this.props as any).events;
+    if (!events) {
+      return;
+    }
+    Object.entries(events).forEach(([eventName, cb]: [string, (e: Event) => void]) => {
+      this._element.removeEventListener(eventName, cb)
+    })
+  }
+
+  public compile(template: (context: any) => string, context: any) {
+    const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
+
+    Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
+      context[key] = `<div data-id="id-${child._id}"></div>`
+    });
+
+    fragment.innerHTML = template(context);
+
+    Object.entries(this.children).forEach(([key, child]) => {
+      const stub = fragment.content.querySelector(`[data-id="id-${child._id}"]`);
+      if (!stub) {
+        return;
+      }
+
+      stub.replaceWith(child.getContent()!);
+    });
+
+    return fragment.content;
+  };
 }

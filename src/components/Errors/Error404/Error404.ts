@@ -1,10 +1,12 @@
-import { Block } from '../../../components/Block';
+import { Block } from '../../../utils/Block';
 import { error404Template } from './Error404.template';
 import { compile } from 'pug';
 
 export default class Error404 extends Block {
   constructor() {
-    super("div", {
+    super(
+      "div",
+      {
       "errorTitleMessage": "404",
       "errorSubtitleMessage": "Не туда попали",
       "errorLinkText": "Назад к чатам",
@@ -13,6 +15,6 @@ export default class Error404 extends Block {
   }
 
   render() {
-    return compile(error404Template)(this.props)
+    return this.compile(compile(error404Template), {...this.props});
   }
 }

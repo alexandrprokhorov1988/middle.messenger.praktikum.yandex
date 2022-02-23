@@ -1,4 +1,5 @@
-export const error404Template = `section.error
-                           p.error__title=errorTitleMessage
-                           p.error__subtitle=errorSubtitleMessage
-                           a.error__link(href=linkTo)=errorLinkText`;
+export const error404Template =
+  `section.error
+     p.error__title=errorTitleMessage
+     p.error__subtitle=errorSubtitleMessage
+     a.error__link(href=linkTo)=errorLinkText`;
