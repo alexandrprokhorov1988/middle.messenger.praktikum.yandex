@@ -18,10 +18,7 @@ export default class Authorization extends Block {
           "inputType": "text",
           "inputName": "login",
           "inputPlaceholder": "Логин",
-          "required": "true",
-          "minlength": "3",
-          "maxlength": "20",
-          "pattern": "[a-zA-Z0-9-_]*[a-zA-Z]{1}[a-zA-Z0-9-_]*"
+          "required": "true"
         }),
         "passwordInput": new Input({
           "labelName": "Пароль",
@@ -29,9 +26,6 @@ export default class Authorization extends Block {
           "inputName": "password",
           "inputPlaceholder": "Пароль",
           "required": "true",
-          "minlength": "8",
-          "maxlength": "40",
-          "pattern": "((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})"
         })
       }
     );
@@ -44,7 +38,11 @@ export default class Authorization extends Block {
       login: formData.get('login'),
       password: formData.get('password'),
     };
-    console.log(data);
+    const formIsValid = e.target.closest("form").checkValidity();
+    if (formIsValid) {
+      console.log(data);
+    }
+    return;
   }
 
   render() {

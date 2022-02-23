@@ -1,5 +1,6 @@
 @import url(../../static/fonts/fonts.css);
 @import "../components/main/main";
 @import "../components/chat/chat";
-@import "../components/chat/chatChatMixin";
-@import "../components/chat/chatMessageMixin";
+@import "../components/chat/ChatChat/chatChatMixin";
+@import "../components/chat/ChatMessage/chatMessageMixin";
+@import "../components/chat/ChatMessageForm/chatMessageForm";
