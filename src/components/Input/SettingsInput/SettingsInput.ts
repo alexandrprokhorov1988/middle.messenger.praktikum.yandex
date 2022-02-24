@@ -1,13 +1,14 @@
-import { Block } from '../../utils/Block';
-import { inputTemplate } from './Input.template';
+import { Block } from '../../../utils/Block';
+import { settingInputTemplate } from './SettingInput.template';
 import { compile } from 'pug';
 
-export default class Input extends Block {
+export default class SettingsInput extends Block {
   constructor(props: any) {
     super(
       "div",
       {
         ...props,
+        "value": props.value,
         events: {
           focusout: (e: Event) => this.handleBlur(e),
         }
@@ -18,11 +19,11 @@ export default class Input extends Block {
   handleBlur(e: any) {
     this.setProps({
       "inputErrorText": e.target.validationMessage,
-      "inputValue": e.target.value,
+      "value": e.target.value,
     });
   }
 
   render() {
-    return this.compile(compile(inputTemplate), { ...this.props });
+    return this.compile(compile(settingInputTemplate), { ...this.props });
   }
 }

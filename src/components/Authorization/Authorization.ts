@@ -1,7 +1,7 @@
 import { Block } from '../../utils/Block';
 import { authorizationTemplate } from './Authorization.template';
 import { compile } from 'pug';
-import { Input } from '../Input';
+import { Input } from '../Input/Input/index';
 
 export default class Authorization extends Block {
   constructor() {

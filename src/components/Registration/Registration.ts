@@ -1,7 +1,7 @@
 import { Block } from '../../utils/Block';
 import { registrationTemplate } from './Registration.template';
 import { compile } from 'pug';
-import {Input} from '../Input';
+import {Input} from '../Input/Input/index';
 
 export default class Registration extends Block {
   constructor() {
@@ -38,7 +38,7 @@ export default class Registration extends Block {
           "inputPlaceholder": "Имя",
           "required": "true",
           "minlength": "3",
-          "pattern": "^[A-Z]{1}[a-z-]+$"
+          "pattern": "^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$"
         }),
         "secondNameInput": new Input({
           "labelName": "Фамилия",
@@ -47,7 +47,7 @@ export default class Registration extends Block {
           "inputPlaceholder": "Фамилия",
           "required": "true",
           "minlength": "3",
-          "pattern": "^[A-Z]{1}[a-z-]+$"
+          "pattern": "^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$"
         }),
         "phoneInput": new Input({
           "labelName": "Телефон",

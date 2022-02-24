@@ -8,7 +8,7 @@
   width: 100%;
   height: 100%;
   max-width: 510px;
-  max-height: 551px;
+  //max-height: 551px;
   padding: 60px 0 109px 0;
 }
 
@@ -96,6 +96,7 @@
 
   &_type-save {
     align-items: center;
+    margin-top: 150px;
   }
 }
 

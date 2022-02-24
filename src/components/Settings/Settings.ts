@@ -2,6 +2,8 @@ import { Block } from '../../utils/Block';
 import { settingsTemplate } from './Settings.template';
 import { compile } from 'pug';
 import Button from '../../Button/Button';
+import SettingsPassword from './SettingsPassword/SettingsPassword';
+import SettingsUser from './SettingsUser/SettingsUser';
 
 export default class Settings extends Block {
   constructor() {
@@ -21,57 +23,43 @@ export default class Settings extends Block {
           phone: "+7 (909) 967 30 30"
         },
         "state": "",
-        events: {
-          submit: (e: Event) => this.handleSubmit(e)
-        },
         "buttonChangeInfo": new Button({
           "buttonName": "Изменить данные",
           events: {
-            click: (e: Event) => this.handleClickInfo(e)
+            click: () => this.handleClickInfo()
           }
         }),
         "buttonChangePassword": new Button({
           "buttonName": "Изменить пароль",
           events: {
-            click: (e: Event) => this.handleClickPassword(e)
+            click: () => this.handleClickPassword()
           }
         }),
-        "settingsUser": new SettiongsUser({
-
-        }),//todo
-        "settingsPassword": new SettingsPassword({
-
-        }),//todo
+        "settingsUser": new SettingsUser({
+          "userInfo": {
+            first_name: "Иван",
+            email: "pochta@yandex.ru",
+            login: "ivanovivan",
+            second_name: "Иванов",
+            display_name: "Иван",
+            phone: "+7 (909) 967 30 30"
+          },
+        }),
+        "settingsPassword": new SettingsPassword({}),
       }
     );
   }
 
-  handleClickInfo(e: any) {
-    console.log(e);
+  handleClickInfo() {
     this.setProps({
       "state": "user"
     })
   }
 
-  handleClickPassword(e: any) {
-    console.log(e);
+  handleClickPassword() {
     this.setProps({
       "state": "password"
     })
-  }
-
-  handleSubmit(e: any) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = {
-      login: formData.get('login'),
-      password: formData.get('password'),
-    };
-    const formIsValid = e.target.closest("form").checkValidity();
-    if (formIsValid) {
-      console.log(data);
-    }
-    return;
   }
 
   render() {
