@@ -1,33 +1,33 @@
+import { compile } from 'pug';
 import { Block } from '../../utils/Block';
 import { authorizationTemplate } from './Authorization.template';
-import { compile } from 'pug';
 import { Input } from '../Input/Input/index';
 
 export default class Authorization extends Block {
   constructor() {
     super(
-      "div",
+      'div',
       {
-        "formLinkText": "Нет аккаунта?",
-        "linkTo": "./registration.html",
+        formLinkText: 'Нет аккаунта?',
+        linkTo: './registration.html',
         events: {
-          submit: (e: Event) => this.handleSubmit(e)
+          submit: (e: Event) => this.handleSubmit(e),
         },
-        "loginInput": new Input({
-          "labelName": "Логин",
-          "inputType": "text",
-          "inputName": "login",
-          "inputPlaceholder": "Логин",
-          "required": "true"
+        loginInput: new Input({
+          labelName: 'Логин',
+          inputType: 'text',
+          inputName: 'login',
+          inputPlaceholder: 'Логин',
+          required: 'true',
         }),
-        "passwordInput": new Input({
-          "labelName": "Пароль",
-          "inputType": "password",
-          "inputName": "password",
-          "inputPlaceholder": "Пароль",
-          "required": "true",
-        })
-      }
+        passwordInput: new Input({
+          labelName: 'Пароль',
+          inputType: 'password',
+          inputName: 'password',
+          inputPlaceholder: 'Пароль',
+          required: 'true',
+        }),
+      },
     );
   }
 
@@ -38,11 +38,10 @@ export default class Authorization extends Block {
       login: formData.get('login'),
       password: formData.get('password'),
     };
-    const formIsValid = e.target.closest("form").checkValidity();
+    const formIsValid = e.target.closest('form').checkValidity();
     if (formIsValid) {
       console.log(data);
     }
-    return;
   }
 
   render() {

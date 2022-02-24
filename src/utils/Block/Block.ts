@@ -3,21 +3,28 @@ import { EventBus } from '../EventBus';
 
 export default abstract class Block {
   private static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render"
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   };
+
   private _element: HTMLElement;
+
   private readonly _meta: {
     tagName: string,
     props: Record<string, unknown>,
     tagClass?: string,
   };
+
   private eventBus: () => EventBus;
+
   public props: Record<string, unknown>;
+
   private _id: string;
+
   propsAndChildren: any;
+
   protected children: Record<string, Block>;
 
   constructor(tagName = 'div', propsAndChildren = {}) {
@@ -109,6 +116,17 @@ export default abstract class Block {
     const children: any = {};
     const props: any = {};
 
+    // if (Array.isArray(propsAndChildren)) {
+    //   propsAndChildren.forEach((elem: any) => {
+    //     Object.entries(elem).forEach(([key, value]) => {
+    //       if (value instanceof Block) {
+    //         children[key] = value;
+    //       } else {
+    //         props[key] = value;
+    //       }
+    //     });
+    //   });
+    // } else {
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
@@ -116,18 +134,17 @@ export default abstract class Block {
         props[key] = value;
       }
     });
-
+    // }
     return { children, props };
   }
 
-  // todo dispatch
   private _makePropsProxy(props: Record<string, unknown>) {
     const self = this;
 
     return new Proxy(props, {
       get(target: Record<string, unknown>, prop: string) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
         target[prop] = value;
@@ -135,8 +152,8 @@ export default abstract class Block {
         return true;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
-      }
+        throw new Error('Нет доступа');
+      },
     });
   }
 
@@ -150,38 +167,38 @@ export default abstract class Block {
   }
 
   public show() {
-    this.getContent()!.style.display = "block";
+    this.getContent()!.style.display = 'block';
   }
 
   public hide() {
-    this.getContent()!.style.display = "none";
+    this.getContent()!.style.display = 'none';
   }
 
   private _addEvents() {
-    const events: Record<string, (e: Event) => void> = (this.props as any).events;
+    const { events } = this.props as any;
     if (!events) {
       return;
     }
     Object.entries(events).forEach(([eventName, cb]: [string, (e: Event) => void]) => {
-      this._element.addEventListener(eventName, cb)
-    })
+      this._element.addEventListener(eventName, cb);
+    });
   }
 
   private _removeEvents() {
-    const events: Record<string, (e: Event) => void> = (this.props as any).events;
+    const { events } = this.props as any;
     if (!events) {
       return;
     }
     Object.entries(events).forEach(([eventName, cb]: [string, (e: Event) => void]) => {
-      this._element.removeEventListener(eventName, cb)
-    })
+      this._element.removeEventListener(eventName, cb);
+    });
   }
 
   public compile(template: (context: any) => string, context: any) {
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 
     Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
-      context[key] = `<div data-id="id-${child._id}"></div>`
+      context[key] = `<div data-id="id-${child._id}"></div>`;
     });
 
     fragment.innerHTML = template(context);
@@ -196,5 +213,5 @@ export default abstract class Block {
     });
 
     return fragment.content;
-  };
+  }
 }

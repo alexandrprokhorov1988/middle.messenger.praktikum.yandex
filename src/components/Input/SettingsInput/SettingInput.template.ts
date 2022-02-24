@@ -1,5 +1,4 @@
-export const settingInputTemplate =
- `.settings__input-container
+export const settingInputTemplate = `.settings__input-container
      label.settings__label #{labelName}
      input.settings__input(
      type=inputType

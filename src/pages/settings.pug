@@ -2,21 +2,6 @@ extends ../components/header/header
 block variables
   - const pageTitle = "Профиль"
   - const style = "../styles/settings.scss"
-  // - const formLinkText = "Войти"
-  // - const linkTo = "./index.pug"
-  // - const avatarImage = "../../static/images/03012009192.jpg"
-  // - const disabledUserInfoForm = true
-  // - const userInfo = {first_name: "Иван", email: "pochta@yandex.ru", login: "ivanovivan", second_name: "Иванов", display_name: "Иван", phone: "+7 (909) 967 30 30"}
-  // - const state =""
 block content
   include ../components/main/main
     script(type="module" src="../../src/components/Settings/index.ts")
-
-    //case state
-    //  when "editUserInfo"
-    //    include ../components/Settings/settingsEditUserInfo
-    //  when "editUserPassword"
-    //    include ../components/Settings/settingsEditPassword
-    //  default
-    //    include ../components/Settings/settings
-

@@ -1,5 +1,4 @@
-export const settingsTemplate =
-`section.settings
+export const settingsTemplate = `section.settings
   .settings__avatar-container
     img.settings__avatar(src=avatarImage, alt="Аватар")
   p.settings__user-name Иван

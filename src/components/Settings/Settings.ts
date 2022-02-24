@@ -1,65 +1,65 @@
+import { compile } from 'pug';
 import { Block } from '../../utils/Block';
 import { settingsTemplate } from './Settings.template';
-import { compile } from 'pug';
-import Button from '../../Button/Button';
+import SettingsButton from '../../Button/SettingsButton/SettingsButton';
 import SettingsPassword from './SettingsPassword/SettingsPassword';
 import SettingsUser from './SettingsUser/SettingsUser';
 
 export default class Settings extends Block {
   constructor() {
     super(
-      "div",
+      'div',
       {
-        "formLinkText": "Войти",
-        "linkTo": "./index.html",
-        "avatarImage": "https://i.gifer.com/Q2RE.gif",
-        "disabledUserInfoForm": "true",
-        "userInfo": {
-          first_name: "Иван",
-          email: "pochta@yandex.ru",
-          login: "ivanovivan",
-          second_name: "Иванов",
-          display_name: "Иван",
-          phone: "+7 (909) 967 30 30"
+        formLinkText: 'Войти',
+        linkTo: './index.html',
+        avatarImage: 'https://i.gifer.com/Q2RE.gif',
+        disabledUserInfoForm: 'true',
+        userInfo: {
+          first_name: 'Иван',
+          email: 'pochta@yandex.ru',
+          login: 'ivanovivan',
+          second_name: 'Иванов',
+          display_name: 'Иван',
+          phone: '+7 (909) 967 30 30',
         },
-        "state": "",
-        "buttonChangeInfo": new Button({
-          "buttonName": "Изменить данные",
+        state: '',
+        buttonChangeInfo: new SettingsButton({
+          buttonName: 'Изменить данные',
           events: {
-            click: () => this.handleClickInfo()
-          }
-        }),
-        "buttonChangePassword": new Button({
-          "buttonName": "Изменить пароль",
-          events: {
-            click: () => this.handleClickPassword()
-          }
-        }),
-        "settingsUser": new SettingsUser({
-          "userInfo": {
-            first_name: "Иван",
-            email: "pochta@yandex.ru",
-            login: "ivanovivan",
-            second_name: "Иванов",
-            display_name: "Иван",
-            phone: "+7 (909) 967 30 30"
+            click: () => this.handleClickInfo(),
           },
         }),
-        "settingsPassword": new SettingsPassword({}),
-      }
+        buttonChangePassword: new SettingsButton({
+          buttonName: 'Изменить пароль',
+          events: {
+            click: () => this.handleClickPassword(),
+          },
+        }),
+        settingsUser: new SettingsUser({
+          userInfo: {
+            first_name: 'Иван',
+            email: 'pochta@yandex.ru',
+            login: 'ivanovivan',
+            second_name: 'Иванов',
+            display_name: 'Иван',
+            phone: '+7 (909) 967 30 30',
+          },
+        }),
+        settingsPassword: new SettingsPassword({}),
+      },
     );
   }
 
   handleClickInfo() {
     this.setProps({
-      "state": "user"
-    })
+      state: 'user',
+    });
   }
 
   handleClickPassword() {
     this.setProps({
-      "state": "password"
-    })
+      state: 'password',
+    });
   }
 
   render() {

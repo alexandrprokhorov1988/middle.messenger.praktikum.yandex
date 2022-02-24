@@ -1,5 +1,4 @@
-export const chatTemplate =
-  `section.chat
+export const chatTemplate = `section.chat
     .chat__container
       .chat__left-container
         .chat__profile
@@ -20,31 +19,33 @@ export const chatTemplate =
         .chat__settings
           .chat__settings-user-info-container
             img.chat__settings-avatar(src=avatarSrc, alt="Аватар")
-            p.chat__settings-user-name=userInfo.first_name
-          button.chat__settings-button
-          .chat__settings-modal.chat__settings-modal_type-user.chat__settings-modal_show
-            .chat__settings-modal-container
-              button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-add
-              p.chat__settings-modal-text Добавить пользователя
-            .chat__settings-modal-container
-              button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-remove
-              p.chat__settings-modal-text Удалить пользователя
+            p.chat__settings-user-name=userInfo.first_name            
+          | !{userButton}          
+          if isOpenUserModal
+            .chat__settings-modal.chat__settings-modal_type-user.chat__settings-modal_show
+              .chat__settings-modal-container
+                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-add
+                p.chat__settings-modal-text Добавить пользователя
+              .chat__settings-modal-container
+                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-remove
+                p.chat__settings-modal-text Удалить пользователя              
         ul.chat__messages
           | !{chatMessage}
           | !{chatMessage2}
           | !{chatMessage3}
           | !{chatMessage4}
           | !{chatMessage5}
-        .chat__message-input-container
-          button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-select
+        .chat__message-input-container        
+          | !{fileButton}  
           | !{chatMessageForm}
-          .chat__settings-modal.chat__settings-modal_type-message.chat__settings-modal_show
-            .chat__settings-modal-container
-              button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-foto
-              p.chat__settings-modal-text Фото или Видео
-            .chat__settings-modal-container
-              button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-file
-              p.chat__settings-modal-text Файл
-            .chat__settings-modal-container
-              button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-geo
-              p.chat__settings-modal-text Локация`;
+          if isOpenFileModal
+            .chat__settings-modal.chat__settings-modal_type-message.chat__settings-modal_show
+              .chat__settings-modal-container
+                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-foto
+                p.chat__settings-modal-text Фото или Видео
+              .chat__settings-modal-container
+                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-file
+                p.chat__settings-modal-text Файл
+              .chat__settings-modal-container
+                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-geo
+                p.chat__settings-modal-text Локация`;

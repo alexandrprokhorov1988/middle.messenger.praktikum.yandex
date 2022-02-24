@@ -1,5 +1,4 @@
-export const registrationTemplate =
- `section.form
+export const registrationTemplate = `section.form
     p.form__title Регистрация
        form.form__form(name="registration")
          | !{emailInput}

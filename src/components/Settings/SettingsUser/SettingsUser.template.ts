@@ -1,5 +1,4 @@
-export const settingsUserTemplate =
-  `form.settings__form-container.settings__form-container_padding-up(name="password-edit")
+export const settingsUserTemplate = `form.settings__form-container.settings__form-container_padding-up(name="password-edit")
      | !{emailInput} 
      | !{loginInput} 
      | !{nameInput} 

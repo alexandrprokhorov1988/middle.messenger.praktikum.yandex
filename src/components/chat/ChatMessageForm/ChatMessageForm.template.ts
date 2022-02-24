@@ -1,5 +1,4 @@
-export const chatMessageFormTemplate =
-  `form.chat__form(name="message")
+export const chatMessageFormTemplate = `form.chat__form(name="message")
      input.chat__form-input(
        type="text"
        name="message"
