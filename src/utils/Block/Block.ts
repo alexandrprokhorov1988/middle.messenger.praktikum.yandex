@@ -8,23 +8,16 @@ export default abstract class Block {
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
   };
-
   private _element: HTMLElement;
-
   private readonly _meta: {
     tagName: string,
     props: Record<string, unknown>,
     tagClass?: string,
   };
-
   private eventBus: () => EventBus;
-
   public props: Record<string, unknown>;
-
   private _id: string;
-
   propsAndChildren: any;
-
   protected children: Record<string, Block>;
 
   constructor(tagName = 'div', propsAndChildren = {}) {
@@ -35,6 +28,7 @@ export default abstract class Block {
       props,
     };
     this.children = children;
+
     this._id = uuidv4();
     this.props = this._makePropsProxy({ ...props, __id: this._id });
     this.eventBus = () => eventBus;
@@ -61,6 +55,13 @@ export default abstract class Block {
 
   private _componentDidMount() {
     this.componentDidMount();
+    Object.values(this.children).forEach(child => {
+      child.dispatchComponentDidMount();
+    });
+  }
+
+  public dispatchComponentDidMount() {
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   public componentDidMount() {
@@ -115,18 +116,6 @@ export default abstract class Block {
   private _getChildren(propsAndChildren: any) {
     const children: any = {};
     const props: any = {};
-
-    // if (Array.isArray(propsAndChildren)) {
-    //   propsAndChildren.forEach((elem: any) => {
-    //     Object.entries(elem).forEach(([key, value]) => {
-    //       if (value instanceof Block) {
-    //         children[key] = value;
-    //       } else {
-    //         props[key] = value;
-    //       }
-    //     });
-    //   });
-    // } else {
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
@@ -134,7 +123,6 @@ export default abstract class Block {
         props[key] = value;
       }
     });
-    // }
     return { children, props };
   }
 
@@ -196,21 +184,20 @@ export default abstract class Block {
 
   public compile(template: (context: any) => string, context: any) {
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
-
     Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
       context[key] = `<div data-id="id-${child._id}"></div>`;
     });
 
     fragment.innerHTML = template(context);
 
-    Object.entries(this.children).forEach(([key, child]) => {
+    Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
       const stub = fragment.content.querySelector(`[data-id="id-${child._id}"]`);
       if (!stub) {
         return;
       }
-
       stub.replaceWith(child.getContent()!);
     });
+    console.log(this.children)
 
     return fragment.content;
   }

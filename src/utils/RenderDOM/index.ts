@@ -1,4 +1,4 @@
-import { renderDOM } from './renderDOM';
+import  renderDOM  from './renderDOM';
 
 export {
   renderDOM,

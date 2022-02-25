@@ -1,4 +1,5 @@
-export const chatTemplate = `section.chat
+export const chatTemplate =
+  `section.chat
     .chat__container
       .chat__left-container
         .chat__profile
@@ -11,10 +12,7 @@ export const chatTemplate = `section.chat
           )
         ul.chat__chats-list
          | !{chatChat}
-         | !{chatChat2}
-         | !{chatChat3}
-         | !{chatChat4}
-         | !{chatChat5}
+         | !{chatChat1}
       .chat__right-container
         .chat__settings
           .chat__settings-user-info-container
