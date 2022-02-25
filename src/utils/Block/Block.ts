@@ -56,7 +56,13 @@ export default abstract class Block {
   private _componentDidMount() {
     this.componentDidMount();
     Object.values(this.children).forEach(child => {
-      child.dispatchComponentDidMount();
+      if(Array.isArray(child)){
+        child.forEach((elem:any)=>{
+          elem.dispatchComponentDidMount();
+        })
+      }else{
+        child.dispatchComponentDidMount();
+      }
     });
   }
 
@@ -116,11 +122,26 @@ export default abstract class Block {
   private _getChildren(propsAndChildren: any) {
     const children: any = {};
     const props: any = {};
+
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
+      if (Array.isArray(value)) {
+        value.forEach((elem: any) => {
+          if (elem instanceof Block) {
+            if (children[key]) {
+              children[key] = [...children[key], elem];
+            } else {
+              children[key] = [elem];
+            }
+          } else {
+            props[key] = elem;
+          }
+        })
       } else {
-        props[key] = value;
+        if (value instanceof Block) {
+          children[key] = value;
+        } else {
+          props[key] = value;
+        }
       }
     });
     return { children, props };
@@ -184,20 +205,41 @@ export default abstract class Block {
 
   public compile(template: (context: any) => string, context: any) {
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
+    console.log(this.children);
+
     Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
-      context[key] = `<div data-id="id-${child._id}"></div>`;
+      if (Array.isArray(child)) {
+        child.forEach((elem2: any) => {
+          if (context[key]) {
+            context[key] = context[key] + `<div data-id="id-${elem2._id}"></div>`;
+          } else {
+            context[key] = `<div data-id="id-${elem2._id}"></div>`;
+          }
+        })
+      } else {
+        context[key] = `<div data-id="id-${child._id}"></div>`;
+      }
     });
 
     fragment.innerHTML = template(context);
 
     Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
-      const stub = fragment.content.querySelector(`[data-id="id-${child._id}"]`);
-      if (!stub) {
-        return;
+      if (Array.isArray(child)) {
+        child.forEach((elem: any) => {
+          const stub = fragment.content.querySelector(`[data-id="id-${elem._id}"]`);
+          if (!stub) {
+            return;
+          }
+          stub.replaceWith(elem.getContent()!);
+        })
+      } else {
+        const stub = fragment.content.querySelector(`[data-id="id-${child._id}"]`);
+        if (!stub) {
+          return;
+        }
+        stub.replaceWith(child.getContent()!);
       }
-      stub.replaceWith(child.getContent()!);
     });
-    console.log(this.children)
 
     return fragment.content;
   }
