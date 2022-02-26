@@ -182,7 +182,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   }
 
   private _addEvents() {
-    const { events } = this.props as any;
+    const { events } = this.props as Record<string, EventListener>;
     if (!events) {
       return;
     }
@@ -192,7 +192,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   }
 
   private _removeEvents() {
-    const { events } = this.props as any;
+    const { events } = this.props as Record<string, EventListener>;
     if (!events) {
       return;
     }
@@ -201,7 +201,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
     });
   }
 
-  public compile(template: (context: any) => string, context: any) {
+  public compile(template: (context: Record<string, unknown>) => string, context: Record<string, unknown>) {
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 
     Object.entries(this.children).forEach(([key, child]: [string, Block<Props>]) => {
