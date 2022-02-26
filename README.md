@@ -28,3 +28,9 @@ npm run start
 * SCSS
 * Express
 * NodeJS
+* Eslint
+* Stylelint
+* EventBus
+* Proxy
+* Компоненты
+*

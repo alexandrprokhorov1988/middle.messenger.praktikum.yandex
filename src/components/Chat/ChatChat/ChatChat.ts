@@ -8,8 +8,22 @@ export default class ChatChat extends Block {
       'div',
       {
         ...props,
+        events: {
+          click: () => this.handleClick(),
+        },
       },
     );
+  }
+
+  handleClick() {
+    const li = [...document.querySelectorAll('.chat__chat-container')];
+    li.forEach((elem: any) => {
+      elem.classList.remove('chat__chat-container_selected')
+    });
+
+    this.setProps({
+      "isSelected": "true"
+    })
   }
 
   render() {

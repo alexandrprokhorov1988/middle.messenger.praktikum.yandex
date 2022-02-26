@@ -1,5 +1,5 @@
 import Chat from './Chat';
-import { renderDOM } from '../../utils/RenderDOM';
+import { renderDOM } from '../../../utils/RenderDOM';
 
 document.addEventListener('DOMContentLoaded', () => {
   const chat = new Chat();

@@ -12,7 +12,6 @@ export const chatTemplate =
           )
         ul.chat__chats-list
          | !{chatChat}
-         | !{chatChat1}
       .chat__right-container
         .chat__settings
           .chat__settings-user-info-container
@@ -29,10 +28,6 @@ export const chatTemplate =
                 p.chat__settings-modal-text Удалить пользователя              
         ul.chat__messages
           | !{chatMessage}
-          | !{chatMessage2}
-          | !{chatMessage3}
-          | !{chatMessage4}
-          | !{chatMessage5}
         .chat__message-input-container        
           | !{fileButton}  
           | !{chatMessageForm}

@@ -56,11 +56,11 @@ export default abstract class Block {
   private _componentDidMount() {
     this.componentDidMount();
     Object.values(this.children).forEach(child => {
-      if(Array.isArray(child)){
-        child.forEach((elem:any)=>{
+      if (Array.isArray(child)) {
+        child.forEach((elem: any) => {
           elem.dispatchComponentDidMount();
         })
-      }else{
+      } else {
         child.dispatchComponentDidMount();
       }
     });
@@ -205,7 +205,6 @@ export default abstract class Block {
 
   public compile(template: (context: any) => string, context: any) {
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
-    console.log(this.children);
 
     Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
       if (Array.isArray(child)) {

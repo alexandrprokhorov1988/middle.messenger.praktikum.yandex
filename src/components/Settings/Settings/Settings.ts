@@ -1,9 +1,9 @@
 import { compile } from 'pug';
-import { Block } from '../../utils/Block';
+import { Block } from '../../../utils/Block/index';
 import { settingsTemplate } from './Settings.template';
-import SettingsButton from '../../Button/SettingsButton/SettingsButton';
-import SettingsPassword from './SettingsPassword/SettingsPassword';
-import SettingsUser from './SettingsUser/SettingsUser';
+import SettingsButton from '../../../Button/SettingsButton/SettingsButton';
+import SettingsPassword from '../SettingsPassword/SettingsPassword';
+import SettingsUser from '../SettingsUser/SettingsUser';
 
 export default class Settings extends Block {
   constructor() {
