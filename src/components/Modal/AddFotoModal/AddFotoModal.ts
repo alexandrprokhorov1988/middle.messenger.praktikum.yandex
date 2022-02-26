@@ -3,9 +3,10 @@ import { Block } from '../../../utils/Block/index';
 import { addFotoModalTemplate } from './AddFotoModal.template';
 import Input from '../../Input/Input/Input';
 import Modal from '../Modal/Modal';
+import { AddFotoModalProps } from './AddFotoModal.types';
 
-export default class AddFotoModal extends Block {
-  constructor(props: any) {
+export default class AddFotoModal extends Block<AddFotoModalProps> {
+  public constructor(props: AddFotoModalProps) {
     super(
       'div',
       {
@@ -30,21 +31,21 @@ export default class AddFotoModal extends Block {
     );
   }
 
-  removeModal(e: Event) {
+  public removeModal(e: Event) {
     if (!e.target) return;
     if ((e.target as HTMLElement).classList.contains('modal')) this.hide();
   }
 
-  handleSubmit(e: any) {
+  public handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       add_foto: formData.get('add_foto'),
     };
     console.log(data);
   }
 
-  render() {
+  public render() {
     return this.compile(compile(addFotoModalTemplate), { ...this.props });
   }
 }

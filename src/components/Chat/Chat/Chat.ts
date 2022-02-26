@@ -10,8 +10,9 @@ import RemoveUserModal from '../../Modal/RemoveUserModal/RemoveUserModal';
 import AddGeoModal from '../../Modal/AddGeoModal/AddGeoModal';
 import AddFileModal from '../../Modal/AddFileModal/AddFileModal';
 import AddFotoModal from '../../Modal/AddFotoModal/AddFotoModal';
+import { ChatProps } from './Chat.types';
 
-export default class Chat extends Block {
+export default class Chat extends Block<ChatProps> {
   constructor() {
     super(
       'div',
@@ -215,16 +216,18 @@ export default class Chat extends Block {
     }
   }
 
-  handleSubmit(e: any) {
+  handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       login: formData.get('login'),
       password: formData.get('password'),
     };
-    const formIsValid = e.target.closest('form').checkValidity();
-    if (formIsValid) {
-      console.log(data);
+    if(e.target) {
+      const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
+      if (formIsValid) {
+        console.log(data);
+      }
     }
   }
 

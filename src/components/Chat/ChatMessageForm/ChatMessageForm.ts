@@ -1,9 +1,10 @@
 import { compile } from 'pug';
 import { Block } from '../../../utils/Block';
 import { chatMessageFormTemplate } from './ChatMessageForm.template';
+import { ChatMessageFormProps } from './ChatMessageForm.types';
 
-export default class ChatMessageForm extends Block {
-  constructor(props: any) {
+export default class ChatMessageForm extends Block<ChatMessageFormProps> {
+  public constructor(props: ChatMessageFormProps) {
     super(
       'div',
       {
@@ -15,9 +16,9 @@ export default class ChatMessageForm extends Block {
     );
   }
 
-  handleSubmit(e: any) {
+  public handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       message: formData.get('message'),
     };
@@ -27,7 +28,7 @@ export default class ChatMessageForm extends Block {
     console.log(data);
   }
 
-  render() {
+  public render() {
     return this.compile(compile(chatMessageFormTemplate), { ...this.props });
   }
 }

@@ -1,4 +1,4 @@
-import { METHODS, RequestOptions } from './types';
+import { Methods, RequestOptions } from './HTTPTransport.types';
 
 function queryStringify(data: Record<string, unknown>) {
   if (typeof data !== 'object') {
@@ -10,15 +10,15 @@ function queryStringify(data: Record<string, unknown>) {
 }
 
 export default class HTTPTransport {
-  public get = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: METHODS.Get }, options.timeout);
+  public get = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: Methods.Get }, options.timeout);
 
-  public post = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: METHODS.Post }, options.timeout);
+  public post = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: Methods.Post }, options.timeout);
 
-  public put = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: METHODS.Put }, options.timeout);
+  public put = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: Methods.Put }, options.timeout);
 
-  public patch = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: METHODS.Patch }, options.timeout);
+  public patch = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: Methods.Patch }, options.timeout);
 
-  public delete = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: METHODS.Delete }, options.timeout);
+  public delete = (url: string, options: RequestOptions = {}) => this.request(url, { ...options, method: Methods.Delete }, options.timeout);
 
   request = (url: string, options: RequestOptions = {}, timeout = 5000) => {
     const { headers = {}, method, data } = options;
@@ -30,7 +30,7 @@ export default class HTTPTransport {
       }
 
       const xhr = new XMLHttpRequest();
-      const isGet = method === METHODS.Get;
+      const isGet = method === Methods.Get;
 
       xhr.open(
         method,

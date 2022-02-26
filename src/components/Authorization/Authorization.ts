@@ -2,9 +2,10 @@ import { compile } from 'pug';
 import { Block } from '../../utils/Block';
 import { authorizationTemplate } from './Authorization.template';
 import { Input } from '../Input/Input/index';
+import { AuthorizationProps } from './Authorization.types';
 
-export default class Authorization extends Block {
-  constructor() {
+export default class Authorization extends Block<AuthorizationProps> {
+  public constructor() {
     super(
       'div',
       {
@@ -31,20 +32,22 @@ export default class Authorization extends Block {
     );
   }
 
-  handleSubmit(e: any) {
+  public handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       login: formData.get('login'),
       password: formData.get('password'),
     };
-    const formIsValid = e.target.closest('form').checkValidity();
-    if (formIsValid) {
-      console.log(data);
+    if(e.target) {
+      const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
+      if (formIsValid) {
+        console.log(data);
+      }
     }
   }
 
-  render() {
+  public render() {
     return this.compile(compile(authorizationTemplate), { ...this.props });
   }
 }

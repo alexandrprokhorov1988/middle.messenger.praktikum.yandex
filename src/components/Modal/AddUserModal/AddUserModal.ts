@@ -3,9 +3,10 @@ import { Block } from '../../../utils/Block/index';
 import { addUserModalTemplate } from './AddUserModal.template';
 import Input from '../../Input/Input/Input';
 import Modal from '../Modal/Modal';
+import { AddUserModalProps } from './AddUserModal.types';
 
-export default class AddUserModal extends Block {
-  constructor(props: any) {
+export default class AddUserModal extends Block<AddUserModalProps> {
+  public constructor(props: AddUserModalProps) {
     super(
       'div',
       {
@@ -31,21 +32,21 @@ export default class AddUserModal extends Block {
     );
   }
 
-  removeModal(e: Event) {
+  public removeModal(e: Event) {
     if (!e.target) return;
     if ((e.target as HTMLElement).classList.contains('modal')) this.hide();
   }
 
-  handleSubmit(e: any) {
+  public handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       add_user: formData.get('add_user'),
     };
     console.log(data);
   }
 
-  render() {
+  public render() {
     return this.compile(compile(addUserModalTemplate), { ...this.props });
   }
 }

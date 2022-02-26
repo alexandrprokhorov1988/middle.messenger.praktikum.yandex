@@ -3,9 +3,10 @@ import { Block } from '../../../utils/Block/index';
 import { removeUserModalTemplate } from './RemoveUserModal.template';
 import Input from '../../Input/Input/Input';
 import Modal from '../Modal/Modal';
+import { RemoveUserModalProps } from './RemoveUserModal.types';
 
-export default class RemoveUserModal extends Block {
-  constructor(props: any) {
+export default class RemoveUserModal extends Block<RemoveUserModalProps> {
+  public constructor(props: RemoveUserModalProps) {
     super(
       'div',
       {
@@ -31,21 +32,21 @@ export default class RemoveUserModal extends Block {
     );
   }
 
-  removeModal(e: Event) {
+  public removeModal(e: Event) {
     if (!e.target) return;
     if ((e.target as HTMLElement).classList.contains('modal')) this.hide();
   }
 
-  handleSubmit(e: any) {
+  public handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       remove_user: formData.get('remove_user'),
     };
     console.log(data);
   }
 
-  render() {
+  public render() {
     return this.compile(compile(removeUserModalTemplate), { ...this.props });
   }
 }

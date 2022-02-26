@@ -2,9 +2,10 @@ import { compile } from 'pug';
 import { Block } from '../../utils/Block';
 import { registrationTemplate } from './Registration.template';
 import { Input } from '../Input/Input/index';
+import { RegistrationProps } from './Registration.types';
 
-export default class Registration extends Block {
-  constructor() {
+export default class Registration extends Block<RegistrationProps> {
+  public constructor() {
     super(
       'div',
       {
@@ -79,9 +80,9 @@ export default class Registration extends Block {
     );
   }
 
-  handleSubmit(e: any) {
+  public handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     if (formData.get('password_submit') === formData.get('password')) {
       const data = {
         email: formData.get('email'),
@@ -95,7 +96,7 @@ export default class Registration extends Block {
     }
   }
 
-  render() {
+  public render() {
     return this.compile(compile(registrationTemplate), { ...this.props });
   }
 }

@@ -3,9 +3,10 @@ import { Block } from '../../../utils/Block/index';
 import { addGeoModalTemplate } from './AddGeoModal.template';
 import Input from '../../Input/Input/Input';
 import Modal from '../Modal/Modal';
+import { AddGeoModalProps } from './AddGeoModal.types';
 
-export default class AddGeoModal extends Block {
-  constructor(props: any) {
+export default class AddGeoModal extends Block<AddGeoModalProps> {
+  public constructor(props: AddGeoModalProps) {
     super(
       'div',
       {
@@ -31,21 +32,21 @@ export default class AddGeoModal extends Block {
     );
   }
 
-  removeModal(e: Event) {
+  public removeModal(e: Event) {
     if (!e.target) return;
     if ((e.target as HTMLElement).classList.contains('modal')) this.hide();
   }
 
-  handleSubmit(e: any) {
+  public handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       add_geo: formData.get('add_geo'),
     };
     console.log(data);
   }
 
-  render() {
+  public render() {
     return this.compile(compile(addGeoModalTemplate), { ...this.props });
   }
 }

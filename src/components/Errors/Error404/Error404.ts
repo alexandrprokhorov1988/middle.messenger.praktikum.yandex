@@ -1,9 +1,10 @@
 import { compile } from 'pug';
 import { Block } from '../../../utils/Block';
 import { error404Template } from './Error404.template';
+import { Error404Props } from './Error404.types';
 
-export default class Error404 extends Block {
-  constructor() {
+export default class Error404 extends Block<Error404Props> {
+  public constructor() {
     super(
       'div',
       {
@@ -15,7 +16,7 @@ export default class Error404 extends Block {
     );
   }
 
-  render() {
+  public render() {
     return this.compile(compile(error404Template), { ...this.props });
   }
 }

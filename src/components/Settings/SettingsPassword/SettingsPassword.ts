@@ -2,9 +2,10 @@ import { compile } from 'pug';
 import { Block } from '../../../utils/Block/index';
 import { settingsPasswordTemplate } from './SettingsPassword.template';
 import SettingsInput from '../../Input/SettingsInput/SettingsInput';
+import { SettingsPasswordProps } from './SettingsPassword.types';
 
-export default class SettingsPassword extends Block {
-  constructor(props: any) {
+export default class SettingsPassword extends Block<SettingsPasswordProps> {
+  public constructor(props: SettingsPasswordProps) {
     super(
       'div',
       {
@@ -17,7 +18,7 @@ export default class SettingsPassword extends Block {
           labelName: 'Старый пароль',
           inputType: 'password',
           inputName: 'oldPassword',
-          placeholderName: 'Старый пароль',
+          inputPlaceholder: 'Старый пароль',
           required: 'true',
           minlength: '8',
           maxlength: '40',
@@ -27,7 +28,7 @@ export default class SettingsPassword extends Block {
           labelName: 'Новый пароль',
           inputType: 'password',
           inputName: 'newPassword',
-          placeholderName: 'Новый пароль',
+          inputPlaceholder: 'Новый пароль',
           required: 'true',
           minlength: '8',
           maxlength: '40',
@@ -37,7 +38,7 @@ export default class SettingsPassword extends Block {
           labelName: 'Повторите новый пароль',
           inputType: 'password',
           inputName: 'submitPassword',
-          placeholderName: 'Повторите новый пароль',
+          inputPlaceholder: 'Повторите новый пароль',
           required: 'true',
           minlength: '8',
           maxlength: '40',
@@ -47,21 +48,23 @@ export default class SettingsPassword extends Block {
     );
   }
 
-  handleSubmit(e: any) {
+  public handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       old_password: formData.get('oldPassword'),
       new_password: formData.get('newPassword'),
       confirm_password: formData.get('newPassword'),
     };
-    const formIsValid = e.target.closest('form').checkValidity();
-    if (formIsValid) {
-      console.log(data);
+    if(e.target) {
+      const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
+      if (formIsValid) {
+        console.log(data);
+      }
     }
   }
 
-  render() {
+  public render() {
     return this.compile(compile(settingsPasswordTemplate), { ...this.props });
   }
 }

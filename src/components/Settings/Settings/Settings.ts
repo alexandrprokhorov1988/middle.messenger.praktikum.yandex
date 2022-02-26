@@ -4,9 +4,10 @@ import { settingsTemplate } from './Settings.template';
 import SettingsButton from '../../Button/SettingsButton/SettingsButton';
 import SettingsPassword from '../SettingsPassword/SettingsPassword';
 import SettingsUser from '../SettingsUser/SettingsUser';
+import { SettingsProps } from './Settings.types';
 
-export default class Settings extends Block {
-  constructor() {
+export default class Settings extends Block<SettingsProps> {
+  public constructor() {
     super(
       'div',
       {
@@ -50,19 +51,19 @@ export default class Settings extends Block {
     );
   }
 
-  handleClickInfo() {
+  public handleClickInfo() {
     this.setProps({
       state: 'user',
     });
   }
 
-  handleClickPassword() {
+  public handleClickPassword() {
     this.setProps({
       state: 'password',
     });
   }
 
-  render() {
+  public render() {
     return this.compile(compile(settingsTemplate), { ...this.props });
   }
 }
