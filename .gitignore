@@ -1,3 +1,5 @@
+".idea"
+
 # ---> Node
 # Logs
 logs
@@ -118,7 +120,8 @@ dist
 .pnp.*
 
 .idea
-
+/idea
+./idea
 
 # postgres volume
 

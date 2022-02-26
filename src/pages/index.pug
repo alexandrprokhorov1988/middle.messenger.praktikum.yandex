@@ -1,0 +1,7 @@
+extends ../components/header/header
+block variables
+  - const pageTitle = "Messenger"
+  - const style = "../styles/index.scss"
+block content
+  include ../components/main/main
+    script(type="module" src="../../src/components/Chat/Chat/index.ts")
