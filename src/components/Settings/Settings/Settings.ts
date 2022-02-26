@@ -1,7 +1,7 @@
 import { compile } from 'pug';
 import { Block } from '../../../utils/Block/index';
 import { settingsTemplate } from './Settings.template';
-import SettingsButton from '../../../Button/SettingsButton/SettingsButton';
+import SettingsButton from '../../Button/SettingsButton/SettingsButton';
 import SettingsPassword from '../SettingsPassword/SettingsPassword';
 import SettingsUser from '../SettingsUser/SettingsUser';
 

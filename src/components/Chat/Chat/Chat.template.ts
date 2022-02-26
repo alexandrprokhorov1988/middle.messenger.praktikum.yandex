@@ -20,11 +20,11 @@ export const chatTemplate =
           | !{userButton}          
           if isOpenUserModal
             .chat__settings-modal.chat__settings-modal_type-user.chat__settings-modal_show
-              .chat__settings-modal-container
-                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-add
+              .chat__settings-modal-container              
+                | !{addUserButton}                 
                 p.chat__settings-modal-text Добавить пользователя
               .chat__settings-modal-container
-                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-remove
+                | !{removeUserButton}
                 p.chat__settings-modal-text Удалить пользователя              
         ul.chat__messages
           | !{chatMessage}
@@ -34,11 +34,16 @@ export const chatTemplate =
           if isOpenFileModal
             .chat__settings-modal.chat__settings-modal_type-message.chat__settings-modal_show
               .chat__settings-modal-container
-                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-foto
+                | !{addFotoButton}              
                 p.chat__settings-modal-text Фото или Видео
               .chat__settings-modal-container
-                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-file
+                | !{addFileButton}              
                 p.chat__settings-modal-text Файл
               .chat__settings-modal-container
-                button.chat__settings-button.chat__settings-button_type-modal.chat__settings-button_type-geo
-                p.chat__settings-modal-text Локация`;
+                | !{addGeoButton}              
+                p.chat__settings-modal-text Локация
+    | !{addUserModal}
+    | !{removeUserModal}
+    | !{addGeoModal}
+    | !{addFileModal}
+    | !{addFotoModal}`;

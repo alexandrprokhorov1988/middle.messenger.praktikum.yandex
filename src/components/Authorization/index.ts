@@ -1,5 +1,5 @@
 import Authorization from './Authorization';
-import { renderDOM } from '../../utils/RenderDOM';
+import { renderDOM } from '../../utils/renderDOM';
 
 document.addEventListener('DOMContentLoaded', () => {
   const authorization = new Authorization();

@@ -1,5 +1,5 @@
 import { compile } from 'pug';
-import { Block } from '../../utils/Block/index';
+import { Block } from '../../../utils/Block/index';
 import { settingsButtonTemplate } from './SettingsButton.template';
 
 export default class SettingsButton extends Block {
