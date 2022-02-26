@@ -23,7 +23,8 @@ export default class AddFileModal extends Block {
             click: (e: Event) => this.removeModal(e),
             submit: (e: Event) => this.handleSubmit(e),
           },
-          modalName: "add-file"
+          modalName: "add-file",
+          formName: "add-file"
         })
       },
     );
@@ -38,7 +39,7 @@ export default class AddFileModal extends Block {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = {
-      add_user: formData.get('add_file'),
+      add_file: formData.get('add_file'),
     };
     console.log(data);
   }
