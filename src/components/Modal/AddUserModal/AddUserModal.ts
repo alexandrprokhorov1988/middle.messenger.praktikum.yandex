@@ -24,7 +24,8 @@ export default class AddUserModal extends Block {
             click: (e: Event) => this.removeModal(e),
             submit: (e: Event) => this.handleSubmit(e),
           },
-          modalName: "add-user"
+          modalName: "add-user",
+          formName: "add-user"
         })
       },
     );

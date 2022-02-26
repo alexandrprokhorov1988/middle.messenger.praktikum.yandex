@@ -24,7 +24,8 @@ export default class RemoveUserModal extends Block {
             click: (e: Event) => this.removeModal(e),
             submit: (e: Event) => this.handleSubmit(e),
           },
-          modalName: "remove-user"
+          modalName: "remove-user",
+          formName: "remove-user"
         })
       },
     );
@@ -39,7 +40,7 @@ export default class RemoveUserModal extends Block {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = {
-      add_user: formData.get('remove_user'),
+      remove_user: formData.get('remove_user'),
     };
     console.log(data);
   }

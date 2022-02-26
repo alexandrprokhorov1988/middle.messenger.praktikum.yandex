@@ -23,7 +23,8 @@ export default class AddFotoModal extends Block {
             click: (e: Event) => this.removeModal(e),
             submit: (e: Event) => this.handleSubmit(e),
           },
-          modalName: "add-foto"
+          modalName: "add-foto",
+          formName: "add-foto"
         })
       },
     );
@@ -38,7 +39,7 @@ export default class AddFotoModal extends Block {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = {
-      add_user: formData.get('add_foto'),
+      add_foto: formData.get('add_foto'),
     };
     console.log(data);
   }
