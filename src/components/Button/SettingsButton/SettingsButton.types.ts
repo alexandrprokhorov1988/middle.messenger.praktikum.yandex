@@ -4,6 +4,7 @@ type SettingsButtonProps = {
   };
   buttonText?: string;
   customClass?: string;
+  buttonName?: string;
 }
 
 export {
