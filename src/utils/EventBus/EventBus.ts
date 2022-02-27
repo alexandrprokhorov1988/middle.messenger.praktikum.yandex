@@ -1,5 +1,5 @@
 export default class EventBus {
-  readonly listeners: Record<string, ((...args: any) => void)[]>;
+  readonly listeners: Record<string, ((...args: unknown[]) => void)[]>;
 
   constructor() {
     this.listeners = {};
