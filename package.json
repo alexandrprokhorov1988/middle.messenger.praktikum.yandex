@@ -1,0 +1,33 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "0.0.1",
+  "description": "messenger",
+  "scripts": {
+    "dev": "parcel ./src/components/*.pug --port 3000",
+    "build": "parcel build ./src/components/*.pug",
+    "start": "parcel build ./src/components/*.pug && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandrprokhorov1988/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandrprokhorov1988/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/alexandrprokhorov1988/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "parcel": "^2.2.1",
+    "sass": "^1.49.7"
+  },
+  "dependencies": {
+    "@parcel/config-default": "^2.2.1",
+    "@parcel/core": "^2.2.1",
+    "@parcel/transformer-pug": "^2.2.1",
+    "@parcel/transformer-sass": "^2.2.1",
+    "express": "^4.17.2",
+    "postcss": "^8.4.6",
+    "pug": "^3.0.2"
+  }
+}
