@@ -1,0 +1,7 @@
+extends ../components/header/header
+block variables
+  - const pageTitle = "Авторизация"
+  - const style = "../styles/authorization.scss"
+block content
+  include ../components/main/main
+    script(type="module" src="../../src/components/Authorization/index.ts")
