@@ -5,14 +5,14 @@ import SettingsButton from '../../Button/SettingsButton/SettingsButton';
 import SettingsPassword from '../SettingsPassword/SettingsPassword';
 import SettingsUser from '../SettingsUser/SettingsUser';
 import { SettingsProps } from './Settings.types';
+import Button from '../../Button/Button/Button';
+import { router } from '../../../pages';
 
 export default class Settings extends Block<SettingsProps> {
   public constructor() {
     super(
       'div',
       {
-        formLinkText: 'Войти',
-        linkTo: './index.html',
         avatarImage: 'https://i.gifer.com/Q2RE.gif',
         disabledUserInfoForm: 'true',
         userInfo: {
@@ -47,6 +47,15 @@ export default class Settings extends Block<SettingsProps> {
           },
         }),
         settingsPassword: new SettingsPassword({}),
+        linkButton: new Button({
+          buttonText: '',
+          customClass: 'button__settings',
+          events: {
+            click: () => {
+              router.go("/messenger");
+            }
+          },
+        }),
       },
     );
   }

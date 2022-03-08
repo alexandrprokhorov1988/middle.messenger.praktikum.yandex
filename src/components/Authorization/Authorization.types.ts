@@ -1,4 +1,5 @@
 import Input from '../Input/Input/Input';
+import Button from '../Button/Button/Button';
 
 type AuthorizationProps = {
   formLinkText?: string;
@@ -13,6 +14,7 @@ type AuthorizationProps = {
   phoneInput?: Input;
   passwordInput?: Input;
   passwordSubmitInput?: Input;
+  linkButton? : Button;
 }
 
 export {

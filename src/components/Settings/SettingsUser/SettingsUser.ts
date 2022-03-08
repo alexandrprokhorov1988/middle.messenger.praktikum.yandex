@@ -3,6 +3,8 @@ import { Block } from '../../../utils/Block/index';
 import { settingsUserTemplate } from './SettingsUser.template';
 import SettingsInput from '../../Input/SettingsInput/SettingsInput';
 import { SettingsUserProps } from './SettingsUser.types';
+import Button from '../../Button/Button/Button';
+import { router } from '../../../pages';
 
 export default class SettingsUser extends Block<SettingsUserProps> {
   public constructor(props: SettingsUserProps) {
@@ -13,7 +15,6 @@ export default class SettingsUser extends Block<SettingsUserProps> {
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
-        linkTo: './settings.html',
         emailInput: new SettingsInput({
           labelName: 'Почта',
           inputType: 'email',
@@ -77,6 +78,15 @@ export default class SettingsUser extends Block<SettingsUserProps> {
           pattern: '^\\+?[0-9]{10,15}$',
           value: props.userInfo!.phone,
         }),
+        linkButton: new Button({
+          buttonText: '',
+          customClass: 'button__settings',
+          events: {
+            click: () => {
+              router.go("/settings");
+            }
+          },
+        }),
       },
     );
   }
@@ -92,11 +102,11 @@ export default class SettingsUser extends Block<SettingsUserProps> {
       display_name: formData.get('display_name'),
       phone: formData.get('phone'),
     };
-    if(e.target){
-    const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
-    if (formIsValid) {
-      console.log(data);
-    }
+    if (e.target) {
+      const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
+      if (formIsValid) {
+        console.log(data);
+      }
     }
   }
 

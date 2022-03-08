@@ -33,6 +33,10 @@
 
 .chat__profile {
   grid-area: profile;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding-bottom: 23px;
 }
 
 .chat__profile-link {

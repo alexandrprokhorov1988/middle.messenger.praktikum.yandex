@@ -70,5 +70,4 @@ export const settingsTemplate = `section.settings
           | !{buttonChangePassword}
         .settings__button-border-container
           button.settings__button.settings__button_warning Выйти
-      a.settings__link(href=linkTo)
-        .settings__link-img`;
+      | !{linkButton}`;

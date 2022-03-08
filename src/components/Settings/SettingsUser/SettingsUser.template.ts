@@ -7,5 +7,4 @@ export const settingsUserTemplate = `form.settings__form-container.settings__for
      | !{phoneInput} 
      .settings__button-container.settings__button-container_type-save
        button.settings__button.settings__button_type-save Сохранить
-     a.settings__link(href=linkTo)
-       .settings__link-img`;
+     | !{linkButton}`;

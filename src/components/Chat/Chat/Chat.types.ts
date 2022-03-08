@@ -28,6 +28,7 @@ type ChatProps = {
   addFotoButton?: Button;
   addFileButton?: Button;
   addGeoButton?: Button;
+  linkButton?: Button;
 }
 
 export {

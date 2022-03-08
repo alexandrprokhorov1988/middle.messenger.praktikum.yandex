@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "messenger",
   "scripts": {
-    "dev": "parcel ./src/pages/*.pug --port 3000 --no-cache",
-    "build": "parcel build ./src/pages/*.pug",
-    "start": "parcel build ./src/pages/*.pug && node server.js",
+    "dev": "parcel ./src/pages/index.pug --port 3000 --no-cache",
+    "build": "parcel build ./src/pages/index.pug",
+    "start": "parcel build ./src/pages/index.pug && node server.js",
     "lint": "eslint ./src/**/*.{js,ts}"
   },
   "repository": {

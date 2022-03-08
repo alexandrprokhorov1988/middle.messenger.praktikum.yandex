@@ -3,6 +3,8 @@ import { Block } from '../../../utils/Block/index';
 import { settingsPasswordTemplate } from './SettingsPassword.template';
 import SettingsInput from '../../Input/SettingsInput/SettingsInput';
 import { SettingsPasswordProps } from './SettingsPassword.types';
+import Button from '../../Button/Button/Button';
+import { router } from '../../../pages';
 
 export default class SettingsPassword extends Block<SettingsPasswordProps> {
   public constructor(props: SettingsPasswordProps) {
@@ -13,7 +15,6 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
-        linkTo: './settings.html',
         oldPasswordInput: new SettingsInput({
           labelName: 'Старый пароль',
           inputType: 'password',
@@ -43,6 +44,15 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
           minlength: '8',
           maxlength: '40',
           pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+        }),
+        linkButton: new Button({
+          buttonText: '',
+          customClass: 'button__settings',
+          events: {
+            click: () => {
+              router.go("/settings");
+            }
+          },
         }),
       },
     );

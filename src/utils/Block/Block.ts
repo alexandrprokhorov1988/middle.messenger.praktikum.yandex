@@ -174,7 +174,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   }
 
   public show() {
-    this.getContent()!.style.display = 'block';
+    this.getContent()!.style.display = 'flex';
   }
 
   public hide() {
@@ -220,7 +220,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
 
     fragment.innerHTML = template(context);
 
-    Object.entries(this.children).forEach(([key, child]: [string, Block<Props>]) => {
+    Object.entries(this.children).forEach(([_key, child]: [string, Block<Props>]) => {
       if (Array.isArray(child)) {
         child.forEach((elem: Block<Props>) => {
           const stub = fragment.content.querySelector(`[data-id="id-${elem._id}"]`);

@@ -2,6 +2,7 @@ import { Input } from '../../Input/Input';
 import SettingsButton from '../../Button/SettingsButton/SettingsButton';
 import SettingsUser from '../SettingsUser/SettingsUser';
 import SettingsPassword from '../SettingsPassword/SettingsPassword';
+import Button from '../../Button/Button/Button';
 
 type SettingsProps = {
   formLinkText?: string;
@@ -24,6 +25,7 @@ type SettingsProps = {
   buttonChangePassword: SettingsButton;
   settingsUser: SettingsUser;
   settingsPassword: SettingsPassword;
+  linkButton?: Button;
 }
 
 export {

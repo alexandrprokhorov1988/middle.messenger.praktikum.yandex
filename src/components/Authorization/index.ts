@@ -1,11 +1,7 @@
-import Authorization from './Authorization';
-import { renderDOM } from '../../utils/renderDOM';
+export { default } from './Authorization';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const authorization = new Authorization();
-  renderDOM('.page', authorization);
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//   const authorization = new Authorization();
+//   renderDOM('.page', authorization);
+// });
 
-export {
-  Authorization,
-};

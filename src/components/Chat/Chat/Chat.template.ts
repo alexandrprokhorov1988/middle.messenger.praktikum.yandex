@@ -3,8 +3,7 @@ export const chatTemplate =
     .chat__container
       .chat__left-container
         .chat__profile
-          a.chat__profile-link(href=profileLinkTo)=profileLinkText
-           span.chat__profile-link-img
+          | !{linkButton}
         .chat__search
           input.chat__input.chat__input_type-search(
             type="text"

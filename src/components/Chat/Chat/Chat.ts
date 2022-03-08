@@ -11,14 +11,13 @@ import AddGeoModal from '../../Modal/AddGeoModal/AddGeoModal';
 import AddFileModal from '../../Modal/AddFileModal/AddFileModal';
 import AddFotoModal from '../../Modal/AddFotoModal/AddFotoModal';
 import { ChatProps } from './Chat.types';
+import { router } from '../../../pages';
 
 export default class Chat extends Block<ChatProps> {
   constructor() {
     super(
       'div',
       {
-        profileLinkTo: './settings.html',
-        profileLinkText: 'Профиль',
         avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
         userInfo: {
           first_name: 'Иван',
@@ -147,47 +146,56 @@ export default class Chat extends Block<ChatProps> {
           events: {
             click: () => this.handleClickAddGeoButton(),
           },
-        })
+        }),
+        linkButton: new Button({
+          buttonText: 'Профиль',
+          customClass: 'button__profile',
+          events: {
+            click: () => {
+              router.go("/settings");
+            }
+          },
+        }),
       },
     );
   }
 
   handleClickAddGeoButton() {
     const modal = document.querySelector('[data-modal-name=add-geo]');
-    if(modal){
-      (modal! as HTMLElement).style.display ="flex";
+    if (modal) {
+      (modal! as HTMLElement).style.display = "flex";
     }
     return;
   }
 
   handleClickAddFileButton() {
     const modal = document.querySelector('[data-modal-name=add-file]');
-    if(modal){
-      (modal! as HTMLElement).style.display ="flex";
+    if (modal) {
+      (modal! as HTMLElement).style.display = "flex";
     }
     return;
   }
 
   handleClickAddFotoButton() {
     const modal = document.querySelector('[data-modal-name=add-foto]');
-    if(modal){
-      (modal! as HTMLElement).style.display ="flex";
+    if (modal) {
+      (modal! as HTMLElement).style.display = "flex";
     }
     return;
   }
 
   handleClickAddUserButton() {
     const modal = document.querySelector('[data-modal-name=add-user]');
-    if(modal){
-      (modal! as HTMLElement).style.display ="flex";
+    if (modal) {
+      (modal! as HTMLElement).style.display = "flex";
     }
     return;
   }
 
   handleClickRemoveUserButton() {
     const modal = document.querySelector('[data-modal-name=remove-user]');
-    if(modal){
-      (modal! as HTMLElement).style.display ="flex";
+    if (modal) {
+      (modal! as HTMLElement).style.display = "flex";
     }
     return;
   }
@@ -223,7 +231,7 @@ export default class Chat extends Block<ChatProps> {
       login: formData.get('login'),
       password: formData.get('password'),
     };
-    if(e.target) {
+    if (e.target) {
       const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
       if (formIsValid) {
         console.log(data);

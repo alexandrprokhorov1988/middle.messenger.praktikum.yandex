@@ -3,14 +3,16 @@ import { Block } from '../../utils/Block';
 import { registrationTemplate } from './Registration.template';
 import { Input } from '../Input/Input/index';
 import { RegistrationProps } from './Registration.types';
+import Button from '../Button/Button/Button';
+import { router } from '../../pages';
 
 export default class Registration extends Block<RegistrationProps> {
   public constructor() {
     super(
       'div',
       {
-        formLinkText: 'Войти',
-        linkTo: './authorization.html',
+        // formLinkText: 'Войти',
+        // linkTo: './',
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
@@ -75,6 +77,15 @@ export default class Registration extends Block<RegistrationProps> {
           inputName: 'password_submit',
           inputPlaceholder: 'Пароль (ещё раз)',
           required: 'true',
+        }),
+        linkButton: new Button({
+          buttonText: 'Войти?',
+          customClass: 'button__link',
+          events: {
+            click: () => {
+              router.go("/");
+            }
+          },
         }),
       },
     );

@@ -1,6 +1,6 @@
 type ButtonProps = {
   events?: {
-    click: (e: Event) => void,
+    click: () => void,
   };
   buttonText?: string;
   customClass?: string;

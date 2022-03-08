@@ -4,4 +4,4 @@ export const authorizationTemplate = `section.form
          | !{loginInput}
          | !{passwordInput}
          button.form__submit-button Авторизоваться
-       a.form__link(href=linkTo)=formLinkText`;
+       | !{linkButton}`;

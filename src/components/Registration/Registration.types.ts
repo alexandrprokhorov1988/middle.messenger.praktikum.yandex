@@ -1,4 +1,5 @@
 import Input from '../Input/Input/Input';
+import Button from '../Button/Button/Button';
 
 type RegistrationProps = {
   formLinkText?: string;
@@ -13,6 +14,7 @@ type RegistrationProps = {
   phoneInput?: Input;
   passwordInput?: Input;
   passwordSubmitInput?: Input;
+  linkButton: Button;
 }
 
 export {
