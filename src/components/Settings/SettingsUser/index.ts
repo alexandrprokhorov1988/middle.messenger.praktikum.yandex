@@ -1,5 +1,1 @@
-import SettingsUser from './SettingsUser';
-
-export {
-  SettingsUser,
-};
+export {default} from './SettingsUser';

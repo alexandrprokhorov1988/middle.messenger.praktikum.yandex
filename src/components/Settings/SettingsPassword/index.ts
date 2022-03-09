@@ -1,5 +1,1 @@
-import SettingsPassword from './SettingsPassword';
-
-export {
-  SettingsPassword,
-};
+export {default}  from './SettingsPassword';

@@ -23,8 +23,8 @@ type SettingsProps = {
   state?: string;
   buttonChangeInfo: SettingsButton;
   buttonChangePassword: SettingsButton;
-  settingsUser: SettingsUser;
-  settingsPassword: SettingsPassword;
+  settingsUser?: SettingsUser;
+  settingsPassword?: SettingsPassword;
   linkButton?: Button;
 }
 

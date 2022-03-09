@@ -23,7 +23,7 @@ export default class Route {
 
   leave() {
     if (this._block) {
-      this._block.hide();
+      this._block.hide(); //todo удалить блок из дерева
     }
   }
 
@@ -34,7 +34,6 @@ export default class Route {
   render() {
     if (!this._block) {
       this._block = new this._blockClass();
-      // renderDOM(this._props.rootQuery, this._block!);
       render(this._props.rootQuery, this._block);
       return;
     }

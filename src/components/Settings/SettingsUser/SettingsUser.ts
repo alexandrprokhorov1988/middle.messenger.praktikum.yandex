@@ -23,7 +23,7 @@ export default class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,6}',
-          value: props.userInfo!.email,
+          // value: props.userInfo!.email || '',
         }),
         loginInput: new SettingsInput({
           labelName: 'Логин',
@@ -34,7 +34,7 @@ export default class SettingsUser extends Block<SettingsUserProps> {
           minlength: '3',
           maxlength: '20',
           pattern: '[a-zA-Z0-9-_]*[a-zA-Z]{1}[a-zA-Z0-9-_]*',
-          value: props.userInfo!.login,
+          // value: props.userInfo!.login || '',
         }),
         nameInput: new SettingsInput({
           labelName: 'Имя',
@@ -44,7 +44,7 @@ export default class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$',
-          value: props.userInfo!.first_name,
+          // value: props.userInfo!.first_name || '',
 
         }),
         secondNameInput: new SettingsInput({
@@ -55,7 +55,7 @@ export default class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$',
-          value: props.userInfo!.second_name,
+          // value: props.userInfo!.second_name || '',
         }),
         nameInChatInput: new SettingsInput({
           labelName: 'Имя в чате',
@@ -66,7 +66,8 @@ export default class SettingsUser extends Block<SettingsUserProps> {
           minlength: '3',
           maxlength: '20',
           pattern: '[a-zA-Z0-9-_А-ЯЁа-яё]+',
-          value: props.userInfo!.display_name,
+          // value: props.userInfo!.display_name || '',
+
         }),
         phoneInput: new SettingsInput({
           labelName: 'Телефон',
@@ -76,7 +77,7 @@ export default class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '^\\+?[0-9]{10,15}$',
-          value: props.userInfo!.phone,
+          // value: props.userInfo!.phone || '',
         }),
         linkButton: new Button({
           buttonText: '',

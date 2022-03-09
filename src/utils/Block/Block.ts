@@ -16,10 +16,10 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   };
   private eventBus: () => EventBus;
   public props: Record<string, unknown>;
-  private _id: string;
+  private readonly _id: string;
   protected children: Record<string, Block<Props>>;
 
-  constructor(tagName = 'div', propsAndChildren: Props) {
+  protected constructor(tagName = 'div', propsAndChildren: Props) {
     const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
     this._meta = {
