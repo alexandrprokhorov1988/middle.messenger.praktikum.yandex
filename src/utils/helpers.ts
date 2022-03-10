@@ -4,7 +4,10 @@ function isEqual(lhs: any, rhs: any) {
 
 function render(query: string, block: any) {
   const root = document.querySelector(query);
+  block.dispatchComponentDidMount();
+
   if (root) {
+    root.innerHTML = '';
     root.append(block.getContent()!);
     return root;
   }

@@ -3,7 +3,7 @@ import { isEqual, render } from '../helpers';
 
 export default class Route {
   private _pathname: string;
-  private readonly _blockClass: any;
+  private _blockClass: any;
   private _block: Block<Record<string, unknown>> | null;
   private _props: any;
 
@@ -15,7 +15,7 @@ export default class Route {
   }
 
   navigate(pathname: string) {
-    if (this.match(pathname)) {
+    if (!this.match(pathname)) {
       this._pathname = pathname;
       this.render();
     }
@@ -23,7 +23,8 @@ export default class Route {
 
   leave() {
     if (this._block) {
-      this._block.hide(); //todo удалить блок из дерева
+      // this._block.hide();
+      this._block = null;
     }
   }
 
@@ -37,6 +38,7 @@ export default class Route {
       render(this._props.rootQuery, this._block);
       return;
     }
+
     this._block!.show();
   }
 }

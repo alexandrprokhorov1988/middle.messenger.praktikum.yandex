@@ -21,7 +21,6 @@ router
   .use('/404', Error404)
   .start();
 
-
 export {
   router,
 };
