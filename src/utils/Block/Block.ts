@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { EventBus } from '../EventBus';
+import isEqual from '../helpers.isEqual';
 
 export default abstract class Block<Props extends Record<string, unknown>> {
   private static EVENTS = {
@@ -81,7 +82,8 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   }
 
   public componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
-    return oldProps !== newProps;
+    // return oldProps !== newProps;
+    return isEqual(oldProps, newProps);
   }
 
   public setProps = (nextProps: Record<string, unknown>) => {

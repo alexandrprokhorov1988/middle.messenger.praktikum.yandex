@@ -26,6 +26,7 @@ type SettingsProps = {
   settingsUser?: SettingsUser;
   settingsPassword?: SettingsPassword;
   linkButton?: Button;
+  buttonLogout?: SettingsButton;
 }
 
 export {

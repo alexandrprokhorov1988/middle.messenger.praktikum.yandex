@@ -12,20 +12,23 @@ import AddFileModal from '../../Modal/AddFileModal/AddFileModal';
 import AddFotoModal from '../../Modal/AddFotoModal/AddFotoModal';
 import { ChatProps } from './Chat.types';
 import { router } from '../../../pages';
+import connect from '../../../utils/helpers.connect';
+import { store } from '../../../utils/Store';
+import { authController } from '../../../controllers';
 
-export default class Chat extends Block<ChatProps> {
+class Chat extends Block<ChatProps> {
   constructor() {
     super(
       'div',
       {
         avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
         userInfo: {
-          first_name: 'Иван',
-          email: 'pochta@yandex.ru',
-          login: 'ivanovivan',
-          second_name: 'Иванов',
-          display_name: 'Иван',
-          phone: '+7 (909) 967 30 30',
+          first_name: '',
+          email: '',
+          login: '',
+          second_name: '',
+          display_name: '',
+          phone: '',
         },
         chatChat: [
           new ChatChat({
@@ -160,6 +163,10 @@ export default class Chat extends Block<ChatProps> {
     );
   }
 
+  componentDidMount() {
+    authController.getUserInfo();
+  }
+
   handleClickAddGeoButton() {
     const modal = document.querySelector('[data-modal-name=add-geo]');
     if (modal) {
@@ -234,6 +241,7 @@ export default class Chat extends Block<ChatProps> {
     if (e.target) {
       const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
       if (formIsValid) {
+        console.log(store.getState());
         console.log(data);
       }
     }
@@ -243,3 +251,5 @@ export default class Chat extends Block<ChatProps> {
     return this.compile(compile(chatTemplate), { ...this.props });
   }
 }
+
+export default connect<ChatProps>(Chat);

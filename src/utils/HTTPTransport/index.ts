@@ -1,5 +1,1 @@
-import HTTPTransport from './HTTPTransport';
-
-export {
-  HTTPTransport,
-};
+export { default } from './HTTPTransport';

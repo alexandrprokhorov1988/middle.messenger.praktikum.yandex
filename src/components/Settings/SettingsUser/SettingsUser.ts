@@ -5,8 +5,10 @@ import SettingsInput from '../../Input/SettingsInput/SettingsInput';
 import { SettingsUserProps } from './SettingsUser.types';
 import Button from '../../Button/Button/Button';
 import { router } from '../../../pages';
+import connect from '../../../utils/helpers.connect';
+import { authController } from '../../../controllers';
 
-export default class SettingsUser extends Block<SettingsUserProps> {
+class SettingsUser extends Block<SettingsUserProps> {
   public constructor(props: SettingsUserProps) {
     super(
       'div',
@@ -14,6 +16,15 @@ export default class SettingsUser extends Block<SettingsUserProps> {
         ...props,
         events: {
           submit: (e: Event) => this.handleSubmit(e),
+        },
+        userInfo: {
+          first_name: '',
+          email: '',
+          login: '',
+          second_name: '',
+          display_name: '',
+          phone: '',
+          avatar: 'https://i.gifer.com/Q2RE.gif'
         },
         emailInput: new SettingsInput({
           labelName: 'Почта',
@@ -23,7 +34,7 @@ export default class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,6}',
-          // value: props.userInfo!.email || '',
+          value: props && props.userInfo && props.userInfo.email || '',
         }),
         loginInput: new SettingsInput({
           labelName: 'Логин',
@@ -92,6 +103,10 @@ export default class SettingsUser extends Block<SettingsUserProps> {
     );
   }
 
+  componentDidMount() {
+    authController.getUserInfo();
+  }
+
   public handleSubmit(e: Event) {
     e.preventDefault();
     const formData = new FormData((e.target as HTMLFormElement));
@@ -115,3 +130,5 @@ export default class SettingsUser extends Block<SettingsUserProps> {
     return this.compile(compile(settingsUserTemplate), { ...this.props });
   }
 }
+
+export default connect<SettingsUserProps>(SettingsUser);

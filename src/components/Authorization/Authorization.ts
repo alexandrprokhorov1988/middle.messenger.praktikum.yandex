@@ -5,14 +5,14 @@ import { Input } from '../Input/Input/index';
 import { AuthorizationProps } from './Authorization.types';
 import Button from '../Button/Button/Button';
 import { router } from '../../pages';
+import connect from '../../utils/helpers.connect';
+import { authController } from '../../controllers';
 
-export default class Authorization extends Block<AuthorizationProps> {
+class Authorization extends Block<AuthorizationProps> {
   public constructor() {
     super(
       'div',
       {
-        // formLinkText: 'Нет аккаунта?',
-        // linkTo: './sign-up',
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
@@ -43,17 +43,17 @@ export default class Authorization extends Block<AuthorizationProps> {
     );
   }
 
-  public handleSubmit(e: Event) {
+  public async handleSubmit(e: Event) {
     e.preventDefault();
     const formData = new FormData((e.target as HTMLFormElement));
     const data = {
       login: formData.get('login'),
       password: formData.get('password'),
     };
-    if(e.target) {
+    if (e.target) {
       const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
       if (formIsValid) {
-        console.log(data);
+        await authController.login(data as any); //todo any
       }
     }
   }
@@ -62,3 +62,5 @@ export default class Authorization extends Block<AuthorizationProps> {
     return this.compile(compile(authorizationTemplate), { ...this.props });
   }
 }
+
+export default connect<AuthorizationProps>(Authorization);

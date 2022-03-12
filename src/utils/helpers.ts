@@ -1,7 +1,3 @@
-function isEqual(lhs: any, rhs: any) {
-  return lhs === rhs;
-}
-
 function render(query: string, block: any) {
   const root = document.querySelector(query);
   block.dispatchComponentDidMount();
@@ -15,6 +11,5 @@ function render(query: string, block: any) {
 }
 
 export {
-  isEqual,
   render,
 };

@@ -1,5 +1,9 @@
 import Block from '../Block/Block';
-import { isEqual, render } from '../helpers';
+import { render } from '../helpers';
+
+function isEqual(lhs: string, rhs: string) {
+  return lhs === rhs;
+}
 
 export default class Route {
   private _pathname: string;
