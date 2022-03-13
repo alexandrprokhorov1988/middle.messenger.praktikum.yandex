@@ -103,8 +103,8 @@ class SettingsUser extends Block<SettingsUserProps> {
     );
   }
 
-  componentDidMount() {
-    authController.getUserInfo();
+  async componentDidMount() {
+    await authController.getUserInfo();
   }
 
   public handleSubmit(e: Event) {

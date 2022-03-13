@@ -7,6 +7,7 @@ import { router } from '../../../pages';
 import Button from '../../Button/Button/Button';
 import connect from '../../../utils/helpers.connect';
 import { authController } from '../../../controllers';
+import { store } from '../../../utils/Store';
 
 class Settings extends Block<SettingsProps> {
   public constructor() {
@@ -59,14 +60,15 @@ class Settings extends Block<SettingsProps> {
     );
   }
 
-  componentDidMount() {
-    authController.getUserInfo();
+  async componentDidMount() {
+    await authController.getUserInfo();
   }
 
   public async handleLogout() {
     try {
       await authController.logout();
-      router.go("/");
+      store.set('userInfo', null);
+      router.go('/');
     } catch (err) {
       console.log(err);
     }

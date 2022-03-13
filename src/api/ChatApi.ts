@@ -25,7 +25,7 @@ class ChatAPI extends BaseAPI {
   }
 
   public getNewMessageCountFromChat(id: string | number): Promise<XMLHttpRequest> {
-    return chatAPIInstance.get(`/${id}`, {
+    return chatAPIInstance.get(`/new/${id}`, {
       withCredentials: true,
     });
   }
@@ -41,6 +41,19 @@ class ChatAPI extends BaseAPI {
     return chatAPIInstance.delete('/users', {
       withCredentials: true,
       data: JSON.stringify(data)
+    });
+  }
+
+  public getUsersFromChat(id: string | number): Promise<XMLHttpRequest> {
+    return chatAPIInstance.get(`/${id}/users`, {
+      withCredentials: true,
+    });
+  }
+
+  public editChatAvatar(data: FormData): Promise<XMLHttpRequest> {
+    return chatAPIInstance.put(`/avatar`, {
+      withCredentials: true,
+      data: data
     });
   }
 }

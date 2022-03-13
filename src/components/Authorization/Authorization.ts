@@ -7,6 +7,7 @@ import Button from '../Button/Button/Button';
 import { router } from '../../pages';
 import connect from '../../utils/helpers.connect';
 import { authController } from '../../controllers';
+import { store } from '../../utils/Store';
 
 class Authorization extends Block<AuthorizationProps> {
   public constructor() {
@@ -41,6 +42,18 @@ class Authorization extends Block<AuthorizationProps> {
         }),
       },
     );
+  }
+
+  async componentDidMount() {
+    try {
+      await authController.getUserInfo();
+      if (store.getState().userInfo) {
+        router.go('/messenger');
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 
   public async handleSubmit(e: Event) {

@@ -163,8 +163,16 @@ class Chat extends Block<ChatProps> {
     );
   }
 
-  componentDidMount() {
-    authController.getUserInfo();
+  async componentDidMount() {
+    try {
+      await authController.getUserInfo();
+      if (!store.getState().userInfo) {
+        router.go('/');
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 
   handleClickAddGeoButton() {
