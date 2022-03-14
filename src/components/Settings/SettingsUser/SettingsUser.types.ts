@@ -1,7 +1,5 @@
 import SettingsButton from '../../Button/SettingsButton/SettingsButton';
 import SettingsInput from '../../Input/SettingsInput/SettingsInput';
-import SettingsUser from './SettingsUser';
-import SettingsPassword from '../SettingsPassword/SettingsPassword';
 import Button from '../../Button/Button/Button';
 
 type SettingsUserProps = {
@@ -23,8 +21,8 @@ type SettingsUserProps = {
   state?: string;
   buttonChangeInfo?: SettingsButton;
   buttonChangePassword?: SettingsButton;
-  settingsUser?: SettingsUser;
-  settingsPassword?: SettingsPassword;
+  // settingsUser?: SettingsUserProps;
+  // settingsPassword?: SettingsPassword;
   nameInChatInput?: SettingsInput;
   linkButton?: Button;
 }

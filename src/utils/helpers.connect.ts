@@ -6,6 +6,8 @@ export default function connect<TProps extends Record<string, unknown>>(Componen
     constructor(...args: any) {
       super(...args);
 
+      console.log(...args);
+
       store.on(StoreEvents.Updated, () => {
         this.setProps({...store.getState()});
       });

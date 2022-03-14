@@ -55,8 +55,7 @@ class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$',
-          // value: props.userInfo!.first_name || '',
-
+          // value: (props && props.userInfo && props.userInfo.first_name) || '',
         }),
         secondNameInput: new SettingsInput({
           labelName: 'Фамилия',

@@ -1,5 +1,4 @@
 import Block from '../Block/Block';
-import { render } from '../helpers';
 
 function isEqual(lhs: string, rhs: string) {
   return lhs === rhs;
@@ -27,8 +26,7 @@ export default class Route {
 
   leave() {
     if (this._block) {
-      // this._block.hide();
-      this._block = null;
+      this._block.getContent()?.remove();
     }
   }
 
@@ -39,10 +37,12 @@ export default class Route {
   render() {
     if (!this._block) {
       this._block = new this._blockClass();
-      render(this._props.rootQuery, this._block);
-      return;
     }
-
-    this._block!.show();
+    const root = document.querySelector(this._props.rootQuery);
+    if (!root) {
+      throw new Error('Root element not found');
+    }
+    root.innerHTML = '';
+    root.append(this._block!.getContent());
   }
 }
