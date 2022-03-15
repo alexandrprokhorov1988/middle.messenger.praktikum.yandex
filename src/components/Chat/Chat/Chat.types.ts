@@ -11,9 +11,9 @@ import AddFotoModal from '../../Modal/AddFotoModal/AddFotoModal';
 type ChatProps = {
   profileLinkTo?: string;
   profileLinkText?: string;
-  avatarSrc?: string;
+  avatar?: string;
   userInfo?: Record<string, unknown>;
-  chatChat?: ChatChat | ChatChat[];
+  chats?: ChatChat | ChatChat[];
   chatMessage?: ChatMessage | ChatMessage[];
   chatMessageForm?: ChatMessageForm;
   fileButton?: Button;

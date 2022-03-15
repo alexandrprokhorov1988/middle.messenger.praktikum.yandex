@@ -12,16 +12,15 @@ import AddFileModal from '../../Modal/AddFileModal/AddFileModal';
 import AddFotoModal from '../../Modal/AddFotoModal/AddFotoModal';
 import { ChatProps } from './Chat.types';
 import { router } from '../../../pages';
-import connect from '../../../utils/helpers.connect';
 import { store } from '../../../utils/Store';
-import { authController } from '../../../controllers';
+import { authController, chatController } from '../../../controllers';
 
 class Chat extends Block<ChatProps> {
   constructor() {
     super(
       'div',
       {
-        avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
+        avatar: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
         userInfo: {
           first_name: '',
           email: '',
@@ -30,48 +29,14 @@ class Chat extends Block<ChatProps> {
           display_name: '',
           phone: '',
         },
-        chatChat: [
+        chats: [
           new ChatChat({
-            avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
-            chatName: 'Киноклуб',
-            chatLastMessage: 'Изображение',
+            avatar: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
+            title: 'Киноклуб',
+            last_message: 'Изображение',
             chatDate: '10:49',
-            chatMessageCount: '5',
-          }),
-          new ChatChat({
-            avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
-            chatName: 'Киноклуб',
-            chatLastMessage: 'Изображение',
-            chatDate: '10:50',
-            chatMessageCount: '1',
-          }),
-          new ChatChat({
-            avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
-            chatName: 'Киноклуб',
-            chatLastMessage: 'Изображение',
-            chatDate: '10:49',
-            chatMessageCount: '5',
-          }),
-          new ChatChat({
-            avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
-            chatName: 'Киноклуб',
-            chatLastMessage: 'Изображение',
-            chatDate: '10:49',
-            chatMessageCount: '5',
-          }),
-          new ChatChat({
-            avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
-            chatName: 'Киноклуб',
-            chatLastMessage: 'Изображение',
-            chatDate: '10:50',
-            chatMessageCount: '5',
-          }),
-          new ChatChat({
-            avatarSrc: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
-            chatName: 'Киноклуб',
-            chatLastMessage: 'Изображение',
-            chatDate: '10:49',
-            chatMessageCount: '5',
+            unread_count: 5,
+            id: 1,
           }),
         ],
         chatMessage: [
@@ -164,15 +129,25 @@ class Chat extends Block<ChatProps> {
   }
 
   async componentDidMount() {
-    try {
-      await authController.getUserInfo();
-      if (!store.getState().userInfo) {
-        router.go('/');
-      }
-    }
-    catch (e) {
-      console.log(e);
-    }
+    console.log(this.props);
+    await authController.getUserInfo();
+    await chatController.getChats();
+    const chats = store.getState().chats;
+    console.log(chats);
+    const arrOfChats = (chats as any).map((item: any) => {
+      return new ChatChat({
+        avatar: item.avatar,
+        title: item.title,
+        last_message: item.last_message,
+        chatDate: '10:49',
+        unread_count: item.unread_count,
+        id: item.id,
+      });
+    });
+    console.log(arrOfChats);
+    this.setProps({
+      chats: arrOfChats
+    })
   }
 
   handleClickAddGeoButton() {
@@ -260,4 +235,4 @@ class Chat extends Block<ChatProps> {
   }
 }
 
-export default connect<ChatProps>(Chat);
+export default Chat;

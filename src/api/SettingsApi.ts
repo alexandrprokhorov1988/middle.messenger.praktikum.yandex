@@ -8,7 +8,7 @@ class SettingsApi extends BaseAPI {
   public editProfile(data: RegisterParameters): Promise<XMLHttpRequest> {
     return settingsAPIInstance.put('/profile', {
       withCredentials: true,
-      data: JSON.stringify(data)
+      data: data
     });
   }
 
@@ -22,14 +22,14 @@ class SettingsApi extends BaseAPI {
   public async editPassword(data: { oldPassword: string, newPassword: string }): Promise<XMLHttpRequest> {
     return await settingsAPIInstance.put('/password', {
       withCredentials: true,
-      data: JSON.stringify(data)
+      data: data
     });
   }
 
   public async getUserByLogin(data: { login: string }): Promise<XMLHttpRequest> {
     return await settingsAPIInstance.post('/search', {
       withCredentials: true,
-      data: JSON.stringify(data)
+      data: data
     });
   }
 

@@ -60,13 +60,13 @@ class Authorization extends Block<AuthorizationProps> {
     e.preventDefault();
     const formData = new FormData((e.target as HTMLFormElement));
     const data = {
-      login: formData.get('login'),
-      password: formData.get('password'),
+      login: String(formData.get('login')),
+      password: String(formData.get('password')),
     };
     if (e.target) {
       const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
       if (formIsValid) {
-        await authController.login(data as any); //todo any
+        await authController.login(data);
       }
     }
   }

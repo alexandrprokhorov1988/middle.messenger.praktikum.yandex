@@ -5,14 +5,13 @@ import { Input } from '../Input/Input/index';
 import { RegistrationProps } from './Registration.types';
 import Button from '../Button/Button/Button';
 import { router } from '../../pages';
+import { authController } from '../../controllers';
 
 export default class Registration extends Block<RegistrationProps> {
   public constructor() {
     super(
       'div',
       {
-        // formLinkText: 'Войти',
-        // linkTo: './',
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
@@ -91,19 +90,22 @@ export default class Registration extends Block<RegistrationProps> {
     );
   }
 
-  public handleSubmit(e: Event) {
+  public async handleSubmit(e: Event) {
     e.preventDefault();
     const formData = new FormData((e.target as HTMLFormElement));
     if (formData.get('password_submit') === formData.get('password')) {
       const data = {
-        email: formData.get('email'),
-        login: formData.get('login'),
-        first_name: formData.get('first_name'),
-        second_name: formData.get('second_name'),
-        phone: formData.get('phone'),
-        password: formData.get('password'),
+        email: String(formData.get('email')),
+        login: String(formData.get('login')),
+        first_name: String(formData.get('first_name')),
+        second_name: String(formData.get('second_name')),
+        phone: String(formData.get('phone')),
+        password: String(formData.get('password')),
       };
-      console.log(data);
+      const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
+      if (formIsValid) {
+        await authController.register(data);
+      }
     }
   }
 

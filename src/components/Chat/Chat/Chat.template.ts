@@ -10,11 +10,11 @@ export const chatTemplate =
             placeholder="Поиск"
           )
         ul.chat__chats-list
-         | !{chatChat}
+         | !{chats}
       .chat__right-container
         .chat__settings
           .chat__settings-user-info-container
-            img.chat__settings-avatar(src=avatarSrc, alt="Аватар")
+            img.chat__settings-avatar(src=avatar, alt="Аватар")
             p.chat__settings-user-name=userInfo.first_name            
           | !{userButton}          
           if isOpenUserModal

@@ -3,11 +3,12 @@ type ChatChatProps = {
     submit?: (e: Event) => void,
     click?: () => void,
   },
-  avatarSrc?: string;
-  chatName?: string;
-  chatLastMessage?: string;
+  avatar?: string;
+  title?: string;
+  last_message?: string;
   chatDate?: string;
-  chatMessageCount?: string;
+  unread_count?: number;
+  id: number;
 }
 
 export {

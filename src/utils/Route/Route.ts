@@ -42,6 +42,8 @@ export default class Route {
     if (!root) {
       throw new Error('Root element not found');
     }
+    this._block!.dispatchComponentDidMount();
+
     root.innerHTML = '';
     root.append(this._block!.getContent());
   }

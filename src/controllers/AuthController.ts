@@ -9,7 +9,7 @@ class AuthController {
       if (result.status !== 200) {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }
-      router.go('/sign-up');
+      router.go('/');
     } catch (error) {
       console.log(error.message);
     }
