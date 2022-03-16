@@ -5,15 +5,14 @@ import SettingsInput from '../../Input/SettingsInput/SettingsInput';
 import { SettingsUserProps } from './SettingsUser.types';
 import Button from '../../Button/Button/Button';
 import { router } from '../../../pages';
-import connect from '../../../utils/helpers.connect';
-import { authController } from '../../../controllers';
+import { settingsController } from '../../../controllers';
+import AddAvatarModal from '../../Modal/AddAvatarModal/AddAvatarModal';
 
 class SettingsUser extends Block<SettingsUserProps> {
   public constructor(props: SettingsUserProps) {
     super(
       'div',
       {
-        ...props,
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
@@ -45,7 +44,7 @@ class SettingsUser extends Block<SettingsUserProps> {
           minlength: '3',
           maxlength: '20',
           pattern: '[a-zA-Z0-9-_]*[a-zA-Z]{1}[a-zA-Z0-9-_]*',
-          // value: props.userInfo!.login || '',
+          value: props && props.userInfo && props.userInfo.login || '',
         }),
         nameInput: new SettingsInput({
           labelName: 'Имя',
@@ -55,7 +54,7 @@ class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$',
-          // value: (props && props.userInfo && props.userInfo.first_name) || '',
+          value: props && props.userInfo && props.userInfo.first_name || '',
         }),
         secondNameInput: new SettingsInput({
           labelName: 'Фамилия',
@@ -65,7 +64,7 @@ class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$',
-          // value: props.userInfo!.second_name || '',
+          value: props && props.userInfo && props.userInfo.second_name || '',
         }),
         nameInChatInput: new SettingsInput({
           labelName: 'Имя в чате',
@@ -76,8 +75,7 @@ class SettingsUser extends Block<SettingsUserProps> {
           minlength: '3',
           maxlength: '20',
           pattern: '[a-zA-Z0-9-_А-ЯЁа-яё]+',
-          // value: props.userInfo!.display_name || '',
-
+          value: props && props.userInfo && props.userInfo.display_name || '',
         }),
         phoneInput: new SettingsInput({
           labelName: 'Телефон',
@@ -87,7 +85,7 @@ class SettingsUser extends Block<SettingsUserProps> {
           required: 'true',
           minlength: '3',
           pattern: '^\\+?[0-9]{10,15}$',
-          // value: props.userInfo!.phone || '',
+          value: props && props.userInfo && props.userInfo.phone || '',
         }),
         linkButton: new Button({
           buttonText: '',
@@ -98,31 +96,48 @@ class SettingsUser extends Block<SettingsUserProps> {
             }
           },
         }),
+        ...props,
+        addAvatarButton: new Button({
+          customClass: "settings__avatar-button",
+          buttonText: 'Поменять аватар',
+          events: {
+            click: () => this.handleClickEditAvatarButton(),
+          },
+        }),
+        addAvatarModal: new AddAvatarModal({}),
       },
     );
   }
 
-  async componentDidMount() {
-    await authController.getUserInfo();
+  public handleClickEditAvatarButton() {
+    const modal = document.querySelector('[data-modal-name=add-avatar]');
+    if (modal) {
+      (modal! as HTMLElement).style.display = "flex";
+    }
+    return;
   }
 
-  public handleSubmit(e: Event) {
+  public async handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData((e.target as HTMLFormElement));
-    const data = {
-      email: formData.get('email'),
-      login: formData.get('login'),
-      first_name: formData.get('first_name'),
-      second_name: formData.get('second_name'),
-      display_name: formData.get('display_name'),
-      phone: formData.get('phone'),
-    };
-    if (e.target) {
-      const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
-      if (formIsValid) {
-        console.log(data);
+    if(e.target!.closest('form[name="user-edit"]')) {
+      const formData = new FormData((e.target as HTMLFormElement));
+      const data = {
+        email: String(formData.get('email')),
+        login: String(formData.get('login')),
+        first_name: String(formData.get('first_name')),
+        second_name: String(formData.get('second_name')),
+        display_name: String(formData.get('display_name')),
+        phone: String(formData.get('phone')),
+      };
+      if (e.target) {
+        const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
+        if (formIsValid) {
+          await settingsController.editProfile(data);
+          return;
+        }
       }
     }
+    return;
   }
 
   public render() {
@@ -130,4 +145,4 @@ class SettingsUser extends Block<SettingsUserProps> {
   }
 }
 
-export default connect<SettingsUserProps>(SettingsUser);
+export default SettingsUser;

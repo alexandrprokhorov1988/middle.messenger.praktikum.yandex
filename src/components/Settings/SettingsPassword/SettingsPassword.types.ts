@@ -11,6 +11,8 @@ type SettingsPasswordProps = {
   newPasswordInput?: Input;
   confirmPasswordInput?: Input;
   linkButton: Button;
+  inputErrorText?: string;
+  userInfo?: Record<string, unknown>;
 }
 
 export {

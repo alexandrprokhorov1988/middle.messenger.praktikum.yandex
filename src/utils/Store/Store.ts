@@ -29,15 +29,16 @@ export const withStore = (mapStateToProps: (state: Record<string, unknown>) => R
   let state: Record<string, unknown>;
 
   return class extends component<Record<string, unknown>> {
-    constructor(props) {
+    constructor(props: any) {
       state = mapStateToProps(store.getState());
-      super('div', { ...props, ...state });
+      super({ ...props, ...state }, {});
 
       store.on(StoreEvents.Updated, () => {
         const newState = mapStateToProps(store.getState());
 
-        if (!isEqual(state, newState))
+        if (!isEqual(state, newState)) {
           this.setProps({ ...newState })
+        }
       })
     }
   }

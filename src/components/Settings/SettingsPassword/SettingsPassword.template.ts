@@ -1,8 +1,8 @@
 export const settingsPasswordTemplate =
   `section.settings
     .settings__avatar-container
-      img.settings__avatar(src=avatarImage, alt="Аватар")
-    p.settings__user-name Иван
+      img.settings__avatar(src=userInfo.avatar || 'https://i.gifer.com/Q2RE.gif', alt="Аватар")
+    p.settings__user-name=userInfo.login
     form.settings__form-container.settings__form-container_padding-up(name="password-edit")
       | !{oldPasswordInput} 
       | !{newPasswordInput} 

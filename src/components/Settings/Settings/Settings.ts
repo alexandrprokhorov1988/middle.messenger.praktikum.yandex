@@ -5,18 +5,17 @@ import SettingsButton from '../../Button/SettingsButton/SettingsButton';
 import { SettingsProps } from './Settings.types';
 import { router } from '../../../pages';
 import Button from '../../Button/Button/Button';
-import connect from '../../../utils/helpers.connect';
 import { authController } from '../../../controllers';
 import { store } from '../../../utils/Store';
 
 class Settings extends Block<SettingsProps> {
-  public constructor() {
+  public constructor(props: Record<string, unknown>) {
     super(
       'div',
       {
         disabledUserInfoForm: 'true',
         userInfo: {
-          first_name: '',
+          first_name: props.first_name,
           email: '',
           login: '',
           second_name: '',
@@ -56,12 +55,9 @@ class Settings extends Block<SettingsProps> {
             }
           },
         }),
+        ...props,
       },
     );
-  }
-
-  async componentDidMount() {
-    await authController.getUserInfo();
   }
 
   public async handleLogout() {
@@ -79,4 +75,4 @@ class Settings extends Block<SettingsProps> {
   }
 }
 
-export default connect<SettingsProps>(Settings);
+export default Settings;

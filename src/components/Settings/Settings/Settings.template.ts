@@ -1,6 +1,6 @@
 export const settingsTemplate = `section.settings
   .settings__avatar-container
-    img.settings__avatar(src=userInfo.avatar || 'https://i.gifer.com/Q2RE.gif', alt="Аватар")
+    img.settings__avatar.settings__avatar_type_main(src=userInfo.avatar || 'https://i.gifer.com/Q2RE.gif', alt="Аватар")
   p.settings__user-name=userInfo.login
     form.settings__form-container(name="settings-user-info")
       .settings__input-container

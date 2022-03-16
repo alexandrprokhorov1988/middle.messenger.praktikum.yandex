@@ -5,6 +5,7 @@ import SettingsInput from '../../Input/SettingsInput/SettingsInput';
 import { SettingsPasswordProps } from './SettingsPassword.types';
 import Button from '../../Button/Button/Button';
 import { router } from '../../../pages';
+import { settingsController } from '../../../controllers';
 
 export default class SettingsPassword extends Block<SettingsPasswordProps> {
   public constructor(props: SettingsPasswordProps) {
@@ -15,6 +16,7 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
+        inputErrorText: '',
         oldPasswordInput: new SettingsInput({
           labelName: 'Старый пароль',
           inputType: 'password',
@@ -44,6 +46,7 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
           minlength: '8',
           maxlength: '40',
           pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          inputErrorText: props.inputErrorText || '',
         }),
         linkButton: new Button({
           buttonText: '',
@@ -58,18 +61,24 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
     );
   }
 
-  public handleSubmit(e: Event) {
+  public async handleSubmit(e: Event) {
     e.preventDefault();
     const formData = new FormData((e.target as HTMLFormElement));
     const data = {
-      old_password: formData.get('oldPassword'),
-      new_password: formData.get('newPassword'),
-      confirm_password: formData.get('newPassword'),
+      oldPassword: String(formData.get('oldPassword')),
+      newPassword: String(formData.get('newPassword')),
     };
-    if(e.target) {
+    if (e.target) {
       const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
-      if (formIsValid) {
-        console.log(data);
+      if (formData.get('oldPassword') === formData.get('newPassword')) {
+        if (formIsValid) {
+          await settingsController.editPassword(data);
+          console.log('Пароль изменен');
+          return;
+        }
+      } else {
+        this.setProps({ inputErrorText: 'Пароли не совпадают' });
+        return;
       }
     }
   }

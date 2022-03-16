@@ -1,8 +1,9 @@
-import { RegisterParameters, settingsApi } from '../api';
+import { settingsApi } from '../api';
 import { store } from '../utils/Store';
+import { EditProfileParameters } from '../api/types';
 
 class SettingsController {
-  public async editProfile(data: RegisterParameters) {
+  public async editProfile(data: EditProfileParameters) {
     try {
       const result = await settingsApi.editProfile(data);
       if (result.status !== 200) {
@@ -34,7 +35,6 @@ class SettingsController {
       if (result.status !== 200) {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }
-      store.set('userInfo', JSON.parse(result.response));
       return result;
     } catch (error) {
       console.log(error.message);

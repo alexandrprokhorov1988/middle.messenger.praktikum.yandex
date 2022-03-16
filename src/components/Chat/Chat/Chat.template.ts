@@ -14,7 +14,7 @@ export const chatTemplate =
       .chat__right-container
         .chat__settings
           .chat__settings-user-info-container
-            img.chat__settings-avatar(src=avatar, alt="Аватар")
+            img.chat__settings-avatar(src=userInfo.avatar || 'https://i.gifer.com/Q2RE.gif', alt="Аватар")
             p.chat__settings-user-name=userInfo.first_name            
           | !{userButton}          
           if isOpenUserModal

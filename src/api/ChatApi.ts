@@ -7,14 +7,14 @@ class ChatAPI extends BaseAPI {
   public createChat(data: { title: string }): Promise<XMLHttpRequest> {
     return chatAPIInstance.post('/', {
       withCredentials: true,
-      data: data
+      data: JSON.stringify(data)
     });
   }
 
   public deleteChatById(data: { chatId: string | number }): Promise<XMLHttpRequest> {
     return chatAPIInstance.delete('/', {
       withCredentials: true,
-      data: data
+      data: JSON.stringify(data)
     });
   }
 
@@ -33,7 +33,7 @@ class ChatAPI extends BaseAPI {
   public addUserToChat(data: { users: number[], chatId: string | number }): Promise<XMLHttpRequest> {
     return chatAPIInstance.put('/users', {
       withCredentials: true,
-      data: data
+      data: JSON.stringify(data)
     });
   }
 

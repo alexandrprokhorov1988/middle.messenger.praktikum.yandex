@@ -1,4 +1,4 @@
-export const inputTemplate = `label.form__label #{labelName}
+export const fileInputTemplate = `label.form__label #{labelName}
     input.form__input(
       type=inputType
       name=inputName

@@ -13,14 +13,13 @@ import AddFotoModal from '../../Modal/AddFotoModal/AddFotoModal';
 import { ChatProps } from './Chat.types';
 import { router } from '../../../pages';
 import { store } from '../../../utils/Store';
-import { authController, chatController } from '../../../controllers';
+import { chatController } from '../../../controllers';
 
 class Chat extends Block<ChatProps> {
-  constructor() {
+  constructor(props: Record<string, unknown>) {
     super(
       'div',
       {
-        avatar: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
         userInfo: {
           first_name: '',
           email: '',
@@ -28,6 +27,7 @@ class Chat extends Block<ChatProps> {
           second_name: '',
           display_name: '',
           phone: '',
+          avatar: 'https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg',
         },
         chats: [
           new ChatChat({
@@ -124,13 +124,12 @@ class Chat extends Block<ChatProps> {
             }
           },
         }),
+        ...props,
       },
     );
   }
 
   async componentDidMount() {
-    console.log(this.props);
-    await authController.getUserInfo();
     await chatController.getChats();
     const chats = store.getState().chats;
     console.log(chats);
@@ -147,7 +146,9 @@ class Chat extends Block<ChatProps> {
     console.log(arrOfChats);
     this.setProps({
       chats: arrOfChats
-    })
+    });
+    console.log(store.getState());
+    console.log(this.props);
   }
 
   handleClickAddGeoButton() {

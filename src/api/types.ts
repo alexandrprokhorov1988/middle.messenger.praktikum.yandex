@@ -12,7 +12,17 @@ type RegisterParameters = {
   password: string;
 }
 
+type EditProfileParameters = {
+  email: string;
+  login: string;
+  first_name: string;
+  second_name: string;
+  phone: string;
+  display_name: string;
+}
+
 export {
   LoginParameters,
   RegisterParameters,
+  EditProfileParameters,
 };

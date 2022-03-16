@@ -1,5 +1,5 @@
-import { withStore } from '../../../utils/Store'
 import Chat from './Chat';
+import { withStore } from '../../../utils/Store'
 
-const withUser = withStore((state: any) => state.userInfo);
-export default withUser(Chat);
+// const withUser = withStore((state: any) => ({...state.userInfo}));
+export default withStore((state: any) => ({...state}))(Chat);

@@ -1,8 +1,8 @@
-type InputProps = {
-  events?: {
-    click?: () => void,
-    focusout?: (e: Event) => void
-  };
+type FileInputProps = {
+  // events?: {
+  //   click?: () => void,
+  //   focusout?: (e: Event) => void
+  // };
   labelName?: string;
   inputType?: string;
   inputName?: string;
@@ -15,8 +15,9 @@ type InputProps = {
   inputErrorText?: string;
   value?: string;
   enctype?: string;
+  accept?: string;
 }
 
 export {
-  InputProps,
+  FileInputProps,
 };
