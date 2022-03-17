@@ -11,6 +11,7 @@ class Store extends EventBus {
   private state: Record<string, unknown> = {
     userInfo: null,
     chats: [],
+    messages: [],
   };
 
   public set(path: string, value: unknown) {

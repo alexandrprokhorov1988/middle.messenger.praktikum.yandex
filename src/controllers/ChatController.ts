@@ -1,5 +1,7 @@
 import { chatApi } from '../api';
 import { store } from '../utils/Store';
+import { ChatChat } from '../components/Chat/ChatChat';
+import { arrayBuffer } from 'stream/consumers';
 
 class ChatController {
   public async createChat(data: { title: string }) {
@@ -34,7 +36,19 @@ class ChatController {
       if (result.status !== 200) {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }
-      store.set('chats', JSON.parse(result.response));
+
+      const arrOfChats = (JSON.parse(result.response) as any).map((item: any) => {
+        return new ChatChat({
+          avatar: item.avatar,
+          title: item.title,
+          last_message: item.last_message,
+          chatDate: '10:49',
+          unread_count: item.unread_count,
+          id: item.id,
+        });
+      });
+
+      store.set('chats', arrOfChats);
       return result;
     } catch (error) {
       console.log(error.message);

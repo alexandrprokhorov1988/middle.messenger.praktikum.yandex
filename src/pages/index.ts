@@ -8,6 +8,7 @@ import Error500 from '../components/Errors/Error500';
 import SettingsUser from '../components/Settings/SettingsUser';
 import SettingsPassword from '../components/Settings/SettingsPassword';
 import AuthController from '../controllers/AuthController';
+import { chatController } from '../controllers';
 
 const router = new Router('.page');
 
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     await AuthController.getUserInfo();
+    await chatController.getChats();
   } catch (e) {
     console.log(e);
     router.go('/');

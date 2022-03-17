@@ -2,6 +2,7 @@ import { compile } from 'pug';
 import { Block } from '../../../utils/Block';
 import { chatChatTemplate } from './ChatChat.template';
 import { ChatChatProps } from './ChatChat.types';
+import { chatController } from '../../../controllers';
 
 export default class ChatChat extends Block<ChatChatProps> {
   public constructor(props: ChatChatProps) {
@@ -16,7 +17,7 @@ export default class ChatChat extends Block<ChatChatProps> {
     );
   }
 
-  public handleClick() {
+  public async handleClick() {
     const li = [...document.querySelectorAll('.chat__chat-container')];
     li.forEach((elem: HTMLElement) => {
       elem.classList.remove('chat__chat-container_selected')
@@ -27,7 +28,7 @@ export default class ChatChat extends Block<ChatChatProps> {
     })
   }
 
- public render() {
+  public render() {
     return this.compile(compile(chatChatTemplate), { ...this.props });
   }
 }

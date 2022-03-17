@@ -13,7 +13,7 @@ import AddFotoModal from '../../Modal/AddFotoModal/AddFotoModal';
 import { ChatProps } from './Chat.types';
 import { router } from '../../../pages';
 import { store } from '../../../utils/Store';
-import { chatController } from '../../../controllers';
+import AddNewChatModal from '../../Modal/AddNewChatModal/AddNewChatModal';
 
 class Chat extends Block<ChatProps> {
   constructor(props: Record<string, unknown>) {
@@ -124,31 +124,25 @@ class Chat extends Block<ChatProps> {
             }
           },
         }),
+        addChat: new Button({
+          customClass: 'chat__settings-button chat__settings-button_type-add-new-chat',
+          events: {
+            click: () => this.handleAddNewChat(),
+          },
+        }),
+        addNewChatModal: new AddNewChatModal({}),
         ...props,
       },
     );
+    console.log(this.props)
   }
 
-  async componentDidMount() {
-    await chatController.getChats();
-    const chats = store.getState().chats;
-    console.log(chats);
-    const arrOfChats = (chats as any).map((item: any) => {
-      return new ChatChat({
-        avatar: item.avatar,
-        title: item.title,
-        last_message: item.last_message,
-        chatDate: '10:49',
-        unread_count: item.unread_count,
-        id: item.id,
-      });
-    });
-    console.log(arrOfChats);
-    this.setProps({
-      chats: arrOfChats
-    });
-    console.log(store.getState());
-    console.log(this.props);
+  handleAddNewChat(){
+    const modal = document.querySelector('[data-modal-name=add-chat]');
+    if (modal) {
+      (modal! as HTMLElement).style.display = "flex";
+    }
+    return;
   }
 
   handleClickAddGeoButton() {
