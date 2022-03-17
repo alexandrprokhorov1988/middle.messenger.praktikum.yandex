@@ -2,6 +2,7 @@ import { chatApi } from '../api';
 import { store } from '../utils/Store';
 import { ChatChat } from '../components/Chat/ChatChat';
 import { arrayBuffer } from 'stream/consumers';
+import { SERVER_RESOURCES_BASE_URL } from '../config/config';
 
 class ChatController {
   public async createChat(data: { title: string }) {
@@ -39,7 +40,7 @@ class ChatController {
 
       const arrOfChats = (JSON.parse(result.response) as any).map((item: any) => {
         return new ChatChat({
-          avatar: item.avatar,
+          avatar:  item.avatar && (SERVER_RESOURCES_BASE_URL + item.avatar),
           title: item.title,
           last_message: item.last_message,
           chatDate: '10:49',

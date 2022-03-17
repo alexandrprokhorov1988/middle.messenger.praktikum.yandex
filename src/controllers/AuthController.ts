@@ -1,6 +1,7 @@
 import { authApi, LoginParameters, RegisterParameters } from '../api';
 import { router } from '../pages';
 import { store } from '../utils/Store';
+import { SERVER_RESOURCES_BASE_URL } from '../config/config';
 
 class AuthController {
   public async register(data: RegisterParameters) {
@@ -34,7 +35,8 @@ class AuthController {
       if (result.status !== 200) {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }
-      store.set('userInfo', JSON.parse(result.response));
+      const userData = JSON.parse(result.response);
+      store.set('userInfo', { ...userData, avatar: SERVER_RESOURCES_BASE_URL + userData.avatar });
     } catch (error) {
       console.log(error.message);
     }
