@@ -12,6 +12,7 @@ class Store extends EventBus {
     userInfo: null,
     chats: [],
     messages: [],
+    currentChatId: null
   };
 
   public set(path: string, value: unknown) {

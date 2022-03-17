@@ -1,7 +1,7 @@
 type ChatChatProps = {
   events?: {
     submit?: (e: Event) => void,
-    click?: () => void,
+    click?: (e: Event) => void,
   },
   avatar?: string;
   title?: string;
