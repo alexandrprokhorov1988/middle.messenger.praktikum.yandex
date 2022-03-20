@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     await AuthController.getUserInfo();
-    await chatController.getChats();
+    // await chatController.getChats();
   } catch (e) {
     console.log(e);
     router.go('/');

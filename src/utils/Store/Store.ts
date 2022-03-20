@@ -8,6 +8,7 @@ export enum StoreEvents {
 }
 
 class Store extends EventBus {
+
   private state: Record<string, unknown> = {
     userInfo: null,
     chats: [],
@@ -39,7 +40,8 @@ export const withStore = (mapStateToProps: (state: Record<string, unknown>) => R
         const newState = mapStateToProps(store.getState());
 
         if (!isEqual(state, newState)) {
-          this.setProps({ ...newState })
+          this.setProps({ ...newState });
+          state = newState;
         }
       })
     }

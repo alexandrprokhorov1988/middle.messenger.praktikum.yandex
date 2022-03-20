@@ -1,7 +1,6 @@
 import { chatApi } from '../api';
 import { store } from '../utils/Store';
-import { ChatChat } from '../components/Chat/ChatChat';
-import { arrayBuffer } from 'stream/consumers';
+import ChatChat from '../components/Chat/ChatChat/ChatChat';
 import { SERVER_RESOURCES_BASE_URL } from '../config/config';
 
 class ChatController {
@@ -48,9 +47,11 @@ class ChatController {
           id: item.id,
         });
       });
-
+      //
+      // return JSON.parse(result.response);
       store.set('chats', arrOfChats);
-      return result;
+      // store.set('chats', JSON.parse(result.response));
+      // return JSON.parse(result.response);
     } catch (error) {
       console.log(error.message);
     }

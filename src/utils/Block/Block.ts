@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { EventBus } from '../EventBus';
 import isEqual from '../helpers.isEqual';
+import { compile } from 'pug';
+import { chatChatTemplate } from '../../components/Chat/ChatChat/ChatChat.template';
 
 export default abstract class Block<Props extends Record<string, unknown>> {
   private static EVENTS = {
@@ -77,12 +79,10 @@ export default abstract class Block<Props extends Record<string, unknown>> {
     if (!response) {
       return;
     }
-    this._render();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   public componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
-    // return oldProps !== newProps;
     return isEqual(oldProps, newProps);
   }
 
@@ -90,8 +90,29 @@ export default abstract class Block<Props extends Record<string, unknown>> {
     if (!nextProps) {
       return;
     }
+console.log(nextProps);
+    // Object.entries(nextProps).forEach(([key, child]: [string, Block<Props>]) => {
+    //   if (Array.isArray(child)) {
+        // console.log(child)
+        // const { children, props } = this._getChildren(child);
+        // console.log(props)
+          // Object.assign({...this.props, props});
+          // Object.assign({...this.children, children});
+        // child.forEach((item) => {
+          // console.log(item)
+          const { children, props } = this._getChildren(nextProps);
+          Object.assign(this.props, props);
+          Object.assign(this.children, children);
 
+        // })
+
+      // }else{
+        // Object.assign(this.props, props);
+        // console.log(nextProps);
+      // }
+    // });
     Object.assign(this.props, nextProps);
+
   };
 
   get element() {
@@ -204,6 +225,8 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   }
 
   public compile(template: (context: Record<string, unknown>) => string, context: Record<string, unknown>) {
+   // console.log(context)
+
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 
     Object.entries(this.children).forEach(([key, child]: [string, Block<Props>]) => {
