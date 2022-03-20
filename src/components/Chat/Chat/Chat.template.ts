@@ -30,7 +30,7 @@ export const chatTemplate =
                 | !{removeUserButton}
                 p.chat__settings-modal-text Удалить пользователя              
         ul.chat__messages
-          | !{chatMessages}
+          | !{messages}
         .chat__message-input-container        
           | !{fileButton}  
           | !{chatMessageForm}

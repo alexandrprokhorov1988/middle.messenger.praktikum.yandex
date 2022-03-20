@@ -5,6 +5,8 @@ class MessageController {
   private readonly baseUrl: string;
   private socket: any;
   private userId: number;
+  private chatId: number;
+  private token: string;
 
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -12,13 +14,15 @@ class MessageController {
 
   async addEvents() {
     await this.socket.addEventListener('open', () => this.handleOpen);
-    await this.socket.addEventListener('close', this.handleClose);
+    await this.socket.addEventListener('close', this.handleClose.bind(this));
     await this.socket.addEventListener('message', this.handleMessage);
     await this.socket.addEventListener('error', this.handleError);
   }
 
   public async init(userId: number, chatId: number, token: string) {
     this.userId = userId;
+    this.chatId = chatId;
+    this.token = token;
     this.socket = await new WebSocket(`${this.baseUrl}/${userId}/${chatId}/${token}`);
     await this.addEvents();
     console.log('соединение установлено');
@@ -49,25 +53,31 @@ class MessageController {
     } else {
       console.log('Обрыв соединения');
     }
-
     console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+    console.log('восстановление соединения...');
+    await this.init(this.userId, this.chatId, this.token);
   }
 
   public async handleMessage(event: any) {
     console.log('получено сообщение');
-    const messages = store.getState().messages || [];
+    const state: Record<string, unknown> = store.getState();
     const data = Array.isArray(JSON.parse(event.data)) ? JSON.parse(event.data) : [JSON.parse(event.data)];
     const arrOfMessages = (data as any).map((item: any) => {
+      const date = new Date(item.time);
+
       return new ChatMessage({
-        time: item.time,
+        time: `${date.getHours()}:${date.getMinutes()}`,
         content: item.content,
         is_read: item.is_read,
         id: item.id,
-        isUserMessage: this.userId === item.user_id,
+        isUserMessage: state.userInfo.id === item.user_id,
       });
     });
-
-    store.set('messages', [...messages, arrOfMessages]);
+    if (Array.isArray(JSON.parse(event.data))) {
+      store.set('messages', [...arrOfMessages]);
+    } else {
+      store.set('messages', [...arrOfMessages, ...state.messages]);
+    }
   }
 
   public async handleError(event: any) {
@@ -80,7 +90,7 @@ class MessageController {
         content: `0`,
         type: 'get old',
       }));
-      console.log('сообщения загружены');
+      console.log('запрос сообщений');
     } else {
       await this.sleep(1000);
       await this.getMessages(offset);

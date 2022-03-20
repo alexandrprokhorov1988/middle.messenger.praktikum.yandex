@@ -7,5 +7,6 @@ export default withStore((state: any) => {
     chats: state.chats,
     currentChatId: state.currentChatId,
     token: state.token,
+    messages: state.messages
   });
 })(Chat);

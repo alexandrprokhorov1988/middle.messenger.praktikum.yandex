@@ -7,8 +7,10 @@
   display: flex;
   flex-direction: column;
   align-items: start;
+  word-break: break-all;
+  margin-bottom: 10px;
 
-  &_current-user{
+  &_current-user {
     align-self: end;
     background-color: $background;
     border-radius: 10px 10px 0 10px;
@@ -22,7 +24,7 @@
   line-height: 15px;
   color: $text__color;
 
-  &_checked{
+  &_checked {
     padding-right: 15px;
   }
 }
@@ -35,6 +37,7 @@
   padding: 0;
   margin: 0;
   align-self: end;
+  width: 50px;
 
   &_checked {
     color: $action-element__background-color;

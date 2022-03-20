@@ -22,7 +22,6 @@ export default class ChatChat extends Block<ChatChatProps> {
     const currentChatId = store.getState().currentChatId;
     const chatId = e.target!.dataset.id;
     if (currentChatId !== chatId) {
-      store.set('messages', []);
       const li = [...document.querySelectorAll('.chat__chat-container')];
       li.forEach((elem: HTMLElement) => {
         elem.classList.remove('chat__chat-container_selected')
