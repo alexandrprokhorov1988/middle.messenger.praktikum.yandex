@@ -13,7 +13,8 @@ class Store extends EventBus {
     userInfo: null,
     chats: [],
     messages: [],
-    currentChatId: null
+    currentChatId: null,
+    token: '',
   };
 
   public set(path: string, value: unknown) {
@@ -43,6 +44,7 @@ export const withStore = (mapStateToProps: (state: Record<string, unknown>) => R
           this.setProps({ ...newState });
           state = newState;
         }
+        // console.log(state)
       })
     }
   }

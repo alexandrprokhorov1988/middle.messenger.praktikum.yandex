@@ -36,7 +36,7 @@ class AuthController {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }
       const userData = JSON.parse(result.response);
-      store.set('userInfo', { ...userData, avatar: SERVER_RESOURCES_BASE_URL + userData.avatar });
+      store.set('userInfo', { ...userData, avatar: userData.avatar && SERVER_RESOURCES_BASE_URL + userData.avatar });
     } catch (error) {
       console.log(error.message);
     }

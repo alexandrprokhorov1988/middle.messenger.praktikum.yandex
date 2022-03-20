@@ -15,7 +15,7 @@ type ChatProps = {
   avatar?: string;
   userInfo?: Record<string, unknown>;
   chats?: ChatChat | ChatChat[];
-  chatMessages?: ChatMessage | ChatMessage[];
+  messages?: ChatMessage | ChatMessage[];
   chatMessageForm?: ChatMessageForm;
   fileButton?: Button;
   userButton?: Button;

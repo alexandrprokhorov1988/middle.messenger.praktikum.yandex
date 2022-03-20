@@ -203,8 +203,6 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   }
 
   public compile(template: (context: Record<string, unknown>) => string, context: Record<string, unknown>) {
-    console.log(context);
-
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 
     Object.entries(this.children).forEach(([key, child]: [string, Block<Props>]) => {

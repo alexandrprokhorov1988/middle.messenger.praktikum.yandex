@@ -5,6 +5,7 @@ export default withStore((state: any) => {
   return ({
     userInfo: state.userInfo,
     chats: state.chats,
-    currentChatId: state.currentChatId
+    currentChatId: state.currentChatId,
+    token: state.token,
   });
 })(Chat);

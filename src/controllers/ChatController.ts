@@ -39,9 +39,9 @@ class ChatController {
 
       const arrOfChats = (JSON.parse(result.response) as any).map((item: any) => {
         return new ChatChat({
-          avatar:  item.avatar && (SERVER_RESOURCES_BASE_URL + item.avatar),
+          avatar: item.avatar && (SERVER_RESOURCES_BASE_URL + item.avatar),
           title: item.title,
-          last_message: item.last_message,
+          last_message: item.last_message && item.last_message.content,
           chatDate: '10:49',
           unread_count: item.unread_count,
           id: item.id,
@@ -84,6 +84,18 @@ class ChatController {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }
       return result;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  public async getToken(chatId: number) {
+    try {
+      const result = await chatApi.getToken(chatId);
+      if (result.status !== 200) {
+        throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
+      }
+      return JSON.parse(result.response);
     } catch (error) {
       console.log(error.message);
     }

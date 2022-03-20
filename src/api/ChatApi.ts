@@ -24,6 +24,12 @@ class ChatAPI extends BaseAPI {
     });
   }
 
+  public getToken(id: number): Promise<XMLHttpRequest> {
+    return chatAPIInstance.post(`/token/${id}`, {
+      withCredentials: true,
+    });
+  }
+
   public getNewMessageCountFromChat(id: string | number): Promise<XMLHttpRequest> {
     return chatAPIInstance.get(`/new/${id}`, {
       withCredentials: true,
