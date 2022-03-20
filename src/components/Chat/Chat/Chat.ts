@@ -132,36 +132,14 @@ class Chat extends Block<ChatProps> {
           },
         }),
         addNewChatModal: new AddNewChatModal({}),
-        ...props,
       },
     );
-    // console.log(this.props)
+    console.log(this.props)
   }
 
   async componentDidMount() {
     await chatController.getChats()
   }
-  //   const chats = await chatController.getChats();
-  //   // const chats = store.getState();
-  //   // console.log(chats)
-  //     const arrOfChats = chats.map((item: any) => {
-  //       return new ChatChat({
-  //         avatar: item.avatar ? SERVER_RESOURCES_BASE_URL + item.avatar : '',
-  //         title: item.title,
-  //         last_message: item.last_message,
-  //         chatDate: '10:49',
-  //         unread_count: item.unread_count,
-  //         id: item.id,
-  //       });
-  //     });
-  //     // store.set('chats', arrOfChats)
-  //     // console.log(arrOfChats);
-  //     this.setProps({
-  //       chats: arrOfChats
-  //     });
-  //     // console.log(store.getState());
-  //     // store.set('chats', arrOfChats);
-  // }
 
   handleAddNewChat() {
     const modal = document.querySelector('[data-modal-name=add-chat]');

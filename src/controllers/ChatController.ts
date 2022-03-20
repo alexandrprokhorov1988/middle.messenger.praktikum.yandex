@@ -47,11 +47,7 @@ class ChatController {
           id: item.id,
         });
       });
-      //
-      // return JSON.parse(result.response);
       store.set('chats', arrOfChats);
-      // store.set('chats', JSON.parse(result.response));
-      // return JSON.parse(result.response);
     } catch (error) {
       console.log(error.message);
     }
