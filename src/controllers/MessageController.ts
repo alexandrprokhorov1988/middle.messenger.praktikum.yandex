@@ -74,9 +74,9 @@ class MessageController {
       });
     });
     if (Array.isArray(JSON.parse(event.data))) {
-      store.set('messages', [...arrOfMessages]);
+      store.set('messages', [...arrOfMessages.reverse()]);
     } else {
-      store.set('messages', [...arrOfMessages, ...state.messages]);
+      store.set('messages', [...arrOfMessages.reverse(), ...state.messages]);
     }
   }
 
