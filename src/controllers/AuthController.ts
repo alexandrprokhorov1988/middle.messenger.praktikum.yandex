@@ -45,6 +45,7 @@ class AuthController {
   public async logout() {
     try {
       const result = await authApi.logout();
+      store.set('userInfo', null);
       if (result.status !== 200) {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }

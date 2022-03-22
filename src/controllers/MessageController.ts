@@ -54,8 +54,10 @@ class MessageController {
       console.log('Обрыв соединения');
     }
     console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-    console.log('восстановление соединения...');
-    await this.init(this.userId, this.chatId, this.token);
+    if(store.getState().userInfo) {
+      console.log('восстановление соединения...');
+      await this.init(this.userId, this.chatId, this.token);
+    }
   }
 
   public async handleMessage(event: any) {

@@ -1,8 +1,8 @@
 type FileInputProps = {
-  // events?: {
-  //   click?: () => void,
-  //   focusout?: (e: Event) => void
-  // };
+  events?: {
+    click?: () => void,
+    focusout?: (e: Event) => void
+  };
   labelName?: string;
   inputType?: string;
   inputName?: string;

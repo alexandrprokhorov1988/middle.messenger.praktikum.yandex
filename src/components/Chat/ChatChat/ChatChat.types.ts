@@ -8,7 +8,8 @@ type ChatChatProps = {
   last_message?: string;
   chatDate?: string;
   unread_count?: number;
-  id: number;
+  isSelected?: string,
+  id?: number;
 }
 
 export {

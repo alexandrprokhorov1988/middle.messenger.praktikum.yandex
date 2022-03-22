@@ -2,12 +2,12 @@ import { compile } from 'pug';
 import { Block } from '../../../utils/Block/index';
 import { addAvatarModalTemplate } from './AddAvatarModal.template';
 import Modal from '../Modal/Modal';
-import { AddFileModalProps } from './AddAvatarModal.types';
+import { AddAvatarModalProps } from './AddAvatarModal.types';
 import FileInput from '../../Input/FileInput/FileInput';
 import { settingsController } from '../../../controllers';
 
-export default class AddAvatarModal extends Block<AddFileModalProps> {
-  public constructor(props: AddFileModalProps) {
+export default class AddAvatarModal extends Block<AddAvatarModalProps> {
+  public constructor(props: AddAvatarModalProps) {
     super(
       'div',
       {
@@ -40,8 +40,8 @@ export default class AddAvatarModal extends Block<AddFileModalProps> {
 
   public async handleSubmit(e: Event) {
     e.preventDefault();
-    if(e.target!.closest('form[name="add-avatar"]')) {
-      const file = e.target!.elements.avatar.files[0];
+    if ((e.target! as HTMLElement).closest('form[name="add-avatar"]')) {
+      const file = (e.target! as any).elements.avatar.files[0];
       const formData = new FormData();
       formData.append('avatar', file);
       await settingsController.editAvatar(formData);

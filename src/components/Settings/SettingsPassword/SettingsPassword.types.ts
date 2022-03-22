@@ -10,7 +10,7 @@ type SettingsPasswordProps = {
   oldPasswordInput?: Input;
   newPasswordInput?: Input;
   confirmPasswordInput?: Input;
-  linkButton: Button;
+  linkButton?: Button;
   inputErrorText?: string;
   userInfo?: Record<string, unknown>;
 }

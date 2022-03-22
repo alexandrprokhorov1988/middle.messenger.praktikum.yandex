@@ -119,7 +119,7 @@ class SettingsUser extends Block<SettingsUserProps> {
 
   public async handleSubmit(e: Event) {
     e.preventDefault();
-    if(e.target!.closest('form[name="user-edit"]')) {
+    if((e.target! as HTMLElement).closest('form[name="user-edit"]')) {
       const formData = new FormData((e.target as HTMLFormElement));
       const data = {
         email: String(formData.get('email')),

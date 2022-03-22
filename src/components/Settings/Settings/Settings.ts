@@ -6,7 +6,6 @@ import { SettingsProps } from './Settings.types';
 import { router } from '../../../pages';
 import Button from '../../Button/Button/Button';
 import { authController } from '../../../controllers';
-import { store } from '../../../utils/Store';
 
 class Settings extends Block<SettingsProps> {
   public constructor(props: Record<string, unknown>) {
@@ -15,13 +14,13 @@ class Settings extends Block<SettingsProps> {
       {
         disabledUserInfoForm: 'true',
         userInfo: {
-          first_name: props.first_name,
+          first_name: '',
           email: '',
           login: '',
           second_name: '',
           display_name: '',
           phone: '',
-          avatar: 'https://i.gifer.com/Q2RE.gif'
+          avatar: ''
         },
         buttonChangeInfo: new SettingsButton({
           buttonName: 'Изменить данные',
@@ -63,7 +62,6 @@ class Settings extends Block<SettingsProps> {
   public async handleLogout() {
     try {
       await authController.logout();
-      store.set('userInfo', null);
       router.go('/');
     } catch (err) {
       console.log(err);

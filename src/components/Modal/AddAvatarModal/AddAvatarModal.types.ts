@@ -1,6 +1,6 @@
 import Modal from '../Modal/Modal';
 
-type AddFileModalProps = {
+type AddAvatarModalProps = {
   modalFormContent?: Modal;
   events?: {
     submit?: (e: Event) => void,
@@ -9,5 +9,5 @@ type AddFileModalProps = {
 }
 
 export {
-  AddFileModalProps,
+  AddAvatarModalProps,
 };

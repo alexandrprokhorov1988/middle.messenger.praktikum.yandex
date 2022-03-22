@@ -23,6 +23,8 @@ type ChatProps = {
   removeUserModal?: RemoveUserModal;
   addGeoModal?: AddGeoModal;
   addFileModal?: AddFileModal;
+  isOpenUserModal?: string,
+  isOpenFileModal?: string,
   addFotoModal?: AddFotoModal;
   addUserButton?: Button;
   removeUserButton?: Button;

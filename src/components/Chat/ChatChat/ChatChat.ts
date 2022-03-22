@@ -20,7 +20,7 @@ export default class ChatChat extends Block<ChatChatProps> {
 
   public async handleClick(e: Event) {
     const currentChatId = store.getState().currentChatId;
-    const chatId = e.target!.dataset.id;
+    const chatId = (e.target! as HTMLElement).dataset.id;
     if (currentChatId !== chatId) {
       const li = [...document.querySelectorAll('.chat__chat-container')];
       li.forEach((elem: HTMLElement) => {
@@ -28,11 +28,11 @@ export default class ChatChat extends Block<ChatChatProps> {
       });
       store.set('currentChatId', chatId);
       this.setProps({
-        "isSelected": "true"
+        isSelected: "true"
       });
       const { userInfo, currentChatId } = await store.getState();
-      const token = await chatController.getToken(currentChatId);
-      await messageController.init(userInfo.id, currentChatId, token.token);
+      const token = await chatController.getToken(currentChatId as number);
+      await messageController.init((userInfo as { id: number }).id, currentChatId as number, token.token);
       await messageController.getMessages();
       console.log(store.getState());
     } else {

@@ -5,15 +5,15 @@ import { Input } from '../Input/Input/index';
 import { AuthorizationProps } from './Authorization.types';
 import Button from '../Button/Button/Button';
 import { router } from '../../pages';
-import connect from '../../utils/helpers.connect';
 import { authController } from '../../controllers';
 import { store } from '../../utils/Store';
 
-class Authorization extends Block<AuthorizationProps> {
-  public constructor() {
+export default class Authorization extends Block<AuthorizationProps> {
+  public constructor(props: Record<string, unknown>) {
     super(
       'div',
       {
+        ...props,
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
@@ -75,5 +75,3 @@ class Authorization extends Block<AuthorizationProps> {
     return this.compile(compile(authorizationTemplate), { ...this.props });
   }
 }
-
-export default connect<AuthorizationProps>(Authorization);

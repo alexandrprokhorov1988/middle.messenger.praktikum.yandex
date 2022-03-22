@@ -15,7 +15,7 @@ import AddNewChatModal from '../../Modal/AddNewChatModal/AddNewChatModal';
 import { chatController } from '../../../controllers';
 
 class Chat extends Block<ChatProps> {
-  constructor(props: Record<string, unknown>) {
+  constructor() {
     super(
       'div',
       {
@@ -96,7 +96,6 @@ class Chat extends Block<ChatProps> {
         addNewChatModal: new AddNewChatModal({}),
       },
     );
-    // console.log(store.getState())
   }
 
   async componentDidMount() {
