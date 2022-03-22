@@ -34,7 +34,7 @@ class SettingsApi extends BaseAPI {
     });
   }
 
-  public async getUserById(id: string): Promise<XMLHttpRequest> {
+  public async getUserById(id: string | number): Promise<XMLHttpRequest> {
     return await settingsAPIInstance.get(`/${id}`, {
       withCredentials: true,
     });

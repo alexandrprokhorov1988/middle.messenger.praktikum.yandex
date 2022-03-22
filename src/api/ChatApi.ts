@@ -56,10 +56,14 @@ class ChatAPI extends BaseAPI {
     });
   }
 
-  public editChatAvatar(data: FormData): Promise<XMLHttpRequest> {
+  public editChatAvatar(chatId: number, avatar: FormData): Promise<XMLHttpRequest> {
     return chatAPIInstance.put(`/avatar`, {
+      headers: {},
       withCredentials: true,
-      data: data
+      data: {
+        chatId,
+        avatar,
+      }
     });
   }
 }
