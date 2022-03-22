@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import HTTPTransport from './HTTPTransport';
-import { LoginParameters } from '../../api/types';
+import { LoginParameters } from '../../api';
 
 describe('HTTPTransport', () => {
   let xhr: sinon.SinonFakeXMLHttpRequestStatic, requests: sinon.SinonFakeXMLHttpRequest[];
