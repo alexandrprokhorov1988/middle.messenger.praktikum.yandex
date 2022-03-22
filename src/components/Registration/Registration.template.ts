@@ -9,4 +9,4 @@ export const registrationTemplate = `section.form
          | !{passwordInput}  
          | !{passwordSubmitInput}          
          button.form__submit-button Зарегистрироваться
-       a.form__link(href=linkTo)=formLinkText`;
+       | !{linkButton}`;

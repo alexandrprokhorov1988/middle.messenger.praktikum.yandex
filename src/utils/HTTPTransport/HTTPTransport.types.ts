@@ -1,19 +1,20 @@
-enum METHODS {
+enum Methods {
   Get = 'GET',
-  Post= 'POST',
+  Post = 'POST',
   Put = 'PUT',
   Patch = 'PATCH',
   Delete = 'DELETE',
 }
 
 type RequestOptions = {
-  method?: METHODS;
+  method?: Methods;
   headers?: Record<string, string>;
   timeout?: number;
   data?: any;
+  withCredentials?: boolean;
 };
 
 export {
-  METHODS,
+  Methods,
   RequestOptions,
 };

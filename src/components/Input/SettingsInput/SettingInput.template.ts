@@ -5,7 +5,7 @@ export const settingInputTemplate =
       input.settings__input(
       type=inputType
       name=inputName
-      placeholder=placeholderName
+      placeholder=inputPlaceholder
       required=required
       value=value
       minlength=minlength

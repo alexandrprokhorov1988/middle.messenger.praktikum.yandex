@@ -1,11 +1,12 @@
 import Chat from './Chat';
-import { renderDOM } from '../../../utils/renderDOM';
+import { withStore } from '../../../utils/Store'
 
-document.addEventListener('DOMContentLoaded', () => {
-  const chat = new Chat();
-  renderDOM('.page', chat);
-});
-
-export {
-  Chat,
-};
+export default withStore((state: any) => {
+  return ({
+    userInfo: state.userInfo,
+    chats: state.chats,
+    currentChatId: state.currentChatId,
+    token: state.token,
+    messages: state.messages
+  });
+})(Chat);

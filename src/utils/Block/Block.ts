@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { EventBus } from '../EventBus';
+import isEqual from '../helpers.isEqual';
 
-export default abstract class Block {
+export default abstract class Block<Props extends Record<string, unknown>> {
   private static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -16,11 +17,10 @@ export default abstract class Block {
   };
   private eventBus: () => EventBus;
   public props: Record<string, unknown>;
-  private _id: string;
-  propsAndChildren: any;
-  protected children: Record<string, Block>;
+  private readonly _id: string;
+  protected children: Record<string, Block<Props>>;
 
-  constructor(tagName = 'div', propsAndChildren = {}) {
+  protected constructor(tagName = 'div', propsAndChildren: Props) {
     const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
     this._meta = {
@@ -28,7 +28,6 @@ export default abstract class Block {
       props,
     };
     this.children = children;
-
     this._id = uuidv4();
     this.props = this._makePropsProxy({ ...props, __id: this._id });
     this.eventBus = () => eventBus;
@@ -57,7 +56,7 @@ export default abstract class Block {
     this.componentDidMount();
     Object.values(this.children).forEach(child => {
       if (Array.isArray(child)) {
-        child.forEach((elem: any) => {
+        child.forEach(elem => {
           elem.dispatchComponentDidMount();
         })
       } else {
@@ -78,20 +77,20 @@ export default abstract class Block {
     if (!response) {
       return;
     }
-    this._render();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   public componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
-    return oldProps !== newProps;
+    return isEqual(oldProps, newProps);
   }
 
-  public setProps = (nextProps: Record<string, unknown>) => {
+  public setProps = (nextProps: Props) => {
     if (!nextProps) {
       return;
     }
-
-    Object.assign(this.props, nextProps);
+    const { children, props } = this._getChildren(nextProps);
+    Object.assign(this.children, children);
+    Object.assign(this.props, props);
   };
 
   get element() {
@@ -119,13 +118,13 @@ export default abstract class Block {
     return this.element;
   }
 
-  private _getChildren(propsAndChildren: any) {
-    const children: any = {};
-    const props: any = {};
+  private _getChildren(propsAndChildren: Props) {
+    const children: Record<string, any> = {};
+    const props: Record<string, any> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        value.forEach((elem: any) => {
+        value.forEach(elem => {
           if (elem instanceof Block) {
             if (children[key]) {
               children[key] = [...children[key], elem];
@@ -176,7 +175,7 @@ export default abstract class Block {
   }
 
   public show() {
-    this.getContent()!.style.display = 'block';
+    this.getContent()!.style.display = 'flex';
   }
 
   public hide() {
@@ -184,7 +183,7 @@ export default abstract class Block {
   }
 
   private _addEvents() {
-    const { events } = this.props as any;
+    const { events } = this.props as Record<string, EventListener>;
     if (!events) {
       return;
     }
@@ -194,7 +193,7 @@ export default abstract class Block {
   }
 
   private _removeEvents() {
-    const { events } = this.props as any;
+    const { events } = this.props as Record<string, EventListener>;
     if (!events) {
       return;
     }
@@ -203,16 +202,16 @@ export default abstract class Block {
     });
   }
 
-  public compile(template: (context: any) => string, context: any) {
+  public compile(template: (context: Record<string, unknown>) => string, context: Record<string, unknown>) {
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 
-    Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
+    Object.entries(this.children).forEach(([key, child]: [string, Block<Props>]) => {
       if (Array.isArray(child)) {
-        child.forEach((elem2: any) => {
+        child.forEach((elem: Block<Props>) => {
           if (context[key]) {
-            context[key] = context[key] + `<div data-id="id-${elem2._id}"></div>`;
+            context[key] = context[key] + `<div data-id="id-${elem._id}"></div>`;
           } else {
-            context[key] = `<div data-id="id-${elem2._id}"></div>`;
+            context[key] = `<div data-id="id-${elem._id}"></div>`;
           }
         })
       } else {
@@ -222,9 +221,9 @@ export default abstract class Block {
 
     fragment.innerHTML = template(context);
 
-    Object.entries(this.children).forEach(([key, child]: [string, Block]) => {
+    Object.entries(this.children).forEach(([_key, child]: [string, Block<Props>]) => {
       if (Array.isArray(child)) {
-        child.forEach((elem: any) => {
+        child.forEach((elem: Block<Props>) => {
           const stub = fragment.content.querySelector(`[data-id="id-${elem._id}"]`);
           if (!stub) {
             return;

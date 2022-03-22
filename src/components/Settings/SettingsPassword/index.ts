@@ -1,5 +1,6 @@
-import SettingsPassword from './SettingsPassword';
+import { withStore } from '../../../utils/Store';
+import SettingPassword from './SettingsPassword';
 
-export {
-  SettingsPassword,
-};
+const withUser = withStore((state: any) => ({...state}));
+
+export default withUser(SettingPassword);

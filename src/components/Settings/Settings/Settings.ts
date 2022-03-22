@@ -2,67 +2,75 @@ import { compile } from 'pug';
 import { Block } from '../../../utils/Block/index';
 import { settingsTemplate } from './Settings.template';
 import SettingsButton from '../../Button/SettingsButton/SettingsButton';
-import SettingsPassword from '../SettingsPassword/SettingsPassword';
-import SettingsUser from '../SettingsUser/SettingsUser';
+import { SettingsProps } from './Settings.types';
+import { router } from '../../../pages';
+import Button from '../../Button/Button/Button';
+import { authController } from '../../../controllers';
 
-export default class Settings extends Block {
-  constructor() {
+class Settings extends Block<SettingsProps> {
+  public constructor(props: Record<string, unknown>) {
     super(
       'div',
       {
-        formLinkText: 'Войти',
-        linkTo: './index.html',
-        avatarImage: 'https://i.gifer.com/Q2RE.gif',
         disabledUserInfoForm: 'true',
         userInfo: {
-          first_name: 'Иван',
-          email: 'pochta@yandex.ru',
-          login: 'ivanovivan',
-          second_name: 'Иванов',
-          display_name: 'Иван',
-          phone: '+7 (909) 967 30 30',
+          first_name: '',
+          email: '',
+          login: '',
+          second_name: '',
+          display_name: '',
+          phone: '',
+          avatar: ''
         },
-        state: '',
         buttonChangeInfo: new SettingsButton({
           buttonName: 'Изменить данные',
           events: {
-            click: () => this.handleClickInfo(),
-          },
+            click: () => {
+              router.go("/settings/user");
+            },
+          }
         }),
         buttonChangePassword: new SettingsButton({
           buttonName: 'Изменить пароль',
           events: {
-            click: () => this.handleClickPassword(),
+            click: () => {
+              router.go("/settings/password");
+            }
           },
         }),
-        settingsUser: new SettingsUser({
-          userInfo: {
-            first_name: 'Иван',
-            email: 'pochta@yandex.ru',
-            login: 'ivanovivan',
-            second_name: 'Иванов',
-            display_name: 'Иван',
-            phone: '+7 (909) 967 30 30',
+        buttonLogout: new Button({
+          buttonText: 'Выйти',
+          customClass: 'settings__button settings__button_warning',
+          events: {
+            click: () => this.handleLogout()
+          }
+        }),
+        linkButton: new Button({
+          buttonText: '',
+          customClass: 'button__settings',
+          events: {
+            click: () => {
+              router.go("/messenger");
+            }
           },
         }),
-        settingsPassword: new SettingsPassword({}),
+        ...props,
       },
     );
   }
 
-  handleClickInfo() {
-    this.setProps({
-      state: 'user',
-    });
+  public async handleLogout() {
+    try {
+      await authController.logout();
+      router.go('/');
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  handleClickPassword() {
-    this.setProps({
-      state: 'password',
-    });
-  }
-
-  render() {
+  public render() {
     return this.compile(compile(settingsTemplate), { ...this.props });
   }
 }
+
+export default Settings;

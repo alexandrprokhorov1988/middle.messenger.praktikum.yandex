@@ -2,9 +2,13 @@ import { compile } from 'pug';
 import { Block } from '../../../utils/Block/index';
 import { settingsPasswordTemplate } from './SettingsPassword.template';
 import SettingsInput from '../../Input/SettingsInput/SettingsInput';
+import { SettingsPasswordProps } from './SettingsPassword.types';
+import Button from '../../Button/Button/Button';
+import { router } from '../../../pages';
+import { settingsController } from '../../../controllers';
 
-export default class SettingsPassword extends Block {
-  constructor(props: any) {
+export default class SettingsPassword extends Block<SettingsPasswordProps> {
+  public constructor(props: SettingsPasswordProps) {
     super(
       'div',
       {
@@ -12,12 +16,12 @@ export default class SettingsPassword extends Block {
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
-        linkTo: './settings.html',
+        inputErrorText: '',
         oldPasswordInput: new SettingsInput({
           labelName: 'Старый пароль',
           inputType: 'password',
           inputName: 'oldPassword',
-          placeholderName: 'Старый пароль',
+          inputPlaceholder: 'Старый пароль',
           required: 'true',
           minlength: '8',
           maxlength: '40',
@@ -27,7 +31,7 @@ export default class SettingsPassword extends Block {
           labelName: 'Новый пароль',
           inputType: 'password',
           inputName: 'newPassword',
-          placeholderName: 'Новый пароль',
+          inputPlaceholder: 'Новый пароль',
           required: 'true',
           minlength: '8',
           maxlength: '40',
@@ -37,31 +41,49 @@ export default class SettingsPassword extends Block {
           labelName: 'Повторите новый пароль',
           inputType: 'password',
           inputName: 'submitPassword',
-          placeholderName: 'Повторите новый пароль',
+          inputPlaceholder: 'Повторите новый пароль',
           required: 'true',
           minlength: '8',
           maxlength: '40',
           pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          inputErrorText: props.inputErrorText || '',
+        }),
+        linkButton: new Button({
+          buttonText: '',
+          customClass: 'button__settings',
+          events: {
+            click: () => {
+              router.go("/settings");
+            }
+          },
         }),
       },
     );
   }
 
-  handleSubmit(e: any) {
+  public async handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
-      old_password: formData.get('oldPassword'),
-      new_password: formData.get('newPassword'),
-      confirm_password: formData.get('newPassword'),
+      oldPassword: String(formData.get('oldPassword')),
+      newPassword: String(formData.get('newPassword')),
     };
-    const formIsValid = e.target.closest('form').checkValidity();
-    if (formIsValid) {
-      console.log(data);
+    if (e.target) {
+      const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
+      if (formData.get('oldPassword') === formData.get('newPassword')) {
+        if (formIsValid) {
+          await settingsController.editPassword(data);
+          console.log('Пароль изменен');
+          return;
+        }
+      } else {
+        this.setProps({ inputErrorText: 'Пароли не совпадают' });
+        return;
+      }
     }
   }
 
-  render() {
+  public render() {
     return this.compile(compile(settingsPasswordTemplate), { ...this.props });
   }
 }

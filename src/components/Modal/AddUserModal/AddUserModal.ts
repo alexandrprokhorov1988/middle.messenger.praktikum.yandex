@@ -3,16 +3,19 @@ import { Block } from '../../../utils/Block/index';
 import { addUserModalTemplate } from './AddUserModal.template';
 import Input from '../../Input/Input/Input';
 import Modal from '../Modal/Modal';
+import { AddUserModalProps } from './AddUserModal.types';
+import { chatController } from '../../../controllers';
+import { store } from '../../../utils/Store';
 
-export default class AddUserModal extends Block {
-  constructor(props: any) {
+export default class AddUserModal extends Block<AddUserModalProps> {
+  public constructor(props: AddUserModalProps) {
     super(
       'div',
       {
         ...props,
         modalFormContent: new Modal({
           modalFormContent: new Input({
-            labelName: 'Логин',
+            labelName: 'id пользователя',
             inputType: 'text',
             inputName: 'add_user',
             inputPlaceholder: 'Добавить пользователя',
@@ -31,21 +34,26 @@ export default class AddUserModal extends Block {
     );
   }
 
-  removeModal(e: Event) {
+  public removeModal(e: Event) {
     if (!e.target) return;
     if ((e.target as HTMLElement).classList.contains('modal')) this.hide();
   }
 
-  handleSubmit(e: any) {
+  public async handleSubmit(e: Event) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData((e.target as HTMLFormElement));
     const data = {
-      add_user: formData.get('add_user'),
+      add_user: Number(formData.get('add_user')),
     };
-    console.log(data);
+    await chatController.addUserToChat({
+      users: [data.add_user],
+      chatId: Number(store.getState().currentChatId),
+    });
+    this.hide();
+    console.log('Пользователь добавлен');
   }
 
-  render() {
+  public render() {
     return this.compile(compile(addUserModalTemplate), { ...this.props });
   }
 }

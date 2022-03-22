@@ -1,9 +1,10 @@
 import { compile } from 'pug';
 import { Block } from '../../../utils/Block/index';
 import { inputTemplate } from './Input.template';
+import { InputProps } from './Input.types';
 
-export default class Input extends Block {
-  constructor(props: any) {
+export default class Input extends Block<InputProps> {
+  public constructor(props: InputProps) {
     super(
       'div',
       {
@@ -15,14 +16,14 @@ export default class Input extends Block {
     );
   }
 
-  handleBlur(e: any) {
+  public handleBlur(e: Event) {
     this.setProps({
-      inputErrorText: e.target.validationMessage,
-      inputValue: e.target.value,
+      inputErrorText: (e.target as HTMLInputElement).validationMessage,
+      inputValue: (e.target as HTMLInputElement).value,
     });
   }
 
-  render() {
+  public render() {
     return this.compile(compile(inputTemplate), { ...this.props });
   }
 }
