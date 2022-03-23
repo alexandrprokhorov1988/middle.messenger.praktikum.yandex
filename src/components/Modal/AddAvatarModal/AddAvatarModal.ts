@@ -34,19 +34,23 @@ export default class AddAvatarModal extends Block<AddAvatarModalProps> {
   }
 
   public removeModal(e: Event) {
-    if (!e.target) return;
-    if ((e.target as HTMLElement).classList.contains('modal')) this.hide();
+    if (!e.target) {
+      return;
+    }
+    if ((e.target as HTMLElement).classList.contains('modal')) {
+      this.hide();
+    }
   }
 
   public async handleSubmit(e: Event) {
     e.preventDefault();
-    if ((e.target! as HTMLElement).closest('form[name="add-avatar"]')) {
-      const file = (e.target! as any).elements.avatar.files[0];
+    const target = e.target! as HTMLFormElement;
+    if (target.closest('form[name="add-avatar"]')) {
+      const file = (target.elements as any).avatar.files[0];
       const formData = new FormData();
       formData.append('avatar', file);
       await settingsController.editAvatar(formData);
       this.hide();
-      return;
     }
     return;
   }

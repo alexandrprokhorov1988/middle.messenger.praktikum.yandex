@@ -6,6 +6,14 @@ import { RegistrationProps } from './Registration.types';
 import Button from '../Button/Button/Button';
 import { router } from '../../pages';
 import { authController } from '../../controllers';
+import {
+  EMAIL_REGEXP,
+  LOGIN_REGEXP,
+  NAME_REGEXP,
+  PASSWORD_REGEXP,
+  PHONE_REGEXP,
+  SECOND_NAME_REGEXP
+} from '../../config/constants';
 
 export default class Registration extends Block<RegistrationProps> {
   public constructor() {
@@ -21,7 +29,7 @@ export default class Registration extends Block<RegistrationProps> {
           inputName: 'email',
           inputPlaceholder: 'Почта',
           required: 'true',
-          pattern: '\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,6}',
+          pattern: EMAIL_REGEXP,
         }),
         loginInput: new Input({
           labelName: 'Логин',
@@ -31,7 +39,7 @@ export default class Registration extends Block<RegistrationProps> {
           required: 'true',
           minlength: '3',
           maxlength: '20',
-          pattern: '[a-zA-Z0-9-_]*[a-zA-Z]{1}[a-zA-Z0-9-_]*',
+          pattern: LOGIN_REGEXP,
         }),
         nameInput: new Input({
           labelName: 'Имя',
@@ -40,7 +48,7 @@ export default class Registration extends Block<RegistrationProps> {
           inputPlaceholder: 'Имя',
           required: 'true',
           minlength: '3',
-          pattern: '^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$',
+          pattern: NAME_REGEXP,
         }),
         secondNameInput: new Input({
           labelName: 'Фамилия',
@@ -49,7 +57,7 @@ export default class Registration extends Block<RegistrationProps> {
           inputPlaceholder: 'Фамилия',
           required: 'true',
           minlength: '3',
-          pattern: '^[A-ZА-ЯЁ]{1}[a-zа-яё-]+$',
+          pattern: SECOND_NAME_REGEXP,
         }),
         phoneInput: new Input({
           labelName: 'Телефон',
@@ -58,7 +66,7 @@ export default class Registration extends Block<RegistrationProps> {
           inputPlaceholder: 'Телефон',
           required: 'true',
           minlength: '3',
-          pattern: '^\\+?[0-9]{10,15}$',
+          pattern: PHONE_REGEXP,
         }),
         passwordInput: new Input({
           labelName: 'Пароль',
@@ -68,7 +76,7 @@ export default class Registration extends Block<RegistrationProps> {
           required: 'true',
           minlength: '8',
           maxlength: '40',
-          pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          pattern: PASSWORD_REGEXP,
         }),
         passwordSubmitInput: new Input({
           labelName: 'Пароль (ещё раз)',

@@ -47,7 +47,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
     this._element = this._createDocumentElement(tagName);
   }
 
-  init() {
+  public init() {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }

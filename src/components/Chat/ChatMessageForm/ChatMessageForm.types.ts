@@ -2,7 +2,7 @@ type ChatMessageFormProps = {
   events?: {
     submit?: (e: Event) => void,
   },
-  value?: String,
+  value?: string,
 }
 
 export {

@@ -1,63 +1,66 @@
 import HTTP from '../utils/HTTPTransport';
-import BaseAPI from './BaseApi';
 
-const chatAPIInstance = new HTTP('https://ya-praktikum.tech/api/v2/chats');
+class ChatAPI {
+  private chatAPIInstance;
 
-class ChatAPI extends BaseAPI {
+  constructor(){
+    this.chatAPIInstance = new HTTP('https://ya-praktikum.tech/api/v2/chats');
+
+  }
   public createChat(data: { title: string }): Promise<XMLHttpRequest> {
-    return chatAPIInstance.post('/', {
+    return this.chatAPIInstance.post('/', {
       withCredentials: true,
       data: JSON.stringify(data)
     });
   }
 
   public deleteChatById(data: { chatId: string | number }): Promise<XMLHttpRequest> {
-    return chatAPIInstance.delete('/', {
+    return this.chatAPIInstance.delete('/', {
       withCredentials: true,
       data: JSON.stringify(data)
     });
   }
 
   public getChats(): Promise<XMLHttpRequest> {
-    return chatAPIInstance.get('/', {
+    return this.chatAPIInstance.get('/', {
       withCredentials: true,
     });
   }
 
   public getToken(id: number): Promise<XMLHttpRequest> {
-    return chatAPIInstance.post(`/token/${id}`, {
+    return this.chatAPIInstance.post(`/token/${id}`, {
       withCredentials: true,
     });
   }
 
   public getNewMessageCountFromChat(id: string | number): Promise<XMLHttpRequest> {
-    return chatAPIInstance.get(`/new/${id}`, {
+    return this.chatAPIInstance.get(`/new/${id}`, {
       withCredentials: true,
     });
   }
 
   public addUserToChat(data: { users: number[], chatId: string | number }): Promise<XMLHttpRequest> {
-    return chatAPIInstance.put('/users', {
+    return this.chatAPIInstance.put('/users', {
       withCredentials: true,
       data: JSON.stringify(data)
     });
   }
 
   public removeUserFromChat(data: { users: number[], chatId: string | number }): Promise<XMLHttpRequest> {
-    return chatAPIInstance.delete('/users', {
+    return this.chatAPIInstance.delete('/users', {
       withCredentials: true,
       data: JSON.stringify(data)
     });
   }
 
   public getUsersFromChat(id: string | number): Promise<XMLHttpRequest> {
-    return chatAPIInstance.get(`/${id}/users`, {
+    return this.chatAPIInstance.get(`/${id}/users`, {
       withCredentials: true,
     });
   }
 
   public editChatAvatar(chatId: number, avatar: FormData): Promise<XMLHttpRequest> {
-    return chatAPIInstance.put(`/avatar`, {
+    return this.chatAPIInstance.put(`/avatar`, {
       headers: {},
       withCredentials: true,
       data: {

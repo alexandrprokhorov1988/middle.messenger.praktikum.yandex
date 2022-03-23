@@ -32,8 +32,12 @@ export default class AddFileModal extends Block<AddFileModalProps> {
   }
 
   public removeModal(e: Event) {
-    if (!e.target) return;
-    if ((e.target as HTMLElement).classList.contains('modal')) this.hide();
+    if (!e.target) {
+      return;
+    }
+    if ((e.target as HTMLElement).classList.contains('modal')) {
+      this.hide();
+    }
   }
 
   public handleSubmit(e: Event) {

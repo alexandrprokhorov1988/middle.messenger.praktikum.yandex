@@ -41,7 +41,7 @@ export default class HTTPTransport {
     method: Methods.Delete
   }, options.timeout);
 
-  request = (url: string, options: RequestOptions = {}, timeout = 5000): Promise<XMLHttpRequest> => {
+  public request = (url: string, options: RequestOptions = {}, timeout = 5000): Promise<XMLHttpRequest> => {
     const {
       headers = {
         'Accept': 'application/json',
