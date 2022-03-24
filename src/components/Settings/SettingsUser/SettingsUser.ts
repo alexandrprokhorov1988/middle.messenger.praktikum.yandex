@@ -119,10 +119,11 @@ class SettingsUser extends Block<SettingsUserProps> {
 
   public async handleSubmit(e: Event) {
     e.preventDefault();
-    if ((e.target! as HTMLElement).closest('form[name="user-edit"]')) {
+    const target = e.target! as HTMLElement;
+    if (target.closest('form[name="user-edit"]')) {
       const formData = new FormData((e.target as HTMLFormElement));
       const data = {
-        email: formData.get('email'),
+        email: String(formData.get('email')),
         login: String(formData.get('login')),
         first_name: String(formData.get('first_name')),
         second_name: String(formData.get('second_name')),
@@ -130,10 +131,9 @@ class SettingsUser extends Block<SettingsUserProps> {
         phone: String(formData.get('phone')),
       };
       if (e.target) {
-        const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
+        const formIsValid = target.closest('form')!.checkValidity();
         if (formIsValid) {
           await settingsController.editProfile(data);
-          return;
         }
       }
     }

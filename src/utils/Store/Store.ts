@@ -1,6 +1,8 @@
 import EventBus from '../EventBus/EventBus';
 import set from '../helpers.set';
 import Block from '../Block/Block';
+import { State } from './Store.types';
+import isEqual from '../helpers.isEqual';
 
 export enum StoreEvents {
   Updated = 'updated',
@@ -8,11 +10,11 @@ export enum StoreEvents {
 
 class Store extends EventBus {
 
-  private state: Record<string, unknown> = {
+  private state: State = {
     userInfo: null,
     chats: [],
     messages: [],
-    currentChatId: null,
+    currentChatId: '',
     token: '',
   };
 
@@ -38,8 +40,8 @@ export const withStore = (mapStateToProps: (state: Record<string, unknown>) => R
 
       store.on(StoreEvents.Updated, () => {
         const newState = mapStateToProps(store.getState());
-        this.setProps({ ...newState });
-        state = newState;
+          this.setProps({ ...newState });
+          state = newState;
       })
     }
   }

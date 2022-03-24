@@ -1,5 +1,6 @@
 import { store } from '../utils/Store';
 import ChatMessage from '../components/Chat/ChatMessage/ChatMessage';
+import { State } from '../utils/Store/Store.types';
 
 class MessageController {
   private readonly baseUrl: string;
@@ -62,7 +63,7 @@ class MessageController {
 
   public async handleMessage(event: any) {
     console.log('получено сообщение');
-    const state: Record<string, unknown> = store.getState();
+    const state: State = store.getState();
     const data = Array.isArray(JSON.parse(event.data)) ? JSON.parse(event.data) : [JSON.parse(event.data)];
     const arrOfMessages = (data as any).map((item: any) => {
       const date = new Date(item.time);
@@ -72,7 +73,7 @@ class MessageController {
         content: item.content,
         is_read: item.is_read,
         id: item.id,
-        isUserMessage: state.userInfo.id === item.user_id,
+        isUserMessage: state.userInfo!.id === item.user_id,
       });
     });
     const newMessages = JSON.parse(event.data);

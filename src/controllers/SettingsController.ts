@@ -14,6 +14,7 @@ class SettingsController {
       store.set('userInfo', {
         ...newUserInfo,
         avatar: SERVER_RESOURCES_BASE_URL + newUserInfo.avatar,
+        aaaa: 'aaaa'
       });
       return result;
     } catch (error) {
