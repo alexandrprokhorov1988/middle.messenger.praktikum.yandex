@@ -1,11 +1,7 @@
+import { withStore } from '../../../utils/Store';
 import Settings from './Settings';
-import { renderDOM } from '../../../utils/renderDOM';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const settings = new Settings();
-  renderDOM('.page', settings);
-});
+const withUser = withStore((state: any) => ({...state}));
 
-export {
-  Settings,
-};
+export default withUser(Settings);
+

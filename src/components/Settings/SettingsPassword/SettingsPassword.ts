@@ -3,6 +3,10 @@ import { Block } from '../../../utils/Block/index';
 import { settingsPasswordTemplate } from './SettingsPassword.template';
 import SettingsInput from '../../Input/SettingsInput/SettingsInput';
 import { SettingsPasswordProps } from './SettingsPassword.types';
+import Button from '../../Button/Button/Button';
+import { router } from '../../../pages';
+import { settingsController } from '../../../controllers';
+import { PASSWORD_REGEXP } from '../../../config/constants';
 
 export default class SettingsPassword extends Block<SettingsPasswordProps> {
   public constructor(props: SettingsPasswordProps) {
@@ -13,7 +17,7 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
         events: {
           submit: (e: Event) => this.handleSubmit(e),
         },
-        linkTo: './settings.html',
+        inputErrorText: '',
         oldPasswordInput: new SettingsInput({
           labelName: 'Старый пароль',
           inputType: 'password',
@@ -22,7 +26,7 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
           required: 'true',
           minlength: '8',
           maxlength: '40',
-          pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          pattern: PASSWORD_REGEXP,
         }),
         newPasswordInput: new SettingsInput({
           labelName: 'Новый пароль',
@@ -32,7 +36,7 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
           required: 'true',
           minlength: '8',
           maxlength: '40',
-          pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          pattern: PASSWORD_REGEXP,
         }),
         confirmPasswordInput: new SettingsInput({
           labelName: 'Повторите новый пароль',
@@ -42,24 +46,38 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
           required: 'true',
           minlength: '8',
           maxlength: '40',
-          pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          pattern: PASSWORD_REGEXP,
+          inputErrorText: props.inputErrorText || '',
+        }),
+        linkButton: new Button({
+          buttonText: '',
+          customClass: 'button__settings',
+          events: {
+            click: () => {
+              router.go("/settings");
+            }
+          },
         }),
       },
     );
   }
 
-  public handleSubmit(e: Event) {
+  public async handleSubmit(e: Event) {
     e.preventDefault();
     const formData = new FormData((e.target as HTMLFormElement));
     const data = {
-      old_password: formData.get('oldPassword'),
-      new_password: formData.get('newPassword'),
-      confirm_password: formData.get('newPassword'),
+      oldPassword: String(formData.get('oldPassword')),
+      newPassword: String(formData.get('newPassword')),
     };
-    if(e.target) {
+    if (e.target) {
       const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
-      if (formIsValid) {
-        console.log(data);
+      if (formData.get('oldPassword') === formData.get('newPassword') && formIsValid) {
+        await settingsController.editPassword(data);
+        console.log('Пароль изменен');
+        return;
+      } else {
+        this.setProps({ inputErrorText: 'Пароли не совпадают' });
+        return;
       }
     }
   }

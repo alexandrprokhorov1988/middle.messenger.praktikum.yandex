@@ -2,11 +2,13 @@ type ChatMessageProps = {
   events?: {
     submit?: (e: Event) => void,
   },
-  message?: string;
+  content?: string;
   time?: string;
   imgSrc?: string;
-  isUserMessage?: string;
-  isChecked?: string;
+  isUserMessage?: boolean;
+  is_read?: string;
+  id?: string;
+  customClass?: string;
 }
 
 export {

@@ -11,6 +11,7 @@ type RequestOptions = {
   headers?: Record<string, string>;
   timeout?: number;
   data?: any;
+  withCredentials?: boolean;
 };
 
 export {

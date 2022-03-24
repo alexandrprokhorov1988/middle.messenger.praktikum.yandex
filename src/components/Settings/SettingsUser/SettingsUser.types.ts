@@ -1,7 +1,7 @@
 import SettingsButton from '../../Button/SettingsButton/SettingsButton';
 import SettingsInput from '../../Input/SettingsInput/SettingsInput';
-import SettingsUser from './SettingsUser';
-import SettingsPassword from '../SettingsPassword/SettingsPassword';
+import Button from '../../Button/Button/Button';
+import AddAvatarModal from '../../Modal/AddAvatarModal/AddAvatarModal';
 
 type SettingsUserProps = {
   formLinkText?: string;
@@ -22,9 +22,10 @@ type SettingsUserProps = {
   state?: string;
   buttonChangeInfo?: SettingsButton;
   buttonChangePassword?: SettingsButton;
-  settingsUser?: SettingsUser;
-  settingsPassword?: SettingsPassword;
   nameInChatInput?: SettingsInput;
+  linkButton?: Button;
+  addAvatarButton: Button;
+  addAvatarModal: AddAvatarModal;
 }
 
 export {

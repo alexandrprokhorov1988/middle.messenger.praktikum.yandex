@@ -1,7 +1,8 @@
 import Input from '../../Input/Input/Input';
+import FileInput from '../../Input/FileInput/FileInput';
 
 type ModalProps = {
-  modalFormContent?: Input
+  modalFormContent?: Input | FileInput;
   modalFormSubmitText?: string;
   modalFormTitle?: string;
   events?: {

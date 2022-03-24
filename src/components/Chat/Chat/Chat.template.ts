@@ -3,19 +3,22 @@ export const chatTemplate =
     .chat__container
       .chat__left-container
         .chat__profile
-          a.chat__profile-link(href=profileLinkTo)=profileLinkText
-           span.chat__profile-link-img
+          | !{linkButton}
         .chat__search
           input.chat__input.chat__input_type-search(
             type="text"
             placeholder="Поиск"
           )
+          | !{addChat}                
         ul.chat__chats-list
-         | !{chatChat}
+         | !{chats}
       .chat__right-container
         .chat__settings
           .chat__settings-user-info-container
-            img.chat__settings-avatar(src=avatarSrc, alt="Аватар")
+            if userInfo.avatar
+              img.chat__settings-avatar(src=userInfo.avatar, alt="Аватар")
+            else
+              div.chat__settings-avatar  
             p.chat__settings-user-name=userInfo.first_name            
           | !{userButton}          
           if isOpenUserModal
@@ -27,7 +30,8 @@ export const chatTemplate =
                 | !{removeUserButton}
                 p.chat__settings-modal-text Удалить пользователя              
         ul.chat__messages
-          | !{chatMessage}
+          if messages
+            | !{messages}
         .chat__message-input-container        
           | !{fileButton}  
           | !{chatMessageForm}
@@ -46,4 +50,5 @@ export const chatTemplate =
     | !{removeUserModal}
     | !{addGeoModal}
     | !{addFileModal}
-    | !{addFotoModal}`;
+    | !{addFotoModal}
+    | !{addNewChatModal}`;

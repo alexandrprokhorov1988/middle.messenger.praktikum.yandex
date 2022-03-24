@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { EventBus } from '../EventBus';
+import isEqual from '../helpers.isEqual';
 
 export default abstract class Block<Props extends Record<string, unknown>> {
   private static EVENTS = {
@@ -16,10 +17,10 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   };
   private eventBus: () => EventBus;
   public props: Record<string, unknown>;
-  private _id: string;
+  private readonly _id: string;
   protected children: Record<string, Block<Props>>;
 
-  constructor(tagName = 'div', propsAndChildren: Props) {
+  protected constructor(tagName = 'div', propsAndChildren: Props) {
     const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
     this._meta = {
@@ -46,7 +47,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
     this._element = this._createDocumentElement(tagName);
   }
 
-  init() {
+  public init() {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
@@ -76,20 +77,20 @@ export default abstract class Block<Props extends Record<string, unknown>> {
     if (!response) {
       return;
     }
-    this._render();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   public componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>) {
-    return oldProps !== newProps;
+    return isEqual(oldProps, newProps);
   }
 
-  public setProps = (nextProps: Record<string, unknown>) => {
+  public setProps = (nextProps: Props) => {
     if (!nextProps) {
       return;
     }
-
-    Object.assign(this.props, nextProps);
+    const { children, props } = this._getChildren(nextProps);
+    Object.assign(this.children, children);
+    Object.assign(this.props, props);
   };
 
   get element() {
@@ -174,7 +175,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
   }
 
   public show() {
-    this.getContent()!.style.display = 'block';
+    this.getContent()!.style.display = 'flex';
   }
 
   public hide() {
@@ -220,7 +221,7 @@ export default abstract class Block<Props extends Record<string, unknown>> {
 
     fragment.innerHTML = template(context);
 
-    Object.entries(this.children).forEach(([key, child]: [string, Block<Props>]) => {
+    Object.entries(this.children).forEach(([_key, child]: [string, Block<Props>]) => {
       if (Array.isArray(child)) {
         child.forEach((elem: Block<Props>) => {
           const stub = fragment.content.querySelector(`[data-id="id-${elem._id}"]`);

@@ -14,6 +14,7 @@ type InputProps = {
   pattern?: string;
   inputErrorText?: string;
   value?: string;
+  enctype?: string;
 }
 
 export {

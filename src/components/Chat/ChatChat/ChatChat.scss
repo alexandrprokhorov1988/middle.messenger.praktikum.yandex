@@ -34,6 +34,24 @@
   height: 47px;
   object-fit: cover;
   border-radius: 50%;
+  position: relative;
+  background-image: none;
+
+  &:after {
+    content: '';
+    position: absolute;
+    height: 47px;
+    width: 47px;
+    left: 50%;
+    top: 50%;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    background-color: $input__background-color;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+  }
 }
 
 .chat__chat-name{

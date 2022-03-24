@@ -16,9 +16,15 @@
 ##### Запуск
 
 ```
+npm install
 npm run start
 ```
 
+##### Запуск тестов
+
+```
+npm run test
+```
 
 #### <a name="technologies">Технологии</a>
 * Спецификации HTML, CSS.
@@ -32,4 +38,11 @@ npm run start
 * EventBus
 * Proxy
 * Компоненты
-*
+* HTTPTransport
+* Store
+* Route
+* Router
+* Chai
+* Mocha
+* Sinon
+* JSDom
