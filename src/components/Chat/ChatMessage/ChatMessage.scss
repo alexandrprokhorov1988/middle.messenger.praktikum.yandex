@@ -16,6 +16,13 @@
     border-radius: 10px 10px 0 10px;
     flex-direction: row;
   }
+  &_type-nomessage{
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    max-width: 100%;
+    height: 100%;
+  }
 }
 
 .chat__message {
@@ -26,6 +33,9 @@
 
   &_checked {
     padding-right: 15px;
+  }
+  &_type-nomessage{
+    font-size: 16px;
   }
 }
 

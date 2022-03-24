@@ -6,5 +6,5 @@ export const chatChatTemplate = `li.chat__chat-container(class=isSelected ? 'cha
     p.chat__chat-name=title
     p.chat__chat-last-message=last_message
     p.chat__chat-date=chatDate || ''
-    if chatMessageCount
+    if unread_count
       .chat__chat-message-count=unread_count`;

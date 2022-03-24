@@ -38,11 +38,15 @@ class ChatController {
       }
 
       const arrOfChats = (JSON.parse(result.response) as any).map((item: any) => {
+        let date = null;
+        if(item?.last_message?.time){
+          date = new Date(item.last_message.time);
+        }
         return new ChatChat({
           avatar: item.avatar && (SERVER_RESOURCES_BASE_URL + item.avatar),
           title: item.title,
           last_message: item.last_message && item.last_message.content,
-          chatDate: '10:49',
+          chatDate: date ? `${date.getHours()}:${date.getMinutes()}` : '',
           unread_count: item.unread_count,
           id: item.id,
         });

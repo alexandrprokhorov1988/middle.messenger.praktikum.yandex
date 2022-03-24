@@ -1,31 +1,35 @@
 import HTTP from '../utils/HTTPTransport';
-import BaseAPI from './BaseApi';
 import { LoginParameters, RegisterParameters } from './types';
 
-const authAPIInstance = new HTTP('https://ya-praktikum.tech/api/v2/auth');
 
-class AuthAPI extends BaseAPI {
+class AuthAPI {
+  private authAPIInstance;
+
+  constructor() {
+    this.authAPIInstance = new HTTP('https://ya-praktikum.tech/api/v2/auth');
+  }
+
   public register(data: RegisterParameters): Promise<XMLHttpRequest> {
-    return authAPIInstance.post('/signup', {
+    return this.authAPIInstance.post('/signup', {
       data: JSON.stringify(data)
     });
   }
 
   public async login(data: LoginParameters): Promise<XMLHttpRequest> {
-    return await authAPIInstance.post('/signin', {
+    return await this.authAPIInstance.post('/signin', {
       withCredentials: true,
       data: JSON.stringify(data)
     });
   }
 
   public getUserInfo(): Promise<XMLHttpRequest> {
-    return authAPIInstance.get('/user', {
+    return this.authAPIInstance.get('/user', {
       withCredentials: true
     });
   }
 
   public logout(): Promise<XMLHttpRequest> {
-    return authAPIInstance.post('/logout', {
+    return this.authAPIInstance.post('/logout', {
         withCredentials: true
       }
     );

@@ -8,6 +8,7 @@ type ChatMessageProps = {
   isUserMessage?: boolean;
   is_read?: string;
   id?: string;
+  customClass?: string;
 }
 
 export {

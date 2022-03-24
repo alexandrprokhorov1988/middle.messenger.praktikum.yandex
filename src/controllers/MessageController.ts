@@ -1,5 +1,6 @@
 import { store } from '../utils/Store';
 import ChatMessage from '../components/Chat/ChatMessage/ChatMessage';
+import { State } from '../utils/Store/Store.types';
 
 class MessageController {
   private readonly baseUrl: string;
@@ -54,7 +55,7 @@ class MessageController {
       console.log('Обрыв соединения');
     }
     console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-    if(store.getState().userInfo) {
+    if (store.getState().userInfo) {
       console.log('восстановление соединения...');
       await this.init(this.userId, this.chatId, this.token);
     }
@@ -62,7 +63,7 @@ class MessageController {
 
   public async handleMessage(event: any) {
     console.log('получено сообщение');
-    const state: Record<string, unknown> = store.getState();
+    const state: State = store.getState();
     const data = Array.isArray(JSON.parse(event.data)) ? JSON.parse(event.data) : [JSON.parse(event.data)];
     const arrOfMessages = (data as any).map((item: any) => {
       const date = new Date(item.time);
@@ -72,10 +73,22 @@ class MessageController {
         content: item.content,
         is_read: item.is_read,
         id: item.id,
-        isUserMessage: state.userInfo.id === item.user_id,
+        isUserMessage: state.userInfo!.id === item.user_id,
       });
     });
-    if (Array.isArray(JSON.parse(event.data))) {
+    const newMessages = JSON.parse(event.data);
+    if (Array.isArray(newMessages) && newMessages.length <= 0) {
+      store.set('messages', [
+        new ChatMessage({
+          time: ``,
+          customClass: 'chat__message-container_type-nomessage',
+          content: 'Сообщений нет',
+          is_read: '',
+          id: '',
+          isUserMessage: false,
+        })
+      ]);
+    } else if (Array.isArray(newMessages)) {
       store.set('messages', [...arrOfMessages.reverse()]);
     } else {
       store.set('messages', [...arrOfMessages.reverse(), ...state.messages]);
@@ -86,7 +99,7 @@ class MessageController {
     console.log('Ошибка', event.message);
   }
 
-  public async getMessages(offset: string = '0') {
+  public async getMessages(offset = '0') {
     if (this.socket.readyState === 1) {
       await this.socket.send(JSON.stringify({
         content: `0`,

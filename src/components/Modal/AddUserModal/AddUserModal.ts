@@ -35,8 +35,12 @@ export default class AddUserModal extends Block<AddUserModalProps> {
   }
 
   public removeModal(e: Event) {
-    if (!e.target) return;
-    if ((e.target as HTMLElement).classList.contains('modal')) this.hide();
+    if (!e.target) {
+      return;
+    }
+    if ((e.target as HTMLElement).classList.contains('modal')) {
+      this.hide();
+    }
   }
 
   public async handleSubmit(e: Event) {
@@ -51,6 +55,7 @@ export default class AddUserModal extends Block<AddUserModalProps> {
     });
     this.hide();
     console.log('Пользователь добавлен');
+    return;
   }
 
   public render() {

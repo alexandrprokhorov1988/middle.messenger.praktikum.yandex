@@ -6,6 +6,7 @@ import { SettingsPasswordProps } from './SettingsPassword.types';
 import Button from '../../Button/Button/Button';
 import { router } from '../../../pages';
 import { settingsController } from '../../../controllers';
+import { PASSWORD_REGEXP } from '../../../config/constants';
 
 export default class SettingsPassword extends Block<SettingsPasswordProps> {
   public constructor(props: SettingsPasswordProps) {
@@ -25,7 +26,7 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
           required: 'true',
           minlength: '8',
           maxlength: '40',
-          pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          pattern: PASSWORD_REGEXP,
         }),
         newPasswordInput: new SettingsInput({
           labelName: 'Новый пароль',
@@ -35,7 +36,7 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
           required: 'true',
           minlength: '8',
           maxlength: '40',
-          pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          pattern: PASSWORD_REGEXP,
         }),
         confirmPasswordInput: new SettingsInput({
           labelName: 'Повторите новый пароль',
@@ -45,7 +46,7 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
           required: 'true',
           minlength: '8',
           maxlength: '40',
-          pattern: '((?=.*\\d)(?=.*[0-9])(?=.*[A-Z]).{8,40})',
+          pattern: PASSWORD_REGEXP,
           inputErrorText: props.inputErrorText || '',
         }),
         linkButton: new Button({
@@ -70,12 +71,10 @@ export default class SettingsPassword extends Block<SettingsPasswordProps> {
     };
     if (e.target) {
       const formIsValid = (e.target as HTMLFormElement).closest('form')!.checkValidity();
-      if (formData.get('oldPassword') === formData.get('newPassword')) {
-        if (formIsValid) {
-          await settingsController.editPassword(data);
-          console.log('Пароль изменен');
-          return;
-        }
+      if (formData.get('oldPassword') === formData.get('newPassword') && formIsValid) {
+        await settingsController.editPassword(data);
+        console.log('Пароль изменен');
+        return;
       } else {
         this.setProps({ inputErrorText: 'Пароли не совпадают' });
         return;

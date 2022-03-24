@@ -6,7 +6,7 @@ function isEqual(lhs: string, rhs: string) {
 
 export default class Route {
   private _pathname: string;
-  private _blockClass: any;
+  private readonly _blockClass: any;
   private _block: Block<Record<string, unknown>> | null;
   private _props: any;
 
@@ -17,24 +17,24 @@ export default class Route {
     this._props = props;
   }
 
-  navigate(pathname: string) {
+  public navigate(pathname: string) {
     if (!this.match(pathname)) {
       this._pathname = pathname;
       this.render();
     }
   }
 
-  leave() {
+  public leave() {
     if (this._block) {
       this._block.getContent()?.remove();
     }
   }
 
-  match(pathname: string) {
+  public match(pathname: string) {
     return isEqual(pathname, this._pathname);
   }
 
-  render() {
+  public render() {
     if (!this._block) {
       this._block = new this._blockClass();
     }

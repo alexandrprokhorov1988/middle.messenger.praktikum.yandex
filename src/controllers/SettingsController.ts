@@ -1,6 +1,7 @@
 import { settingsApi } from '../api';
 import { store } from '../utils/Store';
 import { EditProfileParameters } from '../api/types';
+import { SERVER_RESOURCES_BASE_URL } from '../config/config';
 
 class SettingsController {
   public async editProfile(data: EditProfileParameters) {
@@ -9,7 +10,12 @@ class SettingsController {
       if (result.status !== 200) {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }
-      store.set('userInfo', JSON.parse(result.response));
+      const newUserInfo = JSON.parse(result.response);
+      store.set('userInfo', {
+        ...newUserInfo,
+        avatar: SERVER_RESOURCES_BASE_URL + newUserInfo.avatar,
+        aaaa: 'aaaa'
+      });
       return result;
     } catch (error) {
       console.log(error.message);
@@ -22,7 +28,11 @@ class SettingsController {
       if (result.status !== 200) {
         throw new Error(`Ошибка: ${result.status} ${result.statusText || result.responseText}`);
       }
-      store.set('userInfo', JSON.parse(result.response));
+      const newUserInfo = JSON.parse(result.response);
+      store.set('userInfo', {
+        ...newUserInfo,
+        avatar: SERVER_RESOURCES_BASE_URL + newUserInfo.avatar,
+      });
       return result;
     } catch (error) {
       console.log(error.message);

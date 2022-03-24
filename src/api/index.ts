@@ -1,4 +1,3 @@
-export { default as BaseAPI }  from './BaseApi';
 export { default as chatApi } from './ChatApi'
 export { default as authApi } from './AuthApi';
 export { default as settingsApi } from './SettingsApi';
