@@ -1,14 +1,14 @@
 const path = require('path');
+const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const PugPlugin = require('pug-plugin');
 
 module.exports = {
   mode: 'development',
   entry: ['./src/pages/index.ts', './src/styles/index.scss'],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/'),
     filename: 'messenger.bundle.js',
     publicPath: '/',
   },
@@ -19,11 +19,9 @@ module.exports = {
       "fs": false,
       "os": false
     },
-    // alias: {
-    //   'pug-loader': PugPlugin.loader,
-    // }
   },
   module: {
+    exprContextCritical: false,
     rules: [
       {
         test: /\.tsx?$/,
@@ -52,25 +50,20 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        // loader: "pug-loader",
-        // loader: PugPlugin.loader,
         loader: '@webdiscus/pug-loader',
-        options: {
-          pretty: true
-        }
-        // options: {
-        //   method: 'compile'
-        // }
       },
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    // new PugPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/pages/index.pug')
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
     }),
-    new MiniCssExtractPlugin()
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, './src/pages/index.pug'),
+      filename: 'index.html',
+    }),
+    new MiniCssExtractPlugin(),
   ],
   devServer: {
     static: {
@@ -81,8 +74,5 @@ module.exports = {
     port: 3000,
     open: true,
     hot: true,
-  },
-  stats: {
-    errorDetails: true
   }
 };
