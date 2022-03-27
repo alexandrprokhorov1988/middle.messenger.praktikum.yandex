@@ -3,4 +3,4 @@ import SettingPassword from './SettingsPassword';
 
 const withUser = withStore((state: any) => ({...state}));
 
-export default withUser(SettingPassword);
+export default withUser(SettingPassword as any);

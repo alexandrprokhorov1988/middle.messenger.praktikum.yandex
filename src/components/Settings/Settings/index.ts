@@ -3,5 +3,5 @@ import Settings from './Settings';
 
 const withUser = withStore((state: any) => ({...state}));
 
-export default withUser(Settings);
+export default withUser(Settings as any);
 
