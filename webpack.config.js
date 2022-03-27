@@ -18,7 +18,10 @@ module.exports = {
       "path": false,
       "fs": false,
       "os": false
-    }
+    },
+    // alias: {
+    //   'pug-loader': PugPlugin.loader,
+    // }
   },
   module: {
     rules: [
@@ -49,8 +52,15 @@ module.exports = {
       },
       {
         test: /\.pug$/,
+        // loader: "pug-loader",
         // loader: PugPlugin.loader,
         loader: '@webdiscus/pug-loader',
+        options: {
+          pretty: true
+        }
+        // options: {
+        //   method: 'compile'
+        // }
       },
     ]
   },
@@ -58,11 +68,10 @@ module.exports = {
     new CleanWebpackPlugin(),
     // new PugPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/pages/index.pug'),
-      filename: 'index.html',
+      template: path.resolve(__dirname, './src/pages/index.pug')
     }),
     new MiniCssExtractPlugin()
-],
+  ],
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'dist'),
@@ -73,4 +82,7 @@ module.exports = {
     open: true,
     hot: true,
   },
+  stats: {
+    errorDetails: true
+  }
 };
