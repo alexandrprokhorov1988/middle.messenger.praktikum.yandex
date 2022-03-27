@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const PugPlugin = require('pug-plugin');
 
 module.exports = {
   mode: 'development',
@@ -9,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'messenger.bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.ts', '.js', '.json', '.scss', 'pug', '.html'],
@@ -48,14 +49,17 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        loader: 'pug-loader',
+        // loader: PugPlugin.loader,
+        loader: '@webdiscus/pug-loader',
       },
     ]
   },
   plugins: [
     new CleanWebpackPlugin(),
+    // new PugPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/pages/index.pug')
+      template: path.resolve(__dirname, './src/pages/index.pug'),
+      filename: 'index.html',
     }),
     new MiniCssExtractPlugin()
 ],
