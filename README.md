@@ -33,6 +33,12 @@ npm run test
 docker build . -t messenger
 ```
 
+###### Запуск в фоне
+
+```
+docker run -p 3000:3000 -d messenger
+```
+
 ###### Остановка
 
 ```
@@ -40,10 +46,11 @@ docker ps
 docker stop -t 0 <container id>
 ```
 
-###### Запуск в фоне
+###### Удаление
 
 ```
-docker run -p 3000:3000 -d messenger
+docker ps
+docker container rm <container id>
 ```
 
 #### <a name="technologies">Технологии</a>
