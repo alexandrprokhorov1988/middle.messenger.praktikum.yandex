@@ -35,16 +35,20 @@ class MessageController {
   }
 
   public async handleOpen(message: string) {
-    console.log('отправка данных');
-    if (message && this.socket.readyState === 1) {
-      await this.socket.send(JSON.stringify({
-        content: message,
-        type: 'message',
-      }));
-      await this.getMessages();
+    if (message && this.chatId) {
+      console.log('отправка данных');
+      if (message && this.socket.readyState === 1) {
+        await this.socket.send(JSON.stringify({
+          content: message,
+          type: 'message',
+        }));
+        await this.getMessages();
+      } else {
+        await this.sleep(1000);
+        await this.handleOpen(message);
+      }
     } else {
-      await this.sleep(1000);
-      await this.handleOpen(message);
+      console.log('Чат не выбран')
     }
   }
 
