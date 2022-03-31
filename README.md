@@ -9,6 +9,7 @@
 #### <a name="description">Описание</a>
 * [Ссылка на макет в Figma](https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat?node-id=0%3A1)
 * [Ссылка PR](https://github.com/alexandrprokhorov1988/middle.messenger.praktikum.yandex/pull/4)
+* [Ссылка на heroku](https://ttttttteeeeeee.herokuapp.com/)
 
 #### <a name="instructions">Инструкция</a>
 * [Ссылка на проект в Netlify](https://stupefied-leavitt-443f70.netlify.app)
@@ -17,13 +18,40 @@
 
 ```
 npm install
-npm run start
+npm run start / npm run dev
 ```
 
 ##### Запуск тестов
 
 ```
 npm run test
+```
+
+##### Запуск docker контейнера
+
+###### Сборка
+```
+docker build . -t messenger
+```
+
+###### Запуск в фоне
+
+```
+docker run -p 3000:3000 -d messenger
+```
+
+###### Остановка
+
+```
+docker ps
+docker stop -t 0 <container id>
+```
+
+###### Удаление
+
+```
+docker ps
+docker container rm <container id>
 ```
 
 #### <a name="technologies">Технологии</a>
@@ -46,3 +74,5 @@ npm run test
 * Mocha
 * Sinon
 * JSDom
+* Docker
+* Webpack

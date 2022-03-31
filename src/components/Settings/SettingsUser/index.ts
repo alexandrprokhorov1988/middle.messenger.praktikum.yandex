@@ -3,4 +3,4 @@ import SettingUser from './SettingsUser';
 
 const withUser = withStore((state: any) => ({...state}));
 
-export default withUser(SettingUser);
+export default withUser(SettingUser as any);

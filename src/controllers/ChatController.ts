@@ -69,7 +69,7 @@ class ChatController {
     }
   }
 
-  public async addUserToChat(data: { users: number[] | string[], chatId: string | number }) {
+  public async addUserToChat(data: { users: number[], chatId: string | number }) {
     try {
       const result = await chatApi.addUserToChat(data);
       if (result.status !== 200) {
