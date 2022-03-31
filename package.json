@@ -73,7 +73,7 @@
     "webpack-dev-server": "4.7.4"
   },
   "dependencies": {
-    "dotenv": "7.0.0",
+    "dotenv": "^7.0.0",
     "express": "4.17.2",
     "request": "2.88.2",
     "uuid": "8.3.2"
