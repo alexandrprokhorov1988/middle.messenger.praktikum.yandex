@@ -93,9 +93,9 @@ class MessageController {
         })
       ]);
     } else if (Array.isArray(newMessages)) {
-      store.set('messages', [...arrOfMessages.reverse()]);
+      store.set('messages', [...arrOfMessages]);
     } else {
-      store.set('messages', [...arrOfMessages.reverse(), ...state.messages]);
+      store.set('messages', [...arrOfMessages, ...state.messages]);
     }
   }
 

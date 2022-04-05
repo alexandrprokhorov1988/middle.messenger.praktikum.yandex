@@ -283,9 +283,9 @@
   overflow-y: scroll;
   height: 100%;
   display: flex;
-  flex-direction: column;
   margin: 0;
   padding: 0;
+  flex-direction: column-reverse;
 
   &::-webkit-scrollbar {
     width: 5px;
